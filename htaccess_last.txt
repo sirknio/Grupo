@@ -1,0 +1,3 @@
+	RewriteEngine On 
+	RewriteCond $1 !^(index.php|css|js|public|images|robots.txt) 
+	RewriteRule ^(.*)$ /Grupo/index.php/$1 [L]

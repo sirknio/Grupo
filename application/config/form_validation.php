@@ -91,7 +91,7 @@ $config = array(
 		array(
 				'field'  => 'Nombre',
 				'label'  => 'Nombre',
-				'rules'  => 'required|is_unique[grupo.Nombre]',
+				'rules'  => 'required',
 				'errors' => $errormsg
 		),
 		array(

@@ -35,44 +35,23 @@
 
 	<?= "<br>";?>
 	<?php if (! $update) : ?>
-	<?= form_open_multipart('Usuario/crearGrupo');?>
+	<?= form_open_multipart('Grupo/crearGrupo');?>
 	<?php else : ?>
-	<?= form_open_multipart('Usuario/actualizarGrupo/'.set_value('idGrupo'));?>
+	<?= form_open_multipart('Grupo/actualizarGrupo/'.set_value('idGrupo'));?>
 	<?php endif; ?>
 		<table>
 			<tr>
-				<td>  Usuario:&nbsp;&nbsp;&nbsp;</td>
+				<td>  Nombre Grupo:&nbsp;&nbsp;&nbsp;</td>
 				<td>
-					<?= form_error('Usuario'); ?>
-					<?= form_input('Usuario', set_value('Usuario'), $attributes['Usuario']); ?>
+					<?= form_error('Nombre'); ?>
+					<?= form_input('Nombre', set_value('Nombre'), $attributes['Nombre']); ?>
 				</td>
 			</tr> 
 			<tr>
-				<td>  Contraseña:&nbsp;&nbsp;&nbsp;</td>
+				<td>  Descripci&oacute;n:&nbsp;&nbsp;&nbsp;</td>
 				<td>
-					<?= form_error('Password'); ?>
-					<?= form_password('Password', set_value('Password'), $attributes['Password']); ?>
-				</td>
-			</tr> 
-			<tr>
-				<td>  Confirmar contraseña:&nbsp;&nbsp;&nbsp;</td>
-				<td>
-					<?= form_error('Password2'); ?>
-					<?= form_password('Password2', set_value('Password2'), $attributes['Password2']); ?>
-				</td>
-			</tr> 
-			<tr>
-				<td>  Correo Electr&oacute;nico:&nbsp;&nbsp;&nbsp;</td>
-				<td>
-					<?= form_error('Email'); ?>
-					<?= form_input('Email', set_value('Email'), $attributes['Email']) ?>
-				</td>
-			</tr> 
-			<tr>
-				<td>  Tipo Usuario:&nbsp;&nbsp;&nbsp;</td>
-				<td>
-					<?= form_error('TipoUsuario'); ?>
-					<?= form_dropdown('TipoUsuario', $options['TipoUsuario'], set_value('TipoUsuario'), $attributes['TipoUsuario']) ?>
+					<?= form_error('Descripcion'); ?>
+					<?= form_input('Descripcion', set_value('Descripcion'), $attributes['Descripcion']) ?>
 				</td>
 			</tr> 
 			<tr>
@@ -88,9 +67,9 @@
 			<tr>
 				<td colspan="2" align=center>
 					<?php if (! $update) : ?>
-						<button type="submit" class="w3-btn">&nbsp;Crear Usuario&nbsp;&nbsp;&nbsp;<i class="fa fa-sign-in"></i>&nbsp;</button>
+						<button type="submit" class="w3-btn">&nbsp;Crear Grupo&nbsp;&nbsp;&nbsp;<i class="fa fa-sign-in"></i>&nbsp;</button>
 					<?php else : ?>
-						<button type="submit" class="w3-btn">&nbsp;Modificar Usuario&nbsp;&nbsp;&nbsp;<i class="fa fa-sign-in"></i>&nbsp;</button>
+						<button type="submit" class="w3-btn">&nbsp;Modificar Grupo&nbsp;&nbsp;&nbsp;<i class="fa fa-sign-in"></i>&nbsp;</button>
 					<?php endif; ?>
 					<button type="button" class="w3-btn" onClick="window.location='<?=base_url('grupo')?>'">&nbsp;Cancelar&nbsp;&nbsp;&nbsp;<i class="fa fa-sign-out"></i>&nbsp;</button>
 				</td>

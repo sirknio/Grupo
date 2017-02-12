@@ -40,12 +40,11 @@ class Grupo extends CI_Controller {
 	public function crearGrupo () {		
 		$this->form_validation->set_error_delimiters('<div class="error">&nbsp;&nbsp;&nbsp;*** ', '</div>');
 		if ($this->form_validation->run() == FALSE) {
-			$this->pageCrearUsuario();
+			$this->pageCrearGrupo();
 			
 		} else {
 			$data = $_POST;
-			unset($data['Password2']);
-			if($this->object_model->insertar('usuario',$data)) {
+			if($this->object_model->insertar('grupo',$data)) {
 				if ($this->upload->do_upload('Imagen')) {
 					$data['file_uploaded'] = array('upload_data' => $this->upload->data());
 				} else {
@@ -57,33 +56,28 @@ class Grupo extends CI_Controller {
 	}
 	
 	//Muestra la page para actualizar los datos
-	public function pageActualizarUsuario ($id,$print = '') {
+	public function pageActualizarGrupo ($id,$print = '') {
 		if(!$this->session->userdata('usuario')) {
 			redirect('login');
 		}
 		$data['print'] = $print;
 		$data['update'] = true;
-		$where = array('idUsuario' => $id);
-		$data['user'] = $this->object_model->get('Usuario',$where);
-		$_POST = array_merge($_POST,$data['user']);
-		$_POST['Password'] = '';
+		$where = array('idGrupo' => $id);
+		$data['grupo'] = $this->object_model->get('Grupo',$where);
+		$_POST = array_merge($_POST,$data['grupo']);
 		$this->construirPage($data);
-		$this->load->view('pages/UsuarioCrear',$data);
+		$this->load->view('pages/grupoCrear',$data);
 	}
 	
 	//Action para validar datos y Actualizar usuario
-	public function actualizarUsuario ($id) {
+	public function actualizarGrupo ($id) {
 		$this->form_validation->set_error_delimiters('<div class="error">&nbsp;&nbsp;&nbsp;*** ', '</div>');
 		if ($this->form_validation->run() == FALSE) {
-			$this->pageActualizarUsuario($id);
+			$this->pageActualizarGrupo($id);
 		} else {
 			$data = $_POST;
-			unset($data['Password2']);
-			if($data['Password'] === '') {
-				unset($data['Password']);
-			}
-			$where = array('idUsuario' => $id);
-			if($this->object_model->actualizar('usuario',$data,$where)) {
+			$where = array('idGrupo' => $id);
+			if($this->object_model->actualizar('grupo',$data,$where)) {
 				if ($this->upload->do_upload('Imagen')) {
 					$data['file_uploaded'] = array('upload_data' => $this->upload->data());
 				} else {
@@ -95,10 +89,10 @@ class Grupo extends CI_Controller {
 	}
 	
 	//eliminar usuario
-	public function eliminarUsuario($id = '') {
+	public function eliminarGrupo($id = '') {
 		if($id !== '') {
-			$data = array('idUsuario' => $id);
-			$this->object_model->eliminar('usuario',$data);
+			$data = array('idGrupo' => $id);
+			$this->object_model->eliminar('grupo',$data);
 		}
 		$this->index();
 	}
@@ -117,44 +111,21 @@ class Grupo extends CI_Controller {
 			'style' => 'width:220px'
 		);
 		
-		$data['attributes']['TipoUsuario'] = array(
-			'placeholder' => '   Tipo Usuario'
-		);
-		
-		$data['options']['TipoUsuario'] = array(
-			''           => "&nbsp;",
-			'Asistente'  => "Asistente",
-			'Apoyo'      => "Apoyo",
-			'Microlider' => "Microlider",
-			'Lider'      => "Lider",
-			'Admin'      => "Admin"
-		);
-		
-		$data['attributes']['Usuario'] = array(
-			'placeholder' => '   Usuario',
+		$data['attributes']['Nombre'] = array(
+			'placeholder' => '   Nombre',
 			'autofocus'   => ''
 		);
 		
-		$data['attributes']['Password'] = array(
-			'placeholder' => '   Contraseña'
-		);
-		
-		$data['attributes']['Password2'] = array(
-			'placeholder' => '   Confirmar contraseña'
-		);
-		
-		$data['attributes']['Email'] = array(
-			'placeholder' => '   Correo Electr&oacute;nico'
+		$data['attributes']['Descripcion'] = array(
+			'placeholder' => '   Descripci&oacute;n'
 		);
 		
 		$data['attributes']['Imagen'] = array(
 			'placeholder' => '   Imagen'
 		);
 		
-		$data['attributes']['Password']   = array_merge($data['attributes']['Password'],$attributes,$attribText);
-		$data['attributes']['Password2']   = array_merge($data['attributes']['Password2'],$attributes,$attribText);
-		$data['attributes']['Email']       = array_merge($data['attributes']['Email'],$attributes,$attribText);
-		$data['attributes']['TipoUsuario'] = array_merge($data['attributes']['TipoUsuario'],$attributes,$attribDropDown);
+		$data['attributes']['Nombre']       = array_merge($data['attributes']['Nombre'],$attributes,$attribText);
+		$data['attributes']['Descripcion'] = array_merge($data['attributes']['Descripcion'],$attributes,$attribDropDown);
 		$data['attributes']['Imagen']      = array_merge($data['attributes']['Imagen'],$attributes);
 	}
 

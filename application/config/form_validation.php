@@ -75,64 +75,28 @@ $config = array(
 	),
 	'Grupo/crearGrupo' => array(
 		array(
-				'field'  => 'Grupo',
-				'label'  => 'Usuario',
-				'rules'  => 'required|min_length[5]|max_length[20]|is_unique[usuario.Usuario]',
+				'field'  => 'Nombre',
+				'label'  => 'Nombre',
+				'rules'  => 'required|is_unique[grupo.Nombre]',
 				'errors' => $errormsg
 		),
 		array(
-				'field'  => 'Password',
-				'label'  => 'Contraseña',
-				'rules'  => 'required|min_length[5]|max_length[100]',
-				'errors' => $errormsg
-		),
-		array(
-				'field'  => 'Password2',
-				'label'  => 'Confirmar Contraseña',
-				'rules'  => 'required|matches[Password]',
-				'errors' => $errormsg
-		),
-		array(
-				'field'  => 'Email',
-				'label'  => 'Correo Electr&oacute;nico',
-				'rules'  => 'required|valid_email|is_unique[usuario.Email]',
-				'errors' => $errormsg
-		),
-		array(
-				'field'  => 'TipoUsuario',
-				'label'  => 'Tipo Usuario',
+				'field'  => 'Descripcion',
+				'label'  => 'Descripcion',
 				'rules'  => 'required',
 				'errors' => $errormsg
 		),
 	),
 	'Grupo/actualizarGrupo' => array(
 		array(
-				'field'  => 'Usuario',
-				'label'  => 'Usuario',
-				'rules'  => 'required|min_length[5]|max_length[20]',
+				'field'  => 'Nombre',
+				'label'  => 'Nombre',
+				'rules'  => 'required|is_unique[grupo.Nombre]',
 				'errors' => $errormsg
 		),
 		array(
-				'field'  => 'Password',
-				'label'  => 'Contraseña',
-				'rules'  => 'min_length[5]|max_length[100]',
-				'errors' => $errormsg
-		),
-		array(
-				'field'  => 'Password2',
-				'label'  => 'Confirmar Contraseña',
-				'rules'  => 'matches[Password]',
-				'errors' => $errormsg
-		),
-		array(
-				'field'  => 'Email',
-				'label'  => 'Correo Electr&oacute;nico',
-				'rules'  => 'required|valid_email',
-				'errors' => $errormsg
-		),
-		array(
-				'field'  => 'TipoUsuario',
-				'label'  => 'Tipo Usuario',
+				'field'  => 'Descripcion',
+				'label'  => 'Descripcion',
 				'rules'  => 'required',
 				'errors' => $errormsg
 		),

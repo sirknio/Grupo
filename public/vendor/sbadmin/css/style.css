@@ -1,0 +1,20 @@
+.panel-dashboard {
+	height: 300px;
+}
+
+.panel-dashboard-calendar {
+	height: 260px;
+}
+
+.panel-dashboard-graphic {
+	height: 290px;
+}
+
+.panel-dashboard-notification {
+	height: 260px;
+}
+
+.autoscroll {
+    overflow scroll;
+}
+

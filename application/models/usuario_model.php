@@ -8,7 +8,7 @@ class Usuario_model extends CI_Model{
 		$query = $this->db->get('Usuario');
 		$user = $query->row_array();
 		
-		$query = $this->db->where('idUsuario',$user['idUsuario']);
+		$query = $this->db->where('idPersona',$user['idPersona']);
 		$query = $this->db->get('Persona');
 		$person = $query->row_array();
 		
@@ -20,5 +20,19 @@ class Usuario_model extends CI_Model{
 		$user['Apellido'] = $person['Apellido'];
 		return($user);
 	}
+	
+	function getTipoUsuarioValues() {
+		$query = $this->db->query(
+				"SHOW COLUMNS FROM usuario LIKE 'TipoUsuario'");
+		$array = $query->result_array();
+		$array = $array[0]['Type'];
+		$off  = strpos($array,"('");
+        $array = substr($array, $off+2, strlen($array)-$off-4);
+		$array = explode("','",$array);
+		//echo"<pre>";print_r($array);echo"</pre>";
+		return $array;
+	}
+
+
 }
 ?>

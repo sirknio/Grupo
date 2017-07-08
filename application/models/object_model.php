@@ -2,26 +2,36 @@
 
 class Object_model extends CI_Model{
 	
-	function insertar($table,$data) {
-		return $this->db->insert($table, $data);
+	function insertItem($table,$data) {
+		if ($this->db->insert($table, $data) == 1) {
+			return($this->db->insert_id());
+		} else {
+			return(0);
+		}
 	}
 	
-	function actualizar($table,$data,$where) {
+	function updateItem($table,$data,$where) {
 		return $this->db->update($table,$data,$where);
 	}
 	
-	function eliminar($table,$data) {
+	function deleteItem($table,$data) {
 		return $this->db->delete($table, $data);
 	}
 	
-	function get($table,$where = '') {
+	function get($table,$orderby = '',$where = '',$showQuery = false) {
+		if ($orderby != '') {
+			$this->db->order_by($orderby);
+		}
 		if ($where === '') {
 			$query = $this->db->get($table);
-			return $query->result_array();
 		} else {
 			$query = $this->db->get_where($table, $where);
-			return $query->row_array();
 		}
+		if ($showQuery) {
+			echo "<pre>";print_r($this->db->last_query());echo "</pre>";
+			echo "<pre>";print_r($orderby);echo "</pre>";
+		}
+		return $query->result_array();
 	}
 	
 	function RecCount($table,$field = '') {

@@ -1,66 +1,65 @@
 <?=$page['header']?>
 
-<?=$page['topmenu']?>
-
 <?=$page['menu']?>
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
-
-<?php if ($print <> '') { echo "<hr><pre>";print_r($print);echo"<hr>";echo "</pre><hr>"; } ?>
-
-	<header class="w3-container" style="padding-top:22px">
-		<h5><b><i class="fa fa-dashboard"></i>  Usuarios</b></h5>
-	</header>
-	
-	<?php if ($userdata['TipoUsuario'] === 'Admin'): ?>
-
-	<div class="w3-container" style="margin-left:50px;margin-top:0px;">
-		<table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-			<tr>
-				<th style="width:10px;">&nbsp;</th>
-				<th style="width:10px;">Usuario</th>
-				<th style="width:150px;">Tipo Usuario</th>
-				<th>Correo</th>
-				<th style="width:10px;">Modificar</th>
-				<th style="width:10px;">Eliminar</th>
-			</tr>
-		<?php foreach ($users as $item): ?>
-			<tr>
-				<td style="text-align:center;">
-					<a class="example-image-link" href="<?=base_url('')?>public/images/avatar2.png" data-lightbox="Foto<?= $item['idUsuario']; ?>">
-					<img src="<?=base_url('')?>public/images/avatar2.png"  class="w3-circle w3-margin-right" style="width:36px">
-					</a>
-				</td>
-				<td style="vertical-align:middle;"><?=$item['Usuario']?></td>
-				<td style="vertical-align:middle;"><?=$item['TipoUsuario']?></td>
-				<td style="vertical-align:middle;"><?=$item['Email']?></td>
-				<td style="text-align:center;vertical-align:middle;"><a href="<?=site_url('Usuario/pageActualizarUsuario/'.$item['idUsuario'])?>" class="w3-hover-none w3-hover-text-red w3-show-inline-block" alt="Modificar Usuario Usuario"><i class="fa fa-pencil-square"></i></a></td>
-				<td style="text-align:center;vertical-align:middle;"><a href="<?=site_url('usuario/eliminarUsuario/'.$item['idUsuario']);?>" class="w3-hover-none w3-hover-text-red w3-show-inline-block" alt="Eliminar Usuario"><i class="fa fa-trash"></i></a></td>
-			</tr>
-		<?php endforeach; ?>
-		</table><br>
-		<button class="w3-btn" OnClick="window.location='<?=site_url('Usuario/pageCrearUsuario')?>';">Crear Usuario  <i class="fa fa-arrow-right"></i></button>
+	<div class="col-lg-12">
+		<h1 class="page-header">Usuarios</h1>
+		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
-
-	
-	
-	<?php endif; ?>
-
-	<?php if ($userdata['TipoUsuario'] === 'Lider'): ?>
-	
-	<?php endif; ?>
-
-	<?php if ($userdata['TipoUsuario'] === 'Microlider'): ?>
-	
-	<?php endif; ?>
-
-	<?php if ($userdata['TipoUsuario'] === 'Asistente'): ?>
-	
-	<?php endif; ?>
-
-
-</div>
+	<!-- /.col-lg-12 -->
+	<div class="col-lg-11">
+		<div class="table">
+			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+				<thead>
+					<tr>
+						<th style="width:100px;">Usuario</th>
+						<th style="width:100px;">Tipo Usuario</th>
+						<th>Email</th>
+						<th style="width:10px;">Acción</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($records as $item): ?>
+						<tr>
+							<td>
+								<?=$item['Usuario']?>
+							</td>
+							<td>
+								<?=$item['TipoUsuario']?>
+							</td>
+							<td>
+								<?=$item['Email']?>
+							</td>
+							<td class="row-center">
+								<div class="btn-group btn-group-sm">
+									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Acción <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="<?=site_url('Usuario/updateItem/'.$item['idUsuario'])?>">
+											<i class="fa fa-pencil-square-o fa-fw"></i> Actualizar
+											</a>
+										</li>
+										<li>
+											<a href="<?=site_url('Usuario/deleteItem/'.$item['idUsuario'])?>">
+											<i class="fa fa-trash-o fa-fw"></i> Eliminar
+											</a>
+										</li>
+									</ul>
+								</div>												
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-lg-12">
+			<a class="btn btn-primary" href="<?=site_url('Usuario/insertItem')?>"><i class="fa fa-users fa-fw"></i> Crear Usuario</a>
+		</div>
+		<!-- /.table-responsive -->
+	</div>
+	<!-- /.col-lg-12 -->
 
 <?=$page['footer']?>
 

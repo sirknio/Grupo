@@ -1,0 +1,97 @@
+<?=$page['header']?>
+
+<?=$page['menu']?>
+
+	<div class="col-lg-12">
+		<h1 class="page-header">Eventos</h1>
+		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
+	</div>
+	<!-- /.col-lg-12 -->
+	<div class="col-lg-7">
+		<div class="table">
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th style="width:10px;">Fecha</th>
+						<th>Nombre</th>
+						<th>Estado</th>
+						<th style="width:10px;">Acción</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($records as $item): ?>
+						<tr>
+							<td>
+								<?=$item['FechaEvento']?>
+							</td>
+							<td>
+								<?=$item['Nombre']?>
+							</td>
+							<td>
+								<? if ($item['TomarAsistencia'] === '1'): ?>
+									<? if ($item['Estado'] === 'Creado'): ?>
+										<a class="btn btn-success btn-block" href="<?=site_url('Evento/openEvent/'.$item['idEvento'])?>">
+											Abrir Asistencia
+										</a>
+									<? elseif ($item['Estado'] === 'Abierto'): ?>
+										<a class="btn btn-warning btn-block" href="<?=site_url('Evento/closeEvent/'.$item['idEvento'])?>">
+											Cerrar Asistencia
+										</a>
+									<? elseif ($item['Estado'] === 'Cerrado'): ?>
+										<a class="btn btn-default btn-block" href="<?=site_url('Evento/showAssistance/'.$item['idEvento'])?>">
+											Ver Asistencia
+										</a>
+									<? endif; ?>
+								<? else: ?>
+									<a class="btn btn-default btn-block">
+										Informativo
+									</a>
+								<? endif; ?>
+							</td>
+							<td class="row-center">
+								<div class="btn-group">
+									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Acción <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="<?=site_url('Evento/updateItem/'.$item['idEvento'])?>">
+											<i class="fa fa-pencil-square-o fa-fw"></i> Cambiar
+											</a>
+										</li>
+										<? if ($item['Estado'] == 'Creado'): ?>
+										<li>
+											<a href="<?=site_url('Evento/deleteItem/'.$item['idEvento'])?>">
+											<i class="fa fa-trash-o fa-fw"></i> Eliminar
+											</a>
+										</li>
+										<? endif; ?>
+										<? if ($item['Estado'] == 'Cerrado'): ?>
+										<li>
+											<a href="<?=site_url('Evento/createStats/'.$item['idEvento'])?>">
+											<i class="fa fa-pie-chart fa-fw"></i> Crear Estadisticas
+											</a>
+										</li>
+										<? endif; ?>
+									</ul>
+								</div>												
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-lg-12">
+			<a class="btn btn-primary" href="<?=site_url('Evento/insertItem')?>"><i class="fa fa-calendar fa-fw"></i> Crear Evento</a>
+		</div>
+		<!-- /.table-responsive -->
+	</div>
+	<!-- /.col-lg-12 -->
+	<div class="col-lg-3  col-lg-offset-1">
+		<div class="table">
+			<?= $calendario	?>
+		</div>
+	</div>
+
+<?=$page['footer']?>
+

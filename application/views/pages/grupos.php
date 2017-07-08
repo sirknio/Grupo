@@ -1,64 +1,88 @@
 <?=$page['header']?>
 
-<?=$page['topmenu']?>
-
 <?=$page['menu']?>
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
-
-<?php if ($print <> '') { echo "<hr><pre>";print_r($print);echo"<hr>";echo "</pre><hr>"; } ?>
-
-	<header class="w3-container" style="padding-top:22px">
-		<h5><b><i class="fa fa-dashboard"></i>  Grupos</b></h5>
-	</header>
-	
-	<?php if ($userdata['TipoUsuario'] === 'Admin'): ?>
-
-	<div class="w3-container" style="margin-left:50px;margin-top:0px;">
-		<table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-			<tr>
-				<th style="width:10px;">Logo</th>
-				<th>Nombre Grupo</th>
-				<th>Descripci&oacute;n</th>
-				<th style="width:10px;">Modificar</th>
-				<th style="width:10px;">Eliminar</th>
-			</tr>
-		<?php foreach ($groups as $item): ?>
-			<tr>
-				<td style="text-align:center;">
-					<a class="example-image-link" href="<?=base_url('')?>public/images/avatar2.png" data-lightbox="Foto<?= $item['idGrupo']; ?>">
-					<img src="<?=base_url('')?>public/images/avatar2.png"  class="w3-circle w3-margin-right" style="width:36px">
-					</a>
-				</td>
-				<td style="vertical-align:middle;"><?=$item['Nombre']?></td>
-				<td style="vertical-align:middle;"><?=$item['Descripcion']?></td>
-				<td style="text-align:center;vertical-align:middle;"><a href="<?=site_url('Grupo/pageActualizarGrupo/'.$item['idGrupo'])?>" class="w3-hover-none w3-hover-text-red w3-show-inline-block" alt="Modificar Grupo"><i class="fa fa-pencil-square"></i></a></td>
-				<td style="text-align:center;vertical-align:middle;"><a href="<?=site_url('Grupo/eliminarGrupo/'.$item['idGrupo']);?>" class="w3-hover-none w3-hover-text-red w3-show-inline-block" alt="Eliminar Grupo"><i class="fa fa-trash"></i></a></td>
-			</tr>
-		<?php endforeach; ?>
-		</table><br>
-		<button class="w3-btn" OnClick="window.location='<?=site_url('Grupo/pageCrearGrupo')?>';">Crear Grupo  <i class="fa fa-arrow-right"></i></button>
+	<div class="col-lg-12">
+		<h1 class="page-header">Grupos</h1>
+		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
-
-	
-	
-	<?php endif; ?>
-
-	<?php if ($userdata['TipoUsuario'] === 'Lider'): ?>
-	
-	<?php endif; ?>
-
-	<?php if ($userdata['TipoUsuario'] === 'Microlider'): ?>
-	
-	<?php endif; ?>
-
-	<?php if ($userdata['TipoUsuario'] === 'Asistente'): ?>
-	
-	<?php endif; ?>
-
-
-</div>
+	<!-- /.col-lg-12 -->
+	<div class="col-lg-11">
+		<div class="table">
+			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+				<thead>
+					<tr>
+						<th>Logo</th>
+						<th>Nombre Grupo</th>
+						<th>Descripci&oacute;n</th>
+						<th style="width:10px;">Acción</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($records as $item): ?>
+						<tr>
+							<td style="text-align:center;">
+								<? if ($item['logo_filename'] === ''): ?>
+									<a class="example-image-link" href="<?=base_url('')?>public/images/default/avatar2.png" 
+										data-lightbox="Logo<?= $item['idGrupo']; ?>" 
+										data-title="<?=$item['Nombre']?>: <?=$item['Descripcion']?>">
+										<img src="<?=base_url('')?>public/images/default/avatar2.png" class="logo-circle" style="width:36px">
+									</a>
+								<? else: ?>
+									<a class="example-image-link" href="<?=base_url('')?>public/images/grupos/<?= $item['logo_filename']?>" 
+										data-lightbox="<?= $item['logo_filename'] ?>" 
+										data-title="<?=$item['Nombre']?>: <?=$item['Descripcion']?>">
+										<img src="<?=base_url('')?>public/images/grupos/<?= $item['logo_filename']?>" class="logo-circle" style="width:36px">
+									</a>
+								<? endif; ?>
+							</td>
+							<td>
+								<?=$item['Nombre']?>
+							</td>
+							<td>
+								<?=$item['Descripcion']?>
+							</td>
+							<td class="row-center">
+								<div class="btn-group">
+									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Acción <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="<?=site_url('integrante/index/'.$item['idGrupo'])?>" id="">
+											<i class="fa fa-user-circle fa-fw"></i> Ver Integrantes
+											</a>
+										</li>
+										<li>
+											<a href="<?=site_url('microcelula/index/'.$item['idGrupo'])?>" id="">
+											<i class="fa fa-users fa-fw"></i> Ver Microcelulas
+											</a>
+										</li>
+										<li role="separator" class="divider"></li>
+										<li>
+											<a href="<?=site_url('Grupo/updateItem/'.$item['idGrupo'])?>">
+											<i class="fa fa-pencil-square-o fa-fw"></i> Actualizar
+											</a>
+										</li>
+										<li>
+											<a href="<?=site_url('Grupo/deleteItem/'.$item['idGrupo'])?>">
+											<i class="fa fa-trash-o fa-fw"></i> Eliminar
+											</a>
+										</li>
+									</ul>
+								</div>												
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-lg-12">
+			<a class="btn btn-primary" href="<?=site_url('Grupo/insertItem')?>"><i class="fa fa-users fa-fw"></i> Crear Grupo</a>
+		</div>
+		<!-- /.table-responsive -->
+	</div>
+	<!-- /.col-lg-12 -->
 
 <?=$page['footer']?>
 

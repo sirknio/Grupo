@@ -1,52 +1,82 @@
 <!DOCTYPE html>
-<html>
-<title>Grupos Conexión (Application free for any church)</title>
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="public/css/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
-<style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-</style>
+<html lang="en">
 
-<body class="w3-light-grey">
+<head>
 
-<!-- Top container -->
-<div class="w3-container w3-top w3-black w3-large w3-padding" style="z-index:4">
-  <!--<button class="w3-btn w3-hide-large w3-padding-0 w3-hover-text-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>-->
-  <span class="w3-right">Logo</span>
-</div>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:250px;margin-top:80px;">
-	<?php echo form_open('login'); ?>
-		<table>
-			<tr>
-				<td><i class="fa fa-user fa-fw"></i>&nbsp;&nbsp;</td>
-				<td><input class="form-control" type="text" name="usuario" value="<?= set_value('usuario'); ?>" placeholder="   Usuario" size="25" /></td>
-				<td><?
-				if(isset($error)){
-					echo "<p>".$error."</p>";
-				}
-				echo form_error('usuario');
-				?></td>
-			</tr> 
-			<tr>
-				<td><i class="fa fa-key fa-fw"></i>&nbsp;&nbsp;</td>
-				<td><input class="form-control" type="password" name="password" value="<?= set_value('password'); ?>" placeholder="   Contraseña" size="25" /></td>
-				<td><?= form_error('password');?></td>
-		   </tr>
-			<tr>
-				<td></td><td></td><td></td>
-			</tr> 		
-		   <tr>
-				<td colspan="3" align=center><button type="submit" class="w3-btn">&nbsp;Ingresar&nbsp;&nbsp;&nbsp;<i class="fa fa-sign-in"></i>&nbsp;</button></td>
-		   </tr>      
-		</table>
-	</form>
-</div>
+    <title>Sindesy</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="public/vendor/sbadmin/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <?= form_open('login'); ?>
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Nombre Usuario" name="usuario" type="username" value="admin" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Password" name="password" type="password" value="admin">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                    </label>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <input type="submit" value="Ingresar" class="btn btn-lg btn-success btn-block">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="public/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="public/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="public/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="public/vendor/sbadmin/js/sb-admin-2.js"></script>
 
 </body>
-</html>
 
+</html>

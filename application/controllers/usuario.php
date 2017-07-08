@@ -1,181 +1,171 @@
 <?php if (!defined('BASEPATH')) exit('No direct access allowed');
 
 class Usuario extends CI_Controller {
-	//Constructor
+	private $controller = 'Usuario';
+	private $pagelist = 'usuarios';
+	private $pagecard = 'usuario';
+	private $pkfield = 'idUsuario';
+	private $orderfield = 'Usuario';
+	private $imgfield = '';
+	private $imgpath = '';
+	private $debug = false;
+
 	public function __construct() {
 		parent::__construct();
+		if(!$this->session->userdata('usuario')) {
+			redirect('login');
+		}
 		$this->load->model('object_model');
+		$this->load->model('usuario_model');
+	}
+	
+	public function index($id = '') {
+		$this->loadData($data,$this->debug,$id);
+		$this->loadHTML($data);
+		$this->load->view('pages/'.$this->pagelist,$data);
+	}	
 		
-		$confimg['upload_path']   = 'public/';
-		$confimg['allowed_types'] = 'gif|jpg|png';
-		//$confimg['max_size']      = 100;
-		//$confimg['max_width']     = 1024;
-		//$confimg['max_height']    = 768;
-		$this->load->library('upload', $confimg);
-	}
-	
-	//Muestra la page principal de usuarios
-	public function index($print = '') {
-		if(!$this->session->userdata('usuario')) {
-			redirect('login');
-		}
-		$data['users'] = $this->object_model->get('Usuario');
-		$data['print'] = $print;
-		$this->construirPage($data);
-		$this->load->view('pages/Usuarios',$data);
-	}
-	
-	//Muestra la page para insertar los datos
-	public function pageCrearUsuario ($print = '') {
-		if(!$this->session->userdata('usuario')) {
-			redirect('login');
-		}
-		$data['update'] = false;
-		$data['print'] = $print;
-		$this->construirPage($data);
-		$this->load->view('pages/UsuarioCrear',$data);
-	}
-	
-	//Action para validar datos e Insertar usuario
-	public function crearUsuario () {		
-		$this->form_validation->set_error_delimiters('<div class="error">&nbsp;&nbsp;&nbsp;*** ', '</div>');
-		if ($this->form_validation->run() == FALSE) {
-			$this->pageCrearUsuario();
-			
-		} else {
-			$data = $_POST;
-			unset($data['Password2']);
-			if($this->object_model->insertar('usuario',$data)) {
-				if ($this->upload->do_upload('Imagen')) {
-					$data['file_uploaded'] = array('upload_data' => $this->upload->data());
-				} else {
-					$data['file_uploaded'] = 'NO SUBIOOO';
-				}
-				$this->index();
-			}
-		}
-	}
-	
-	//Muestra la page para actualizar los datos
-	public function pageActualizarUsuario ($id,$print = '') {
-		if(!$this->session->userdata('usuario')) {
-			redirect('login');
-		}
-		$data['print'] = $print;
-		$data['update'] = true;
-		$where = array('idUsuario' => $id);
-		$data['user'] = $this->object_model->get('Usuario',$where);
-		$_POST = array_merge($_POST,$data['user']);
-		$_POST['Password'] = '';
-		$this->construirPage($data);
-		$this->load->view('pages/UsuarioCrear',$data);
-	}
-	
-	//Action para validar datos y Actualizar usuario
-	public function actualizarUsuario ($id) {
-		$this->form_validation->set_error_delimiters('<div class="error">&nbsp;&nbsp;&nbsp;*** ', '</div>');
-		if ($this->form_validation->run() == FALSE) {
-			$this->pageActualizarUsuario($id);
-		} else {
-			$data = $_POST;
-			unset($data['Password2']);
-			if($data['Password'] === '') {
-				unset($data['Password']);
-			}
-			$where = array('idUsuario' => $id);
-			if($this->object_model->actualizar('usuario',$data,$where)) {
-				if ($this->upload->do_upload('Imagen')) {
-					$data['file_uploaded'] = array('upload_data' => $this->upload->data());
-				} else {
-					$data['file_uploaded'] = "NO SUBIO";
-				}
-				$this->index();
-			}
-		}
-	}
-	
-	//eliminar usuario
-	public function eliminarUsuario($id = '') {
+	//Eliminar registro
+	public function deleteItem($id = '') {
 		if($id !== '') {
-			$data = array('idUsuario' => $id);
-			$this->object_model->eliminar('usuario',$data);
+			$this->loadData($data,$this->debug,$id);
+			if ($this->imgfield != '') {
+				$this->deleteImg($data);
+			}
+			$this->object_model->deleteItem($this->controller,array($this->pkfield => $id));
 		}
-		$this->index();
+		redirect($this->controller);
 	}
 	
-	//Contruir los atributos y los campos para la page
-	private function construirCampos(&$data) {
-		$attributes = array(
-			'class' => 'form-control'
-		);
+	//Insertar registro
+	public function insertItem($createId = '') {
+		$data['update'] = false;
+		If($createId === '') {
+			$this->loadData($data,$this->debug);
+			$this->loadHTML($data);
+			$this->load->view('pages/'.$this->pagecard,$data);
+		} else {
+			$data['insert'] = $_POST;
+			if ($data['insert']['Password'] = $data['insert']['Password']) {
+				unset($data['insert']['Password2']);
+				$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->controller,$data['insert']);
+				if($data['insert'][$this->pkfield] != 0) {
+					$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
+					if ($this->imgfield != '') {
+						$this->loadImg($data,'insert',$this->imgfield);
+					}
+					redirect($this->controller);
+				} else {
+					//Establecer mensaje de error en insercción de datos
+					$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
+					$this->loadHTML($data);
+					$this->load->view('pages/'.$this->pagecard,$data);
+				}
+			} else {
+					//Establecer mensaje de error en contraseñas
+					$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
+					$this->loadHTML($data);
+					$this->load->view('pages/'.$this->pagecard,$data);
+			}
+		}
+	}
+
+	//Actualizar registro
+	public function updateItem($id = '',$action = false) {
+		$data['update'] = true;
+		if (!$action) {
+			$where = array($this->pkfield => $id);
+			$data['info'] = $this->object_model->get($this->controller,'',$where);
+			$_POST = array_merge($_POST,$data['info'][0]);
+
+			$this->loadData($data,$this->debug,$id);
+			$this->loadHTML($data);
+			$this->load->view('pages/'.$this->pagecard,$data);
+		} else {
+			$data['update'] = $_POST;
+			if ($data['update']['Password'] == $data['update']['Password2']) {
+				unset($data['update']['Password2']);
+				if ($data['update']['Password'] == '') {
+					unset($data['update']['Password']);
+				}
+				$this->loadData($data,$this->debug,$id);
+				$where = array($this->pkfield => $id);
+				if ($this->object_model->updateItem($this->controller,$data['update'],$where)) {
+					$this->loadImg($data,'update',$this->imgfield);
+					redirect($this->controller);
+				} else {
+					//Establecer mensaje de error en actualizar datos
+					$this->loadData($data,$this->debug,$data['update'][$this->pkfield]);
+					$this->loadHTML($data);
+					$this->load->view('pages/'.$this->pagecard,$data);
+				}
+			} else {
+					//Establecer mensaje de error en contraseña
+					$this->loadData($data,$this->debug,$data['update'][$this->pkfield]);
+					$this->loadHTML($data);
+					$this->load->view('pages/'.$this->pagecard,$data);
+			}
+		}
+	}
+	
+	public function loadImg(&$data,$action,$fieldName) {
+		$img['upload_path']   = 'public/images/'.$this->imgpath.'/';
+		$img['allowed_types'] = 'gif|jpg|png';
+		$img['file_name'] = 'logo'.str_pad($data['records']['0'][$this->pkfield],10,'0', STR_PAD_LEFT);
+		if ($data['records']['0']['logo_filename'] != '') {
+			if (file_exists($img['upload_path'].$data['records']['0']['logo_filename'])) {
+				unlink($img['upload_path'].$data['records']['0']['logo_filename']);
+			}
+		}
+		$this->load->library('upload', $img);
+		if ($this->upload->do_upload($fieldName)) {
+			$data[$action]['file_info'] = $this->upload->data();
+			$filedata = array(
+					'logo_filename' => $data[$action]['file_info']['file_name'],
+					'logo_filepath' => $data[$action]['file_info']['file_path']
+				);
+			$where = array($this->pkfield => $data['records']['0'][$this->pkfield]);
+			$this->object_model->updateItem($this->controller,$filedata,$where);
+		} else {
+			$data[$action]['fail'] = $img;
+			//Establecer mensaje de error por la carga del archivo
+		}
+	}
 		
-		$attribText = array(
-			'size' => '25'
-		);
-		
-		$attribDropDown = array(
-			'style' => 'width:220px'
-		);
-		
-		$data['attributes']['TipoUsuario'] = array(
-			'placeholder' => '   Tipo Usuario'
-		);
-		
-		$data['options']['TipoUsuario'] = array(
-			''           => "&nbsp;",
-			'Asistente'  => "Asistente",
-			'Apoyo'      => "Apoyo",
-			'Microlider' => "Microlider",
-			'Lider'      => "Lider",
-			'Admin'      => "Admin"
-		);
-		
-		$data['attributes']['Usuario'] = array(
-			'placeholder' => '   Usuario',
-			'autofocus'   => ''
-		);
-		
-		$data['attributes']['Password'] = array(
-			'placeholder' => '   Contraseña'
-		);
-		
-		$data['attributes']['Password2'] = array(
-			'placeholder' => '   Confirmar contraseña'
-		);
-		
-		$data['attributes']['Email'] = array(
-			'placeholder' => '   Correo Electr&oacute;nico'
-		);
-		
-		$data['attributes']['Imagen'] = array(
-			'placeholder' => '   Imagen'
-		);
-		
-		$data['attributes']['Password']   = array_merge($data['attributes']['Password'],$attributes,$attribText);
-		$data['attributes']['Password2']   = array_merge($data['attributes']['Password2'],$attributes,$attribText);
-		$data['attributes']['Email']       = array_merge($data['attributes']['Email'],$attributes,$attribText);
-		$data['attributes']['TipoUsuario'] = array_merge($data['attributes']['TipoUsuario'],$attributes,$attribDropDown);
-		$data['attributes']['Imagen']      = array_merge($data['attributes']['Imagen'],$attributes);
+	public function deleteImg(&$data) {
+		if ($data['records']['0']['logo_filename'] != '') {
+			if (file_exists('public/images/'.$this->imgpath.'/'.$data['records']['0']['logo_filename'])) {
+				unlink('public/images/'.$this->imgpath.'/'.$data['records']['0']['logo_filename']);
+			}
+		}
+	}
+	
+	private function loadData(&$data,$debug = false,$id = '') {
+		$data['userdata'] = $_SESSION;
+		if ($id === '') {
+			$data['records'] = $this->object_model->get($this->controller);
+		} else {
+			$data['records'] = $this->object_model->get($this->controller,$this->orderfield,$this->pkfield.'='.$id);
+		}
+		$data['Persona'] = $this->object_model->get('persona','Nombre');
+		$data['TipoUsuario'] = $this->usuario_model->getTipoUsuarioValues();
+		$data['morrisjs'] = '';
+		if($debug) {
+			$print = $data;
+		} else {
+			$print = '';
+		}
+		$data['print'] = $print;
 	}
 
 	//construir la page completa y permite liberar funcion Index
-	private function construirPage (&$data) {
-		$this->construirCampos($data);
-		$data['userdata'] = $_SESSION;
+	private function loadHTML(&$data) {
 		$data['page']['header']  = $this->load->view('templates/header',$data,true);
-		$data['page']['topmenu'] = $this->load->view('templates/topmenu',$data,true);
 		$data['page']['menu']    = $this->load->view('templates/menu',$data,true);
 		$data['page']['footer']  = $this->load->view('templates/footer',$data,true);
 	}
 	
 }
-
-
-
-
-
-
-
 
 
 ?>

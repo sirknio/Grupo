@@ -1,0 +1,54 @@
+<?=$page['header']?>
+
+<?=$page['menu']?>
+
+	<?= form_open_multipart('Asistencia/checkAsist'); ?>
+		<div class="col-lg-12"><h4></h4></div>
+		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
+		<div class="col-lg-3">
+			<? if (!isset($no_evento)) :?>
+				<div class="row">
+					<input name="idEvento" type="hidden" value="<?= set_value('idEvento')?>">
+					<input name="idGrupo" type="hidden" value="<?= set_value('idGrupo')?>">
+					<div class="form-group">
+						<label>Ingrese su No. de Identificación</label>
+						<input name="DocumentoNo" class="form-control" placeholder="Número de Cédula" autofocus required>
+					</div>
+					<div class="form-group">
+						<center>
+							<button type="submit" class="btn btn-primary">
+								Registrar Asistencia
+							</button>
+						</center>
+					</div>
+					<div class="form-group">
+						<center>
+							<a class="btn btn-success" href="<?=site_url('Integrante/insertItem')?>">
+								Crear Asistente
+							</a>
+							<!-- <a class="btn btn-warning">
+								Buscar
+							</a> -->
+						</center>
+					</div>
+				</div>
+				<div class="row">
+					&nbsp;
+				</div>
+				<div class="row">
+					<? if (isset($success)): ?> 
+						<div class="alert alert-success"><?= $success ?></div>
+					<? endif; ?>
+					<? if (isset($error)): ?>
+						<div class="alert alert-danger"><?= $error ?></div>
+					<? endif; ?>
+				</div>
+			<? else :?>
+				<div class="alert alert-danger"><?= $no_evento ?></div>
+			<? endif; ?>
+		</div>
+		<!-- /.col-lg-4 -->
+	</form>
+
+<?=$page['footer']?>
+

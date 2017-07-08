@@ -37,8 +37,8 @@ class Integrante extends CI_Controller {
 			}
 			$this->object_model->deleteItem($this->tablename,$data['delete']);
 		}
-		/*/
 		redirect($this->controller);
+		/*/
 		$this->loadData($data,$this->debug);
 		$this->loadHTML($data);
 		$this->load->view('pages/'.$this->pagelist,$data);

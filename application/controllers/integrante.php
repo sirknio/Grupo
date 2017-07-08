@@ -9,7 +9,7 @@ class Integrante extends CI_Controller {
 	private $orderfield = 'Nombre';
 	private $imgfield = 'foto';
 	private $imgpath = 'integrantes';
-	private $debug = true;
+	private $debug = false;
 
 	public function __construct() {
 		parent::__construct();
@@ -38,11 +38,6 @@ class Integrante extends CI_Controller {
 			$this->object_model->deleteItem($this->tablename,$data['delete']);
 		}
 		redirect($this->controller);
-		/*/
-		$this->loadData($data,$this->debug);
-		$this->loadHTML($data);
-		$this->load->view('pages/'.$this->pagelist,$data);
-		//*/
 	}
 	
 	//Insertar registro

@@ -15,8 +15,13 @@
 			</div>
 			<div class="panel-body  panel-dashboard">
 				<div class="list-group pre-scrollable panel-dashboard-notification">
+					<?php if (count($statistics['MinAsist']) > 0) :?>
 					<a href="#" class="list-group-item">
-						<i class="fa fa-comment fa-fw"></i> 4 parejas completaron sus 3 asistencias.
+						<i class="fa fa-comment fa-fw"></i> <?= count($statistics['MinAsist']) ?> pareja completaron sus 3 asistencias.
+					</a>
+					<?php endif ?>
+					<a href="#" class="list-group-item">
+						<i class="fa fa-comment fa-fw"></i> 4 parejasss completaron sus 3 asistencias.
 						<span class="pull-right text-muted small"><em>Mayo 31 de 2017</em>
 						</span>
 					</a>

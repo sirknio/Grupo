@@ -9,6 +9,7 @@ class Dashboard extends CI_Controller {
 			redirect('login');
 		}
 		$this->load->model('object_model');
+		$this->load->model('notificacion_model');
 		$this->load->model('evento_model');
 	}
 	
@@ -22,11 +23,14 @@ class Dashboard extends CI_Controller {
 		//$data['Statistics']['Grupos']       = $this->object_model->RecCount('Grupo');
 		//$data['Statistics']['Microcelulas'] = $this->object_model->RecCount('Persona','idMicrocelula');
 		//$data['Statistics']['Usuarios']     = $this->object_model->RecCount('Usuario');
-		//$data['Statistics']['Personas']     = $this->object_model->RecCount('Persona');
 		$data['userdata'] = $_SESSION;
 		$data['eventos'] = $this->object_model->get('Evento','FechaEvento DESC',array('idGrupo' => $data['userdata']['idGrupo']));
 		$data['asistencia'] = $this->evento_model->getMainGraph($data['userdata']['idGrupo'],5);
 		$data['morrisjs'] = 'morris-data-dashboard.js';
+		
+		//Establecer cuantas parejas cumplieron las tres asistencias para subirlas al reporte de la iglesia
+		$data['statistics']['MinAsist'] = $this->notificacion_model->getNewMinAsist($data['userdata']['idGrupo']);
+
 		if($debug) {
 			$print = $data;
 		} else {

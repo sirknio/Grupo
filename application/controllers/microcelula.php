@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct access allowed');
 
 class Microcelula extends CI_Controller {
-	private $controller = 'Microcelula';
+	private $controller = 'microcelula';
 	private $pagelist = 'microcelulas';
 	private $pagecard = 'microcelula';
 	private $pkfield = 'idMicrocelula';

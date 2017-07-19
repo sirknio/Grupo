@@ -2,9 +2,9 @@
 
 class Notificacion_model extends CI_Model{
     
-   	//Establecer cuantas parejas cumplieron las tres asistencias para subirlas al reporte de la iglesia
+   	//Establecer cuantas personas cumplieron x inasistencias para dar manejo
 	//Funcionara desde la tercera toma de asistencia
-	function getNewMinAsist($idGrupo) {
+	function getAbsence($idGrupo,$cant = 10) {
 		if ($idGrupo != '') {
 			$querytxt = 
 				"SELECT * 
@@ -15,7 +15,25 @@ class Notificacion_model extends CI_Model{
 					FROM `asistencia` a
 					WHERE a.`idGrupo` = ".$idGrupo."
 					GROUP BY a.`idPersona`
-					HAVING COUNT(a.`idEvento`) = 5)";
+					HAVING COUNT(a.`idEvento`) = ".$cantMin.")";
+		}
+		return $this->get($querytxt);
+	}
+
+   	//Establecer cuantas personas cumplieron las tres asistencias para subirlas al reporte de la iglesia
+	//Funcionara desde la tercera toma de asistencia
+	function getNewMinAsist($idGrupo,$cantMin = 3) {
+		if ($idGrupo != '') {
+			$querytxt = 
+				"SELECT * 
+				FROM Persona 
+				WHERE
+				`idPersona` IN (
+					SELECT a.`idPersona`
+					FROM `asistencia` a
+					WHERE a.`idGrupo` = ".$idGrupo."
+					GROUP BY a.`idPersona`
+					HAVING COUNT(a.`idEvento`) = ".$cantMin.")";
 		}
 		return $this->get($querytxt);
 	}

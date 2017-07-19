@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct access allowed');
 
 class Grupo extends CI_Controller {
-	private $controller = 'Grupo';
+	private $controller = 'grupo';
 	private $pagelist = 'grupos';
 	private $pagecard = 'grupo';
 	private $pkfield = 'idGrupo';

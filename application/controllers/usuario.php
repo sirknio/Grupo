@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct access allowed');
 
 class Usuario extends CI_Controller {
-	private $controller = 'Usuario';
+	private $controller = 'usuario';
 	private $pagelist = 'usuarios';
 	private $pagecard = 'usuario';
 	private $pkfield = 'idUsuario';

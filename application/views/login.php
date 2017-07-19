@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sindesy</title>
+    <title>Klipsia</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -45,10 +45,10 @@
                         <?= form_open('login'); ?>
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Nombre Usuario" name="usuario" type="username" value="admin" autofocus>
+                                    <input class="form-control" placeholder="Nombre Usuario" name="usuario" type="username" value="" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="admin">
+                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>

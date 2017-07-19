@@ -52,7 +52,7 @@ function getEstadoCivilValues() {
 		if ($idGrupo != '') {
 			$query = $this->db->query(
 					"SELECT *
-					FROM 	`Microcelula` as m
+					FROM 	`microcelula` as m
 					WHERE 	m.idGrupo = ".$idGrupo."
 					ORDER BY m.Nombre");
 			$array = $query->result_array();

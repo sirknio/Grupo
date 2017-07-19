@@ -3,19 +3,21 @@
 class Usuario_model extends CI_Model{
 	
 	function login($username,$password){
-		$query = $this->db->where('Usuario',$username);
-		$query = $this->db->where('Password',$password);
-		$query = $this->db->get('Usuario');
+		$query = $this->db->where('Usuario',$username); //poner seguridad de parseo de la cadena para SQL injection
+		$query = $this->db->where('Password',$password); //poner seguridad de parseo de la cadena para SQL injection
+		$query = $this->db->get('usuario');
 		$user = $query->row_array();
 		
 		$query = $this->db->where('idPersona',$user['idPersona']);
-		$query = $this->db->get('Persona');
+		$query = $this->db->get('persona');
 		$person = $query->row_array();
+
+		//echo "<pre>";print_r($person);echo "</pre>";
 		
 		$user['idPersona'] = $person['idPersona'];
 		$user['idGrupo'] = $person['idGrupo'];
 		$user['idMicrocelula'] = $person['idMicrocelula'];
-		$user['NombreUsuario'] = $person['NombreUsuario'];
+		//$user['NombreUsuario'] = $person['NombreUsuario'];
 		$user['Nombre'] = $person['Nombre'];
 		$user['Apellido'] = $person['Apellido'];
 		return($user);

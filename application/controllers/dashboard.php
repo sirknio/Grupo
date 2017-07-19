@@ -9,8 +9,8 @@ class Dashboard extends CI_Controller {
 			redirect('login');
 		}
 		$this->load->model('object_model');
-		$this->load->model('notificacion_model');
 		$this->load->model('evento_model');
+		$this->load->library('statistics');
 	}
 	
 	public function index($id = '') {
@@ -20,17 +20,12 @@ class Dashboard extends CI_Controller {
 	}
 
 	private function loadData(&$data,$debug = false,$id = '') { 
-		//$data['Statistics']['Grupos']       = $this->object_model->RecCount('Grupo');
-		//$data['Statistics']['Microcelulas'] = $this->object_model->RecCount('Persona','idMicrocelula');
-		//$data['Statistics']['Usuarios']     = $this->object_model->RecCount('Usuario');
 		$data['userdata'] = $_SESSION;
-		$data['eventos'] = $this->object_model->get('Evento','FechaEvento DESC',array('idGrupo' => $data['userdata']['idGrupo']));
+		$data['eventos'] = $this->object_model->get('evento','FechaEvento DESC',array('idGrupo' => $data['userdata']['idGrupo']));
 		$data['asistencia'] = $this->evento_model->getMainGraph($data['userdata']['idGrupo'],5);
 		$data['morrisjs'] = 'morris-data-dashboard.js';
+		$this->statistics->loadDashStatistics($data['statistics'],$data['userdata']['idGrupo']);
 		
-		//Establecer cuantas parejas cumplieron las tres asistencias para subirlas al reporte de la iglesia
-		$data['statistics']['MinAsist'] = $this->notificacion_model->getNewMinAsist($data['userdata']['idGrupo']);
-
 		if($debug) {
 			$print = $data;
 		} else {

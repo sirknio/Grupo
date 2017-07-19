@@ -10,6 +10,7 @@ class Login extends CI_Controller {
 		if($this->session->userdata('usuario')) {
 			redirect('dashboard');
 		}
+		
 		if(isset($_POST['password'])) {
 			$user = $this->usuario_model->login($_POST['usuario'],$_POST['password']);
 			if($user['Usuario'] != '') {
@@ -21,10 +22,10 @@ class Login extends CI_Controller {
 				$this->session->set_userdata('idPersona',$user['idPersona']);
 				$this->session->set_userdata('idGrupo',$user['idGrupo']);
 				$this->session->set_userdata('idMicrocelula',$user['idMicrocelula']);
-				$this->session->set_userdata('NombreUsuario',$user['NombreUsuario']);
+				//$this->session->set_userdata('NombreUsuario',$user['NombreUsuario']);
 				$this->session->set_userdata('Nombre',$user['Nombre']);
 				$this->session->set_userdata('Apellido',$user['Apellido']);
-				redirect('dashboard');
+				redirect('Dashboard');
 			} else {
 				redirect('login#bad-password');
 			}
@@ -36,6 +37,7 @@ class Login extends CI_Controller {
 	public function logout() {
 		$this->session->sess_destroy();
 		redirect('login');
+		//$this->load->view('login');
 	}
 }
 

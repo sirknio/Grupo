@@ -22,6 +22,16 @@ class Evento_model extends CI_model{
 		$querytxt = "SELECT * FROM asistevento";
 		if ($idGrupo != '') { $querytxt = $querytxt." WHERE idGrupo = ".$idGrupo; };
 		if ($limit != 0) 	{ $querytxt = $querytxt." LIMIT ".$limit; };
+		$querytxt = "select `e`.`idGrupo` AS `idGrupo`,
+							`e`.`idEvento` AS `idEvento`,
+							`e`.`FechaEvento` AS `FechaEvento`,
+							`e`.`Filtro` AS `Filtro`,
+							sum(`a`.`Asiste`) AS `Asistencia` 
+					from `evento` `e` join `asistencia` `a` 
+					where 	((`a`.`idEvento` = `e`.`idEvento`) and 
+							(`e`.`Estado` = 'Cerrado')) 
+					group by `e`.`idEvento` 
+					order by `e`.`FechaEvento` desc";
 		$query = $this->db->query($querytxt);
 		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";		
 		return $query->result_array();

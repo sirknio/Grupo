@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct access allowed');
 
 class Asistencia extends CI_Controller {
-	private $controller = 'Asistencia';
+	private $controller = 'asistencia';
 	private $pagelist = 'asistencia';
 	private $pagecard = 'asistencia';
 	private $pkfield = 'idEvento';
@@ -21,7 +21,7 @@ class Asistencia extends CI_Controller {
 	}
 	
 	public function index() {
-		$evento = $this->object_model->get('Evento', $this->orderfield, "Estado = 'Abierto'");
+		$evento = $this->object_model->get('evento', $this->orderfield, "Estado = 'Abierto'");
 		if (count($evento) == 0) {
 			$data['no_evento'] = "Por favor abra un evento para tomar asistencia.";
 		} else {

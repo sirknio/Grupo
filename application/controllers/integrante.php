@@ -1,8 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct access allowed');
 
 class Integrante extends CI_Controller {
-	private $controller = 'Integrante';
-	private $tablename = 'Persona';
+	private $controller = 'integrante';
+	private $tablename = 'persona';
 	private $pagelist = 'integrantes';
 	private $pagecard = 'integrante';
 	private $pkfield = 'idPersona';

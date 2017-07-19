@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct access allowed');
 
 class Evento extends CI_Controller {
-	private $controller = 'Evento';
+	private $controller = 'evento';
 	private $pagelist = 'eventos';
 	private $pagecard = 'evento';
 	private $pkfield = 'idEvento';

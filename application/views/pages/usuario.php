@@ -7,11 +7,11 @@
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<!-- /.col-lg-12 -->
-	<? if (!$update): ?>
+	<?php if (!$update): ?>
 		<?= form_open_multipart('Usuario/insertItem/Crear'); ?>
-	<? else: ?>
+	<?php else: ?>
 		<?= form_open_multipart('Usuario/updateItem/'.set_value('idUsuario').'/Update'); ?>
-	<? endif; ?>
+	<?php endif; ?>
 		<div class="col-lg-6">
 			<div class="form-group">
 				<label>Usuario</label>
@@ -25,13 +25,13 @@
 				<label>Persona Asociada</label>
 				<select name="idPersona" class="form-control">
 					<option value="0"> </option>
-					<? foreach ($Persona as $item): ?>
-						<? if (set_value('idColider1') != $item['idPersona']): ?>
+					<?php foreach ($Persona as $item): ?>
+						<?php if (set_value('idColider1') != $item['idPersona']): ?>
 							<option value="<?=$item['idPersona']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
-						<? else: ?>
+						<?php else: ?>
 							<option value="<?=$item['idPersona']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
-						<? endif; ?>
-					<? endforeach; ?>
+						<?php endif; ?>
+					<?php endforeach; ?>
 				</select>
 			</div>
 			<div class="form-group">
@@ -46,23 +46,23 @@
 				<label>Tipo Usuario</label>
 				<select name="TipoUsuario" class="form-control" placeholder="Seleccione Tipo Usuario">
 					<option value="0"> </option>
-					<? foreach ($TipoUsuario as $item): ?>
-						<? if (set_value('TipoUsuario') != $item): ?>
+					<?php foreach ($TipoUsuario as $item): ?>
+						<?php if (set_value('TipoUsuario') != $item): ?>
 							<option value="<?=$item?>"><?= $item?></option>
-						<? else: ?>
+						<?php else: ?>
 							<option value="<?=$item?>" selected><?=$item?></option>
-						<? endif; ?>
-					<? endforeach; ?>
+						<?php endif; ?>
+					<?php endforeach; ?>
 				</select>
 			</div>
 		</div>
 		<div class="col-lg-12">
 			<button type="submit" class="btn btn-primary"><i class="fa fa-users fa-fw"></i> 
-			<? if (!$update): ?>
+			<?php if (!$update): ?>
 				Crear Usuario
-			<? else: ?>
+			<?php else: ?>
 				Actualizar Usuario
-			<? endif; ?>
+			<?php endif; ?>
 			
 			</button>
 			<a class="btn btn-default" href="<?=site_url('Usuario')?>">Cancelar</a>

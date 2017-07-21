@@ -28,25 +28,25 @@
 								<?=$item['Nombre']?>
 							</td>
 							<td>
-								<? if ($item['TomarAsistencia'] === '1'): ?>
-									<? if ($item['Estado'] === 'Creado'): ?>
+								<?php if ($item['TomarAsistencia'] === '1'): ?>
+									<?php if ($item['Estado'] === 'Creado'): ?>
 										<a class="btn btn-success btn-block" href="<?=site_url('Evento/openEvent/'.$item['idEvento'])?>">
 											Abrir Asistencia
 										</a>
-									<? elseif ($item['Estado'] === 'Abierto'): ?>
+									<?php elseif ($item['Estado'] === 'Abierto'): ?>
 										<a class="btn btn-warning btn-block" href="<?=site_url('Evento/closeEvent/'.$item['idEvento'])?>">
 											Cerrar Asistencia
 										</a>
-									<? elseif ($item['Estado'] === 'Cerrado'): ?>
+									<?php elseif ($item['Estado'] === 'Cerrado'): ?>
 										<a class="btn btn-default btn-block" href="<?=site_url('Evento/showAssistance/'.$item['idEvento'])?>">
 											Ver Asistencia
 										</a>
-									<? endif; ?>
-								<? else: ?>
+									<?php endif; ?>
+								<?php else: ?>
 									<a class="btn btn-default btn-block">
 										Informativo
 									</a>
-								<? endif; ?>
+								<?php endif; ?>
 							</td>
 							<td class="row-center">
 								<div class="btn-group">
@@ -59,20 +59,20 @@
 											<i class="fa fa-pencil-square-o fa-fw"></i> Cambiar
 											</a>
 										</li>
-										<? if ($item['Estado'] == 'Creado'): ?>
+										<?php if ($item['Estado'] == 'Creado'): ?>
 										<li>
 											<a href="<?=site_url('Evento/deleteItem/'.$item['idEvento'])?>">
 											<i class="fa fa-trash-o fa-fw"></i> Eliminar
 											</a>
 										</li>
-										<? endif; ?>
-										<? if ($item['Estado'] == 'Cerrado'): ?>
+										<?php endif; ?>
+										<?php if ($item['Estado'] == 'Cerrado'): ?>
 										<li>
 											<a href="<?=site_url('Evento/createStats/'.$item['idEvento'])?>">
 											<i class="fa fa-pie-chart fa-fw"></i> Crear Estadisticas
 											</a>
 										</li>
-										<? endif; ?>
+										<?php endif; ?>
 									</ul>
 								</div>												
 							</td>

@@ -102,15 +102,15 @@
 				<div class="table-responsive autoscroll panel-dashboard-calendar">
 					<table class="table table-striped table-hover">
 						<?php foreach ($eventos as $item): ?>
-							<? if ($date != $item['FechaEvento']) : ?>
+							<?php if ($date != $item['FechaEvento']) : ?>
 								
 								<thead>
 									<tr>
 										<th><?= $item['FechaEvento'] ?></th>
 									</tr>
 								</thead>
-								<? $date = $item['FechaEvento']; ?>
-							<? endif; ?>
+								<?php $date = $item['FechaEvento']; ?>
+							<?php endif; ?>
 								
 								<tr>
 									<td><?= $item['Nombre'] ?></td>

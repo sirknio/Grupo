@@ -31,7 +31,7 @@ class Integrante extends CI_Controller {
 	public function deleteItem() {
 		$data['delete'] = $_POST; 
 		if($data['delete']['idPersona'] !== '') {
-			$this->loadData($data,$this->debug,$data['delete']['idPersona']);
+			$this->loadData($data,$this->debug,'','',$data['delete']['idPersona']);
 			if ($this->imgfield != '') {
 				$this->deleteImg($data);
 			}
@@ -88,7 +88,7 @@ class Integrante extends CI_Controller {
 				redirect($this->controller);
 			} else {
 				//Establecer mensaje de error en insercción de datos
-				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
+				$this->loadData($data,$this->debug,'','',$data['insert'][$this->pkfield]);
 				$this->loadHTML($data);
 				$this->load->view('pages/'.$this->pagecard,$data);
 			}
@@ -103,7 +103,7 @@ class Integrante extends CI_Controller {
 			$data['info'] = $this->object_model->get($this->tablename,'',$where);
 			$_POST = array_merge($_POST,$data['info'][0]);
 
-			$this->loadData($data,$this->debug,$id);
+			$this->loadData($data,$this->debug,'','',$id);
 			$this->loadHTML($data);
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
@@ -121,7 +121,7 @@ class Integrante extends CI_Controller {
 				//$this->load->view('pages/'.$this->pagecard,$data);
 			} else {
 				//Establecer mensaje de error en actualizar datos
-				$this->loadData($data,$this->debug,$data['update'][$this->pkfield]);
+				$this->loadData($data,$this->debug,'','',$data['update'][$this->pkfield]);
 				$this->loadHTML($data);
 				$this->load->view('pages/'.$this->pagecard,$data);
 			}
@@ -160,6 +160,7 @@ class Integrante extends CI_Controller {
 	}
 		
 	public function deleteImg(&$data) {
+		//echo "<pre>";print_r($data);echo "</pre>";
 		if ($data['records']['0']['foto_filename'] != '') {
 			if (file_exists('public/images/'.$this->imgpath.'/'.$data['records']['0']['foto_filename'])) {
 				unlink('public/images/'.$this->imgpath.'/'.$data['records']['0']['foto_filename']);

@@ -2,16 +2,18 @@
 
 <?=$page['menu']?>
 
+<?php $item = ''; ?>
+
 	<div class="col-lg-12">
 		<h1 class="page-header">Integrante</h1>
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<!-- /.col-lg-12 -->
-	<? if (!$update): ?>
+	<?php if (!$update): ?>
 		<?= form_open_multipart('Integrante/insertItem/Crear'); ?>
-	<? else: ?>
+	<?php else: ?>
 		<?= form_open_multipart('Integrante/updateItem/'.set_value('idPersona').'/Update'); ?>
-	<? endif; ?>
+	<?php endif; ?>
 		<div class="col-lg-12">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
@@ -37,13 +39,13 @@
 							<label>Tipo Documento</label>
 							<select name="DocumentoTipo" class="form-control" placeholder="Seleccione Tipo Documento" required>
 								<option value=""> </option>
-								<? foreach ($DocumentoTipo as $item): ?>
-									<? if (set_value('DocumentoTipo') != $item): ?>
+								<?php foreach ($DocumentoTipo as $item): ?>
+									<?php if (set_value('DocumentoTipo') != $item): ?>
 										<option value="<?=$item?>"><?= $item?></option>
-									<? else: ?>
+									<?php else: ?>
 										<option value="<?=$item?>" selected><?=$item?></option>
-									<? endif; ?>
-								<? endforeach; ?>
+									<?php endif; ?>
+								<?php endforeach; ?>
 							</select>
 						</div>
 						<div class="form-group">
@@ -54,13 +56,13 @@
 							<label>Genero</label>
 							<select name="Genero" class="form-control" placeholder="Seleccione Genero" required>
 								<option value=""> </option>
-								<? foreach ($Genero as $item): ?>
-									<? if (set_value('Genero') != $item): ?>
+								<?php foreach ($Genero as $item): ?>
+									<?php if (set_value('Genero') != $item): ?>
 										<option value="<?=$item?>"><?= $item?></option>
-									<? else: ?>
+									<?php else: ?>
 										<option value="<?=$item?>" selected><?=$item?></option>
-									<? endif; ?>
-								<? endforeach; ?>
+									<?php endif; ?>
+								<?php endforeach; ?>
 							</select>
 						</div>
 						<div class="form-group">
@@ -120,26 +122,26 @@
 							<label>Estado Civil</label>
 							<select name="EstadoCivil" class="form-control" placeholder="Seleccione Estado Civil">
 								<option value=""> </option>
-								<? foreach ($EstadoCivil as $item): ?>
-									<? if (set_value('EstadoCivil') != $item): ?>
+								<?php foreach ($EstadoCivil as $item): ?>
+									<?php if (set_value('EstadoCivil') != $item): ?>
 										<option value="<?=$item?>"><?= $item?></option>
-									<? else: ?>
+									<?php else: ?>
 										<option value="<?=$item?>" selected><?=$item?></option>
-									<? endif; ?>
-								<? endforeach; ?>
+									<?php endif; ?>
+								<?php endforeach; ?>
 							</select>
 						</div>
 						<div class="form-group">
 							<label>Conyugue</label>
 							<select name="idConyugue" class="form-control">
 								<option value=""> </option>
-								<? foreach ($Persona as $item): ?>
-									<? if (set_value('idConyugue') != $item['idPersona']): ?>
+								<?php foreach ($Persona as $item): ?>
+									<?php if (set_value('idConyugue') != $item['idPersona']): ?>
 										<option value="<?=$item['idPersona']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
-									<? else: ?>
+									<?php else: ?>
 										<option value="<?=$item['idPersona']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
-									<? endif; ?>
-								<? endforeach; ?>
+									<?php endif; ?>
+								<?php endforeach; ?>
 							</select>
 						</div>
 						<div class="form-group">
@@ -173,40 +175,40 @@
 							<label>Microcelula</label>
 							<select name="idMicrocelula" class="form-control" required>
 								<option value=""> </option>
-								<? foreach ($Micros as $item): ?>
-									<? if (set_value('idMicrocelula') != $item['idMicrocelula']): ?>
+								<?php foreach ($Micros as $item): ?>
+									<?php if (set_value('idMicrocelula') != $item['idMicrocelula']): ?>
 										<option value="<?=$item['idMicrocelula']?>"><?=$item['Descripcion']?></option>
-									<? else: ?>
+									<?php else: ?>
 										<option value="<?=$item['idMicrocelula']?>" selected><?=$item['Descripcion']?></option>
-									<? endif; ?>
-								<? endforeach; ?>
+									<?php endif; ?>
+								<?php endforeach; ?>
 							</select>
 						</div>
 						<div class="form-group">
 							<label>Habilidades</label>
-							<? foreach ($Habilidades as $item): ?>
-								<? if (set_value('Habilidades') != $item): ?>
+							<?php foreach ($Habilidades as $item): ?>
+								<?php if (set_value('Habilidades') != $item): ?>
 									<br><input type="checkbox" name="Habilidades" value="<?=$item?>"> <?=$item?>
-								<? else: ?>
+								<?php else: ?>
 									<br><input type="checkbox" name="Habilidades" value="<?=$item?>" checked> <?=$item?>
-								<? endif; ?>
-							<? endforeach; ?>
+								<?php endif; ?>
+							<?php endforeach; ?>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-12">
-				<? if (isset($idEvent)): ?>
-				<? else: ?>
+				<?php if (isset($idEvent)): ?>
+				<?php else: ?>
 					<button type="submit" class="btn btn-primary"><i class="fa fa-users fa-fw"></i> 
-					<? if (!$update): ?>
+					<?php if (!$update): ?>
 						Crear Integrante
-					<? else: ?>
+					<?php else: ?>
 						Actualizar Integrante
-					<? endif; ?>
+					<?php endif; ?>
 					</button>
 					<a class="btn btn-default" href="<?=site_url('Integrante')?>">Cancelar</a>
-				<? endif; ?>
+				<?php endif; ?>
 			</div>
 		</div>
 	</form>

@@ -7,11 +7,11 @@
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<!-- /.col-lg-12 -->
-	<? if (!$update): ?>
+	<?php if (!$update): ?>
 		<?= form_open_multipart('Evento/insertItem/Crear'); ?>
-	<? else: ?>
+	<?php else: ?>
 		<?= form_open_multipart('Evento/updateItem/'.set_value('idEvento').'/Update'); ?>
-	<? endif; ?>
+	<?php endif; ?>
 		<div class="col-lg-6">
 			<input name="idGrupo" type="hidden" value="<?= $userdata['idGrupo']?>">
 			<div class="form-group">
@@ -34,10 +34,10 @@
 			<div class="form-group">
 				<label>Asistencia</label>
 				<select name="TomarAsistencia" class="form-control" placeholder="Seleccione filtro">
-					<option value="0" <? if (set_value('TomarAsistencia') === '0'): ?> selected <? endif; ?>>
+					<option value="0" <?php if (set_value('TomarAsistencia') === '0'): ?> selected <?php endif; ?>>
 						Evento solo informativo
 					</option>
-					<option value="1" <? if (set_value('TomarAsistencia') === '1'): ?> selected <? endif; ?>>
+					<option value="1" <?php if (set_value('TomarAsistencia') === '1'): ?> selected <?php endif; ?>>
 						Evento con Asistencia
 					</option>
 				</select>
@@ -45,23 +45,23 @@
 				<div class="form-group">
 					<label>Aplicar filtro de asistencia</label>
 					<select name="Filtro" class="form-control" placeholder="Seleccione filtro">
-						<? foreach ($filtro as $item): ?>
-							<? if (set_value('Filtro') != $item): ?>
+						<?php foreach ($filtro as $item): ?>
+							<?php if (set_value('Filtro') != $item): ?>
 								<option value="<?=$item?>"><?= $item?></option>
-							<? else: ?>
+							<?php else: ?>
 								<option value="<?=$item?>" selected><?=$item?></option>
-							<? endif; ?>
-						<? endforeach; ?>
+							<?php endif; ?>
+						<?php endforeach; ?>
 					</select>
 				</div>
 		</div>
 		<div class="col-lg-12">
 			<button type="submit" class="btn btn-primary"><i class="fa fa-calendar fa-fw"></i> 
-			<? if (!$update): ?>
+			<?php if (!$update): ?>
 				Crear Evento
-			<? else: ?>
+			<?php else: ?>
 				Actualizar Evento
-			<? endif; ?>
+			<?php endif; ?>
 			
 			</button>
 			<a class="btn btn-default" href="<?=site_url('Evento')?>">Cancelar</a>

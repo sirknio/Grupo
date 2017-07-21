@@ -40,7 +40,7 @@
                         <li>
                             <a href="<?=site_url('dashboard')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-						<? if ($userdata['TipoUsuario'] == 'Admin'): ?>
+						<?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
                         <li>
                             <a href="#"><i class="fa fa-desktop fa-fw"></i> Aplicación<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -53,7 +53,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-						<? endif; ?>
+						<?php endif; ?>
                         <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Grupo<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

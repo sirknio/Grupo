@@ -22,19 +22,19 @@
 					<?php foreach ($records as $item): ?>
 						<tr>
 							<td style="text-align:center;">
-								<? if ($item['logo_filename'] === ''): ?>
+								<?php if ($item['logo_filename'] === ''): ?>
 									<a class="example-image-link" href="<?=base_url('')?>public/images/default/avatar2.png" 
 										data-lightbox="Logo<?= $item['idGrupo']; ?>" 
 										data-title="<?=$item['Nombre']?>: <?=$item['Descripcion']?>">
 										<img src="<?=base_url('')?>public/images/default/avatar2.png" class="logo-circle" style="width:36px">
 									</a>
-								<? else: ?>
+								<?php else: ?>
 									<a class="example-image-link" href="<?=base_url('')?>public/images/grupos/<?= $item['logo_filename']?>" 
 										data-lightbox="<?= $item['logo_filename'] ?>" 
 										data-title="<?=$item['Nombre']?>: <?=$item['Descripcion']?>">
 										<img src="<?=base_url('')?>public/images/grupos/<?= $item['logo_filename']?>" class="logo-circle" style="width:36px">
 									</a>
-								<? endif; ?>
+								<?php endif; ?>
 							</td>
 							<td>
 								<?=$item['Nombre']?>

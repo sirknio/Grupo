@@ -12,7 +12,7 @@ class Login extends CI_Controller {
 		}
 		
 		if((isset($_POST['password'])) && ($this->input->post('token') && $this->input->post('token') == $this->session->userdata('token'))) {
-			echo "<pre>"; print_r($this->input->post('password',true)); echo "</pre>";
+			//echo "<pre>"; print_r($this->input->post('password',true)); echo "</pre>";
 			$user = $this->usuario_model->login(
 						$this->input->post('usuario',true),
 						md5(sha1($_POST['password'])));

@@ -6,6 +6,8 @@ class Usuario_model extends CI_Model{
 		$query = $this->db->where('Usuario',$username); //poner seguridad de parseo de la cadena para SQL injection
 		$query = $this->db->where('Password',$password); //poner seguridad de parseo de la cadena para SQL injection
 		$query = $this->db->get('usuario');
+
+		//echo "<pre>";print_r($this->db->last_query());echo "</pre>";
 		$user = $query->row_array();
 		
 		$query = $this->db->where('idPersona',$user['idPersona']);

@@ -21,6 +21,7 @@ class Dashboard extends CI_Controller {
 
 	private function loadData(&$data,$debug = false,$id = '') { 
 		$data['userdata'] = $_SESSION;
+		$data['date'] = '';
 		$data['eventos'] = $this->object_model->get('evento','FechaEvento DESC',array('idGrupo' => $data['userdata']['idGrupo']));
 		$data['asistencia'] = $this->evento_model->getMainGraph($data['userdata']['idGrupo'],5);
 		$data['morrisjs'] = 'morris-data-dashboard.js';

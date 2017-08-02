@@ -11,13 +11,13 @@
 					<input name="idEvento" type="hidden" value="<?= set_value('idEvento')?>">
 					<input name="idGrupo" type="hidden" value="<?= set_value('idGrupo')?>">
 					<div class="form-group">
-						<label>Ingrese su No. de Identificación</label>
+						<label>Ingrese No. de Identificación</label>
 						<input name="DocumentoNo" class="form-control" placeholder="Número de Cédula" autofocus required>
 					</div>
 					<div class="form-group">
 						<center>
 							<button type="submit" class="btn btn-primary">
-								Registrar Asistencia
+								Registrar Asistencia <?= $asistcant ?>
 							</button>
 						</center>
 					</div>

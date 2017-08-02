@@ -58,13 +58,23 @@ class Asistencia extends CI_Controller {
 			$data['error'] .= "Si el integrante ya esta registrado es necesario ";
 			$data['error'] .= "que vaya a la lista para encontrarlo, corregir el No. de Documento y tomarle nuevamente asistencia.";
 		}
-
-
+		$this->loadData($data,$this->debug,$_POST['idEvento']);
 		$this->loadHTML($data);
 		$this->load->view('pages/'.$this->pagelist,$data);
 	}
 	
 	private function loadData(&$data,$debug = false,$id = '') {
+		$evento = array();
+		if ($id !== '') {
+			$evento = $this->object_model->get('asistencia', 'FechaEvento', array('idEvento' => $id, 'Asiste' => 1));
+			//echo "<pre>"; print_r($evento); echo "</pre>";
+		}
+		if (count($evento) > 0) {
+			$data['asistcant'] = '('.count($evento).')';
+		} else {
+			$data['asistcant'] = '';
+		}
+		$data['evento'] = $evento;
 		$data['userdata'] = $_SESSION;
 		$data['morrisjs'] = '';
 		if($debug) {

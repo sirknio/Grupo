@@ -14,20 +14,16 @@
 					<tr>
 						<th>Apellido</th>
 						<th>Nombre</th>
-						<th>Asistencia</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php foreach ($records as $item): ?>
 						<tr>
 							<td>
-								<?=$item['Apellido']?>
+								<?= strtoupper($item['Apellido']) ?>
 							</td>
 							<td>
-								<?=$item['Nombre']?>
-							</td>
-							<td>
-								<?=$item['Asiste']?>
+								<?= strtoupper($item['Nombre']) ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>

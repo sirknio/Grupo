@@ -92,7 +92,7 @@ class Microcelula extends CI_Controller {
 	
 	public function loadImg(&$data,$action,$fieldName) {
 		$img['upload_path']   = 'public/images/'.$this->imgpath.'/';
-		$img['allowed_types'] = 'gif|jpg|png';
+		$img['allowed_types'] = 'gif|jpeg|jpg|png';
 		$img['file_name'] = 'logo'.str_pad($data['records']['0'][$this->pkfield],10,'0', STR_PAD_LEFT);
 		if ($data['records']['0']['logo_filename'] != '') {
 			if (file_exists($img['upload_path'].$data['records']['0']['logo_filename'])) {

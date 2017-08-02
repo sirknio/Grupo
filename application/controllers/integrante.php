@@ -172,7 +172,7 @@ class Integrante extends CI_Controller {
 		//echo "<pre>";print_r($data);echo "</pre>";
 		if ($_FILES['foto']['name'] != '') {
 			$img['upload_path']   = 'public/images/'.$this->imgpath.'/';
-			$img['allowed_types'] = 'gif|jpg|png';
+			$img['allowed_types'] = 'gif|jpg|jpeg|png';
 			$img['file_name'] = 'foto'.str_pad($data['records']['0'][$this->pkfield],10,'0', STR_PAD_LEFT);
 			if ($data['records']['0']['foto_filename'] != '') {
 				if (file_exists($img['upload_path'].$data['records']['0']['foto_filename'])) {

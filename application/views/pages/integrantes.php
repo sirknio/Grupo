@@ -53,7 +53,7 @@
 								?>
 								<a class="example-image-link" href="<?= $img_src ?>" data-lightbox="<?= $img_name ?>" 
 									data-title="<?= $img_title ?>">
-									<img src="<?= $img_src ?>" class="logo-circle" style="width:36px">
+									<img src="<?= $img_src ?>" class="logo-circle" style="width:36px;height:36px">
 								</a>
 							</td>
 							<!-- <td class="row-center">

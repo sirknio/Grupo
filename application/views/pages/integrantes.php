@@ -3,7 +3,20 @@
 <?=$page['menu']?>
 
 	<div class="col-lg-12">
-		<h1 class="page-header">Integrantes</h1>
+		<div class="col-lg-9">
+			<h1 class="page-header">Integrantes</h1>
+		</div>
+		<div class="col-lg-2">
+			<br><br>
+			<ul class="nav nav-pills">
+				<li role="showlist" class="active">
+					<a href="<?=site_url('Integrante/index/'.$userdata['idGrupo'])?>"><span class="glyphicon glyphicon-th-list"></span></a>
+				</li>
+				<li role="showlist">
+					<a href="<?=site_url('Integrante/index/'.$userdata['idGrupo'].'/0/0/square')?>"><span class="glyphicon glyphicon-th"></span></a>
+				</li>
+			</ul>
+		</div>
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<!-- /.col-lg-12 -->
@@ -13,7 +26,7 @@
 				<thead>
 					<tr>
 						<th style="width:50px;">Foto</th>
-						<th style="width:80px;">Código</th>
+						<!-- <th style="width:80px;">Código</th> -->
 						<th style="width:150px;">Nombre</th>
 						<th style="width:80px;">Micro</th>
 						<th>Telefono</th>
@@ -43,10 +56,10 @@
 									<img src="<?= $img_src ?>" class="logo-circle" style="width:36px">
 								</a>
 							</td>
-							<td class="row-center">
+							<!-- <td class="row-center">
 								<input name="idPersona" type="hidden" value="<?=$item['idPersona']?>">
 								<?=$item['idPersona']?>
-							</td>
+							</td> -->
 							<td>
 								<?=$item['Nombre']?>&nbsp;<?=$item['Apellido']?>
 							</td>

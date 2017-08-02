@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Kilpsia</title>
+    <title>Klipsia</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?=base_url('')?>public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

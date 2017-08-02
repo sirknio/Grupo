@@ -4,6 +4,7 @@ class Integrante extends CI_Controller {
 	private $controller = 'integrante';
 	private $tablename = 'persona';
 	private $pagelist = 'integrantes';
+	private $pagesquare = 'integrantes-square';
 	private $pagecard = 'integrante';
 	private $pkfield = 'idPersona';
 	private $orderfield = 'Nombre';
@@ -20,11 +21,46 @@ class Integrante extends CI_Controller {
 		$this->load->model('integrante_model');
 	}
 	
-	public function index($idGrupo = '',$idMicro = '',$id = '') {
+	public function index($idGrupo = '',$idMicro = '',$id = '',$viewList = 'list') {
 		//echo"<pre>";print_r($idGrupo." - ".$idMicro." - ".$id);echo"</pre>";
+		if ($idMicro == 0) { $idMicro = ''; }
+		if ($id == 0) { $id = ''; }
 		$this->loadData($data,$this->debug,$idGrupo,$idMicro,$id);
 		$this->loadHTML($data);
-		$this->load->view('pages/'.$this->pagelist,$data);
+		switch ($viewList) {
+			case 'list':
+				$this->load->view('pages/'.$this->pagelist,$data);
+				break;		
+			case 'square':
+				$j = 0;
+				for($i = 0;$i < count($data['records']);$i++) {
+					//$pos = strpos(); //Mostrar solo el primer apellido
+					if ($data['records'][$i]['Genero'] == 'Masculino') {
+						$person[$j] = array(
+							'idPersona'			=> $data['records'][$i]['idPersona'],
+							'Nombre'			=> $data['records'][$i]['Nombre'],
+							'Apellido'			=> $data['records'][$i]['Apellido'],
+							'Genero'			=> $data['records'][$i]['Genero'],
+							'foto_filename' 	=> $data['records'][$i]['foto_filename'],
+							'idConyugue'		=> $data['records'][$i]['idConyugue'],
+							'NombreConyugue'	=> '',
+							'ApellidoConyugue'	=> ''
+						);
+						for($k = 0;$k < count($data['records']);$k++) {
+							if ($person[$j]['idConyugue'] === $data['records'][$k]['idPersona']) {
+								$person[$j]['NombreConyugue'] 	=  $data['records'][$k]['Nombre'];
+								$person[$j]['ApellidoConyugue'] =  $data['records'][$k]['Apellido'];
+							}
+						}
+						$j++;
+					}
+				}
+				$data['records'] = $person;
+
+				
+				$this->load->view('pages/'.$this->pagesquare,$data);
+				break;		
+		}
 	}	
 		
 	//Eliminar registro

@@ -12,7 +12,7 @@
 					<input name="idGrupo" type="hidden" value="<?= set_value('idGrupo')?>">
 					<div class="form-group">
 						<label>Ingrese No. de Identificación</label>
-						<input name="DocumentoNo" class="form-control" placeholder="Número de Cédula" autofocus required>
+						<input name="DocumentoNo" class="form-control" type="number" placeholder="Número de Cédula" autofocus required autocomplete="off">
 					</div>
 					<div class="form-group">
 						<center>

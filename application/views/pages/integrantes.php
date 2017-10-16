@@ -20,17 +20,18 @@
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<!-- /.col-lg-12 -->
-	<div class="col-lg-11">
+	<div class="col-lg-8">
 		<div class="table">
 			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 				<thead>
 					<tr>
 						<th style="width:50px;">Foto</th>
 						<!-- <th style="width:80px;">Código</th> -->
-						<th style="width:150px;">Nombre</th>
-						<th style="width:80px;">Micro</th>
+						<th style="width:100px;">Nombre</th>
+						<!-- <th style="width:80px;">Micro</th>
 						<th>Telefono</th>
-						<th>Email</th>
+						<th>Email</th> -->
+						<th>Documento</th>
 						<th style="width:10px;">Acción</th>
 					</tr>
 				</thead>
@@ -63,7 +64,7 @@
 							<td>
 								<?=$item['Nombre']?>&nbsp;<?=$item['Apellido']?>
 							</td>
-							<td class="row-center">
+							<!-- <td class="row-center">
 								<?=$item['NombreMicro']?>
 							</td>
 							<td>
@@ -71,6 +72,9 @@
 							</td>
 							<td>
 								<?=$item['Email']?>
+							</td> -->
+							<td>
+								<?=$item['DocumentoNo']?>
 							</td>
 							<td class="row-center">
 								<div class="btn-group  btn-group-sm">

@@ -33,6 +33,21 @@ class Object_model extends CI_Model{
 		}
 		return $query->result_array();
 	}
+
+	function getSetup($showQuery = false) {
+		$setup = array();
+		$setup = $this->get('aplicacion','','',false);
+		if(count($setup) == 0) {
+			//Default values
+			$data['LimiteEventosDashboard'] = 10;
+			$this->insertItem('aplicacion',$data);
+			$setup = $this->get('aplicacion','','',false);
+		}
+		if ($showQuery) {
+			echo "<pre>";print_r($setup);echo " </pre>";
+		}
+		return $setup[0];
+	}
 	
 	function RecCount($table,$field = '') {
 		if ($field === '') {

@@ -31,7 +31,10 @@ class Evento_model extends CI_model{
 					where 	((`a`.`idEvento` = `e`.`idEvento`) and 
 							(`e`.`Estado` = 'Cerrado')) 
 					group by `e`.`idEvento` 
-					order by `e`.`FechaEvento` desc";
+					order by `e`.`FechaEvento` desc ";
+		if($limit != 0) {
+			$querytxt = $querytxt . "LIMIT " . $limit;
+		}
 		$query = $this->db->query($querytxt);
 		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";		
 		return $query->result_array();

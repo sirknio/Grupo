@@ -45,6 +45,9 @@
                             <a href="#"><i class="fa fa-desktop fa-fw"></i> Aplicación<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
+                                    <a href="<?=site_url('aplicacion')?>">Configuración General</a>
+                                </li>
+                                <li>
                                     <a href="<?=site_url('usuario')?>">Usuarios</a>
                                 </li>
                                 <li>

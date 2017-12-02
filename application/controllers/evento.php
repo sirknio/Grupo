@@ -28,8 +28,6 @@ class Evento extends CI_Controller {
 	}	
 	
 	public function createStats($idEvento) {
-		
-		
 		$this->loadData($data,$this->debug);
 		$this->loadHTML($data);
 		$this->load->view('pages/'.$this->pagelist,$data);

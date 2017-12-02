@@ -3,15 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Statistics {
 
-        public function __construct() {
+        //public function __construct() {
             //parent::_construct();
             //$CI =& get_instance();
             //$this->load->model('notificacion_model');
-        }
+        //}
 
         public function loadDashStatistics (&$data = array(),$idGrupo) {
             //Establecer cuantas parejas cumplieron las tres asistencias para subirlas al reporte de la iglesia
-    		//$data['MinAsist'] = $this->notificacion_model->getNewMinAsist($data['userdata']['idGrupo'],5);
+            //$data['MinAsist'] = $this->notificacion_model->getNewMinAsist($data['userdata']['idGrupo'],5);
 
 
         }

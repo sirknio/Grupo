@@ -16,6 +16,12 @@ class Usuario_model extends CI_Model{
 
 			//echo "<pre>";print_r($person);echo "</pre>";
 			
+			$query = $this->db->where('Estado','Abierto');
+			$query = $this->db->get('evento');
+			//$evento = $query->row_array();
+			//echo "<pre>";print_r($evento);echo "</pre>";
+			$user['AsistAbierta'] = $query->num_rows() >= 1;
+			
 			$user['idPersona'] = $person['idPersona'];
 			$user['idGrupo'] = $person['idGrupo'];
 			$user['idMicrocelula'] = $person['idMicrocelula'];

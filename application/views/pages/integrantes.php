@@ -20,7 +20,7 @@
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<!-- /.col-lg-12 -->
-	<div class="col-lg-8">
+	<div class="col-lg-10">
 		<div class="table">
 			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 				<thead>
@@ -29,9 +29,9 @@
 						<!-- <th style="width:80px;">Código</th> -->
 						<th style="width:100px;">Nombre</th>
 						<!-- <th style="width:80px;">Micro</th>
-						<th>Telefono</th>
-						<th>Email</th> -->
-						<th>Documento</th>
+						<th>Telefono</th> -->
+						<th style="width:60px;">Email</th>
+						<th style="width:80px;">Documento</th>
 						<th style="width:10px;">Acción</th>
 					</tr>
 				</thead>
@@ -69,10 +69,10 @@
 							</td>
 							<td>
 								<?=$item['TelefonoMovil']?>
-							</td>
+							</td> -->
 							<td>
 								<?=$item['Email']?>
-							</td> -->
+							</td>
 							<td>
 								<?=$item['DocumentoNo']?>
 							</td>

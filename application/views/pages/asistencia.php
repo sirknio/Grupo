@@ -21,16 +21,16 @@
 							</button>
 						</center>
 					</div>
-					<div class="form-group">
+					<!--<div class="form-group">
 						<center>
 							<a class="btn btn-success" href="<?=site_url('Integrante/insertItem')?>">
 								Crear Asistente
 							</a>
-							<!-- <a class="btn btn-warning">
+							 <a class="btn btn-warning">
 								Buscar
-							</a> -->
+							</a>
 						</center>
-					</div>
+					</div> -->
 				</div>
 				<div class="row">
 					&nbsp;

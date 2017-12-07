@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">L&iacute;deres</a>
+                <a class="navbar-brand" href="<?=site_url('dashboard')?>">Klipsia</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -78,24 +78,29 @@
                                 <li>
                                     <a href="<?=site_url('evento')?>">Gestión Eventos</a>
                                 </li>
+                                <?php if ($userdata['AsistAbierta']): ?>
                                 <li>
                                     <a href="<?=site_url('asistencia')?>">Tomar Asistencia</a>
                                 </li>
+                                <li>
+                                    <a href="<?=site_url('asistencia')?>">Tomar Lista</a>
+                                </li>
+						        <?php endif; ?>                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reportes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
+                                <!-- <li>
                                     <a href="#">Notificaciones</a>
-                                </li>
+                                </li> -->
                                 <li>
                                     <a href="<?=site_url('statistics')?>">Estadísticas</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="#">Reporte Asistencia Iglesia</a>
-                                </li>
+                                </li> -->
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

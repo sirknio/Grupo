@@ -55,7 +55,22 @@ class Evento extends CI_Controller {
 		$update = array('Estado' => 'Cerrado');
 		$where = array($this->pkfield => $id);
 		$this->object_model->updateItem($this->controller,$update,$where);
+		$this->session->set_userdata('AsistAbierta',false);
 		redirect('Evento');
+	}
+		
+	public function reopenEvent($id) {
+		$eventos  = $this->object_model->get($this->controller, $this->orderfield, "Estado = 'Abierto'");
+		if (count($eventos) == 0) {
+			$evento = $this->object_model->get($this->controller, $this->orderfield, array($this->pkfield => $id));
+			$evento = $evento[0];
+
+			$update = array('Estado' => 'Abierto');
+			$where = array($this->pkfield => $id);
+			$this->object_model->updateItem($this->controller,$update,$where);
+			$this->session->set_userdata('AsistAbierta',true);
+			redirect('Evento');
+		}
 	}
 		
 	public function openEvent($id) {
@@ -88,6 +103,7 @@ class Evento extends CI_Controller {
 			$update = array('Estado' => 'Abierto');
 			$where = array($this->pkfield => $id);
 			$this->object_model->updateItem($this->controller,$update,$where);
+			$this->session->set_userdata('AsistAbierta',true);
 			redirect('Evento');
 		} else {
 			//Mostrar error dicendo que ya existen eventos

@@ -29,6 +29,7 @@ class Login extends CI_Controller {
 					$this->session->set_userdata('idMicrocelula',$user['idMicrocelula']);
 					$this->session->set_userdata('Nombre',$user['Nombre']);
 					$this->session->set_userdata('Apellido',$user['Apellido']);
+					$this->session->set_userdata('AsistAbierta',$user['AsistAbierta']);
 					redirect('Dashboard');
 				} else {
 					redirect('login#bad-attempt');

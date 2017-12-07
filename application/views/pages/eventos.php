@@ -3,18 +3,28 @@
 <?=$page['menu']?>
 
 	<div class="col-lg-12">
-		<h1 class="page-header">Eventos</h1>
+		<div class="col-lg-7">
+			<h1 class="page-header">Eventos</h1>
+		</div>
+		<div class="col-lg-2">
+			<br><br>
+			<ul class="nav nav-pills">
+				<li role="showlist">
+					<a href="<?=site_url('Evento/insertItem')?>"><span class="fa fa-calendar fa-fw"></span></a>
+				</li>
+			</ul>
+		</div>
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<!-- /.col-lg-12 -->
-	<div class="col-lg-7">
+	<div class="col-lg-8">
 		<div class="table">
-			<table class="table table-striped table-bordered table-hover">
+			<table class="table table-striped table-bordered table-hover" id="dataTablesEvento">
 				<thead>
 					<tr>
-						<th style="width:10px;">Fecha</th>
+						<th style="width:60px;">Fecha</th>
 						<th>Nombre</th>
-						<th>Estado</th>
+						<th style="width:100px;">Estado</th>
 						<th style="width:10px;">Acción</th>
 					</tr>
 				</thead>
@@ -70,6 +80,18 @@
 										<li>
 											<a href="<?=site_url('Evento/createStats/'.$item['idEvento'])?>">
 											<i class="fa fa-pie-chart fa-fw"></i> Crear Estadisticas
+											</a>
+										</li>
+										<li>
+											<a href="<?=site_url('Evento/reopenEvent/'.$item['idEvento'])?>">
+											<i class="fa fa-pie-chart fa-fw"></i> Reabrir Asistencia
+											</a>
+										</li>
+										<?php endif; ?>
+										<?php if ($item['Estado'] == 'Abierto'): ?>
+										<li>
+											<a href="<?=site_url('Evento/showAssistance/'.$item['idEvento'])?>">
+											<i class="fa fa-list fa-fw"></i> Verificar Lista
 											</a>
 										</li>
 										<?php endif; ?>

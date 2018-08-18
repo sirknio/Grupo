@@ -25,9 +25,15 @@ class Dashboard extends CI_Controller {
 		$data['date'] = '';
 		$data['eventos'] = $this->object_model->get('evento','FechaEvento DESC',
 				array('idGrupo' => $data['userdata']['idGrupo']));
+		
+		//Este es el query para mostrar la grafica prioncipal de asistencia los ultimos grupos
 		$data['asistencia'] = $this->evento_model->getMainGraph($data['userdata']['idGrupo'],
 				$data['setupapp']['LimiteEventosDashboard']);
+
+		//Esta linea esta cargando el js pero realmente no esta cargando nada porque el grafico esta por la view
 		$data['morrisjs'] = 'morris-data-dashboard.js';
+
+		//Esta linea aun no se esta usando
 		$this->statistics->loadDashStatistics($data['statistics'],$data['userdata']['idGrupo']);
 		
 		if($debug) {

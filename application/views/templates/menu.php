@@ -48,15 +48,16 @@
                                     <a href="<?=site_url('aplicacion')?>">Configuración General</a>
                                 </li>
                                 <li>
-                                    <a href="<?=site_url('usuario')?>">Usuarios</a>
+                                    <a href="<?=site_url('Usuario')?>">Usuarios</a>
                                 </li>
                                 <li>
-                                    <a href="<?=site_url('grupo')?>">Grupos</a>
+                                    <a href="<?=site_url('Grupo')?>">Grupos</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
 						<?php endif; ?>
+                        <?php if ($userdata['idGrupo'] != 0): ?>
                         <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Grupo<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -104,6 +105,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

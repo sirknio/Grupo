@@ -22,16 +22,17 @@
 				<input name="Email" class="form-control" placeholder="Correo Electronico" value="<?= set_value('Email')?>" required />
 			</div>
 			<div class="form-group">
-				<label>Persona Asociada</label>
-				<select name="idPersona" class="form-control">
-					<option value="0"> </option>
-					<?php foreach ($Persona as $item): ?>
-						<?php if (set_value('idColider1') != $item['idPersona']): ?>
-							<option value="<?=$item['idPersona']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
+				<label>Grupo al que pertenece</label>
+				<select name="idGrupo" class="form-control">
+					<option  dfs a value="0"> </option>
+					<?php foreach ($Grupo as $item): ?>
+						<?php if (set_value('idGrupo') != $item['idGrupo']): ?>
+							<option value="<?=$item['idGrupo']?>"><?=$item['Nombre'] ?></option>
 						<?php else: ?>
-							<option value="<?=$item['idPersona']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
+							<option value="<?=$item['idGrupo']?>" selected><?=$item['Nombre'] ?></option>
 						<?php endif; ?>
 					<?php endforeach; ?>
+
 				</select>
 			</div>
 			<div class="form-group">

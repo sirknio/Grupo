@@ -19,7 +19,7 @@
 	<!-- /.col-lg-12 -->
 	<div class="col-lg-8">
 		<div class="table">
-			<table class="table table-striped table-bordered table-hover" id="dataTablesEvento">
+			<table class="table table-striped table-bordered table-hover" id="dataTableEvent">
 				<thead>
 					<tr>
 						<th style="width:60px;">Fecha</th>

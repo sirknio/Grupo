@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 18, 2018 at 10:23 PM
+-- Generation Time: Aug 19, 2018 at 12:38 AM
 -- Server version: 5.7.17-log
 -- PHP Version: 7.1.1
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `grupo`
 --
-CREATE DATABASE IF NOT EXISTS `grupo` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `grupo`;
 
 -- --------------------------------------------------------
 
@@ -112,6 +110,7 @@ CREATE TABLE `evento` (
 
 CREATE TABLE `grupo` (
   `idGrupo` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
   `Nombre` varchar(200) NOT NULL,
   `Descripcion` varchar(200) NOT NULL,
   `Categoría` int(11) NOT NULL,
@@ -216,8 +215,12 @@ CREATE TABLE `persona` (
 CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
+  `idGrupo` int(11) NOT NULL,
+  `idMicrocelula` int(11) NOT NULL,
   `TipoUsuario` enum('Asistente','Apoyo','Microlider','Lider','Admin') NOT NULL,
   `Usuario` varchar(100) NOT NULL,
+  `Nombre` varchar(100) NOT NULL,
+  `Apellido` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `Email` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -9,13 +9,15 @@
 	<!-- /.col-lg-12 -->
 	<div class="col-lg-11">
 		<div class="table">
-			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+			<table class="table table-striped table-bordered table-hover" id="dataTableDefault">
 				<thead>
 					<tr>
 						<th style="width:100px;">Usuario</th>
-						<th style="width:100px;">Tipo Usuario</th>
+						<th>Nombres</th>
+						<th>Apellidos</th>
 						<th>Email</th>
-						<th style="width:10px;">Acción</th>
+						<th style="width:100px;">Tipo Usuario</th>
+						<th style="width:70px;">Acción</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -25,10 +27,16 @@
 								<?=$item['Usuario']?>
 							</td>
 							<td>
-								<?=$item['TipoUsuario']?>
+								<?=$item['Nombre']?>
+							</td>
+							<td>
+								<?=$item['Apellido']?>
 							</td>
 							<td>
 								<?=$item['Email']?>
+							</td>
+							<td>
+								<?=$item['TipoUsuario']?>
 							</td>
 							<td class="row-center">
 								<div class="btn-group btn-group-sm">
@@ -53,9 +61,6 @@
 					<?php endforeach; ?>
 				</tbody>
 			</table>
-		</div>
-		<div class="col-lg-12">
-			<a class="btn btn-primary" href="<?=site_url('Usuario/insertItem')?>"><i class="fa fa-users fa-fw"></i> Crear Usuario</a>
 		</div>
 		<!-- /.table-responsive -->
 	</div>

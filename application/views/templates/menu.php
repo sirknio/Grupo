@@ -1,6 +1,6 @@
 
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -13,16 +13,17 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
+                <?= $page['buttons'] ?>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <?= $userdata['Nombre']?>
+                        <i class="fa fa-user fa-fw"></i> <?= $userdata['Usuario'] ?>
 						<i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil Usuario</a>
+                        <li><a href="<?=site_url('Usuario/updateItem/'.$userdata['idUsuario'])?>"><i class="fa fa-user fa-fw"></i> Perfil Usuario</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Configuración</a>
+                        <!-- <li><a href="#"><i class="fa fa-gear fa-fw"></i> Configuración</a> -->
                         </li>
                         <li class="divider"></li>
                         <li><a href="<?=site_url('login/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>

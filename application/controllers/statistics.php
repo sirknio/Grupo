@@ -11,6 +11,7 @@ class Statistics extends CI_Controller {
 	}
 	
 	public function index($print = '') {
+		$data['page']['buttons'] = '';
 		$data['userdata'] = $_SESSION;
 		$data['print'] = $print;
 		$data['morrisjs'] = 'morris-data.js';

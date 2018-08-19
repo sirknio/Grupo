@@ -22,7 +22,7 @@
 	<!-- /.col-lg-12 -->
 	<div class="col-lg-10">
 		<div class="table">
-			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+			<table class="table table-striped table-bordered table-hover" id="dataTableDefault">
 				<thead>
 					<tr>
 						<th style="width:50px;">Foto</th>

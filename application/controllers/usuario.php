@@ -74,6 +74,13 @@ class Usuario extends CI_Controller {
 	//Actualizar registro
 	public function updateItem($id = '',$action = false) {
 		$data['update'] = true;
+
+		if($_SESSION['TipoUsuario'] !== 'Admin') {
+			if($id != $_SESSION['idUsuario']) {
+				$id = $_SESSION['idUsuario'];
+			}
+		}
+
 		if (!$action) {
 			$where = array($this->pkfield => $id);
 			$data['info'] = $this->object_model->get($this->controller,'',$where);
@@ -144,13 +151,24 @@ class Usuario extends CI_Controller {
 	
 	private function loadData(&$data,$debug = false,$id = '') {
 		$data['userdata'] = $_SESSION;
+
+		if($data['userdata']['TipoUsuario'] === 'Admin') {
+			//Este query es para traer los grupos para un usuario, solo si el usuario es Admin los trae todos
+			$data['Grupo'] = $this->object_model->get('grupo','Nombre');
+		} else {
+			//Este query es para traer los grupos para un usuario, solo si el usuario es Admin los trae todos
+			//HUECO: En el option queda un vacío, si el usuario actuliza cero se pierde el vinculo con el grupo
+			$data['Grupo'] = $this->object_model->get('grupo','Nombre',array('idGrupo' => $data['userdata']['idGrupo'])); 
+		}
+		
 		if ($id === '') {
 			$data['records'] = $this->object_model->get($this->controller);
 		} else {
 			$data['records'] = $this->object_model->get($this->controller,$this->orderfield,$this->pkfield.'='.$id);
 		}
-		$data['Persona'] = $this->object_model->get('persona','Nombre');
+		
 		$data['TipoUsuario'] = $this->usuario_model->getTipoUsuarioValues();
+		
 		$data['morrisjs'] = '';
 		if($debug) {
 			$print = $data;
@@ -162,6 +180,7 @@ class Usuario extends CI_Controller {
 
 	//construir la page completa y permite liberar funcion Index
 	private function loadHTML(&$data) {
+		$data['page']['buttons'] = $this->load->view('menubuttons/usuarios',$data,true);
 		$data['page']['header']  = $this->load->view('templates/header',$data,true);
 		$data['page']['menu']    = $this->load->view('templates/menu',$data,true);
 		$data['page']['footer']  = $this->load->view('templates/footer',$data,true);

@@ -13,10 +13,12 @@
 				<thead>
 					<tr>
 						<th style="width:100px;">Usuario</th>
+						<?php if (!$userdata['mobile']): ?>
 						<th>Nombres</th>
 						<th>Apellidos</th>
 						<th>Email</th>
 						<th style="width:100px;">Tipo Usuario</th>
+						<?php endif; ?>
 						<th style="width:70px;">Acción</th>
 					</tr>
 				</thead>
@@ -26,6 +28,7 @@
 							<td>
 								<?=$item['Usuario']?>
 							</td>
+							<?php if (!$userdata['mobile']): ?>
 							<td>
 								<?=$item['Nombre']?>
 							</td>
@@ -38,6 +41,7 @@
 							<td>
 								<?=$item['TipoUsuario']?>
 							</td>
+							<?php endif; ?>
 							<td class="row-center">
 								<div class="btn-group btn-group-sm">
 									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

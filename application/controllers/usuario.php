@@ -20,6 +20,8 @@ class Usuario extends CI_Controller {
 	}
 	
 	public function index($id = '') {
+		$data['update'] = false;
+		$data['insert'] = false;
 		$this->loadData($data,$this->debug,$id);
 		$this->loadHTML($data);
 		$this->load->view('pages/'.$this->pagelist,$data);
@@ -40,6 +42,7 @@ class Usuario extends CI_Controller {
 	//Insertar registro
 	public function insertItem($createId = '') {
 		$data['update'] = false;
+		$data['insert'] = true;
 		If($createId === '') {
 			$this->loadData($data,$this->debug);
 			$this->loadHTML($data);
@@ -73,6 +76,7 @@ class Usuario extends CI_Controller {
 
 	//Actualizar registro
 	public function updateItem($id = '',$action = false) {
+		$data['insert'] = false;
 		$data['update'] = true;
 
 		if($_SESSION['TipoUsuario'] !== 'Admin') {
@@ -180,7 +184,21 @@ class Usuario extends CI_Controller {
 
 	//construir la page completa y permite liberar funcion Index
 	private function loadHTML(&$data) {
-		$data['page']['buttons'] = $this->load->view('menubuttons/usuarios',$data,true);
+		switch(true) {
+			case $data['insert']:
+			case $data['update']:
+				$data['page']['disabled'] = '';
+				if($_SESSION['TipoUsuario'] !== 'Admin') {
+					$data['page']['disabled'] = 'disabled';
+					if($data['insert']) {
+						$_POST['idGrupo'] = $_SESSION['idGrupo'];
+					}
+				}
+				$data['page']['buttons'] = $this->load->view('menubuttons/usuario',$data,true);
+				break;
+			default:
+				$data['page']['buttons'] = $this->load->view('menubuttons/usuarios',$data,true);
+		}
 		$data['page']['header']  = $this->load->view('templates/header',$data,true);
 		$data['page']['menu']    = $this->load->view('templates/menu',$data,true);
 		$data['page']['footer']  = $this->load->view('templates/footer',$data,true);

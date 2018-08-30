@@ -2,6 +2,7 @@
 
 <?=$page['menu']?>
 
+<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	<div class="col-lg-12">
 		<div class="col-lg-9">
 			<h1 class="page-header">Integrantes</h1>
@@ -17,7 +18,6 @@
 				</li>
 			</ul>
 		</div>
-		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<!-- /.col-lg-12 -->
 	<div class="col-lg-10">
@@ -25,19 +25,22 @@
 			<table class="table table-striped table-bordered table-hover" id="dataTableDefault">
 				<thead>
 					<tr>
+						<?php if (!$userdata['mobile']): ?>
 						<th style="width:50px;">Foto</th>
-						<!-- <th style="width:80px;">Código</th> -->
+						<?php endif; ?>
 						<th style="width:100px;">Nombre</th>
-						<!-- <th style="width:80px;">Micro</th>
-						<th>Telefono</th> -->
-						<th style="width:60px;">Email</th>
 						<th style="width:80px;">Documento</th>
-						<th style="width:10px;">Acción</th>
+						<?php if (!$userdata['mobile']): ?>
+						<th style="width:80px;">Micro</th>
+						<th>Email</th>
+						<?php endif; ?>
+						<th style="width:70px;">Acción</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php foreach ($records as $item): ?>
 						<tr>
+							<?php if (!$userdata['mobile']): ?>
 							<td style="text-align:center;">
 								<?php if ($item['foto_filename'] === '') {
 									$img_name  = 'Foto'.$item['idPersona'];
@@ -57,6 +60,7 @@
 									<img src="<?= $img_src ?>" class="logo-circle" style="width:36px;height:36px">
 								</a>
 							</td>
+							<?php endif; ?>
 							<!-- <td class="row-center">
 								<input name="idPersona" type="hidden" value="<?=$item['idPersona']?>">
 								<?=$item['idPersona']?>
@@ -64,18 +68,20 @@
 							<td>
 								<?=$item['Nombre']?>&nbsp;<?=$item['Apellido']?>
 							</td>
-							<!-- <td class="row-center">
+							<td>
+								<?=$item['DocumentoNo']?>
+							</td>
+							<?php if (!$userdata['mobile']): ?>
+							<td class="row-center">
 								<?=$item['NombreMicro']?>
 							</td>
-							<td>
+							<!-- <td>
 								<?=$item['TelefonoMovil']?>
 							</td> -->
 							<td>
 								<?=$item['Email']?>
 							</td>
-							<td>
-								<?=$item['DocumentoNo']?>
-							</td>
+							<?php endif; ?>
 							<td class="row-center">
 								<div class="btn-group  btn-group-sm">
 									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -64,8 +64,12 @@
     <!-- DataTables JavaScript -->
     <script src="<?=base_url('')?>public/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="<?=base_url('')?>public/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="<?=base_url('')?>public/vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<script src="<?=base_url('')?>public/vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<?php if (isset($mobile) && $mobile): ?>
+	<script src="<?=base_url('')?>public/vendor/custom/datatable.mobile.js"></script>
+	<?php else: ?>
 	<script src="<?=base_url('')?>public/vendor/custom/datatable.js"></script>
+	<?php endif; ?>
 
     <!-- Morris Charts JavaScript -->
     <script src="<?=base_url('')?>public/vendor/raphael/raphael.min.js"></script>

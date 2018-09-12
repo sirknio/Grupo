@@ -68,7 +68,7 @@
 						<div class="form-group">
 							<label>Fecha Nacimiento</label>
 							<div class="input-group date form_birthdate" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-								<input class="form-control" name="FechaNacimiento" size="16" type="text" value="<?= set_value('FechaNacimiento')?>" placeholder="Seleccione Fecha" readonly>
+								<input class="form-control" name="FechaNacimiento" size="16" type="text" <?php if (set_value('FechaNacimiento') != '0000-00-00') echo "value=".set_value('FechaNacimiento');?> placeholder="Seleccione Fecha" readonly>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 							</div>
@@ -137,7 +137,9 @@
 								<option value=""> </option>
 								<?php foreach ($Persona as $item): ?>
 									<?php if (set_value('idConyugue') != $item['idPersona']): ?>
-										<option value="<?=$item['idPersona']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
+										<?php if (($item['idConyugue'] == 0) && (set_value('Genero') != $item['Genero'])): ?>
+											<option value="<?=$item['idPersona']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
+										<?php endif; ?>
 									<?php else: ?>
 										<option value="<?=$item['idPersona']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
 									<?php endif; ?>
@@ -147,7 +149,7 @@
 						<div class="form-group">
 							<label>Fecha Matrimonio</label>
 							<div class="input-group date form_birthdate" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-								<input class="form-control" name="FechaMatrimonio" size="16" type="text" value="<?= set_value('FechaMatrimonio')?>" placeholder="Seleccione Fecha" readonly>
+								<input class="form-control" name="FechaMatrimonio" size="16" type="text" <?php if (set_value('FechaMatrimonio') != '0000-00-00') echo "value=".set_value('FechaMatrimonio');?> placeholder="Seleccione Fecha" readonly>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 							</div>
@@ -159,7 +161,7 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Iglesia</h3>
+						<h3 class="panel-title">Grupo Conexi&oacute;n (Solo para Microl&iacute;der)</h3>
 					</div>
 					<div class="panel-body">
 						<div class="form-group">

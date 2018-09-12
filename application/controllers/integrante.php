@@ -149,6 +149,23 @@ class Integrante extends CI_Controller {
 			$this->loadData($data,$this->debug,'','',$id);
 			$where = array($this->pkfield => $id);
 			if ($this->object_model->updateItem($this->tablename,$data['update'],$where)) {
+				//Actualizar el conyugue con la información
+				$dataspouse = [];
+				$dataspouse = ['idConyugue' => $id];
+				if ($data['update']['FechaMatrimonio'] != "0000-00-00")
+					$dataspouse += ['FechaMatrimonio' => $data['update']['FechaMatrimonio']];
+				if ($data['update']['idMicrocelula'] != "")
+					$dataspouse += ['idMicrocelula' => $data['update']['idMicrocelula']];
+				if ($data['update']['EstadoCivil'] != "")
+					$dataspouse += ['EstadoCivil' => $data['update']['EstadoCivil']];
+				if ($data['update']['foto_filepath'] != "")
+					$dataspouse += ['foto_filepath' => $data['update']['foto_filepath']];
+				if ($data['update']['foto_filename'] != "")
+					$dataspouse += ['foto_filename' => $data['update']['foto_filename']];
+				$where = array($this->pkfield => $data['update']['idConyugue']);
+				$this->object_model->updateItem($this->tablename,$dataspouse,$where);
+				//fin
+				
 				$this->loadImg($data,'update',$this->imgfield);
 				//echo "<pre>";echo "OK CARGUE DE IMAGEN";echo "</pre>";
 				redirect($this->controller);

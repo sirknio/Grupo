@@ -1,4 +1,4 @@
-<?
+<?php
 $errormsg = array (
 	'required'    => 'El campo %s es requerido.',
 	'is_unique'   => 'El valor en el campo {field} ya existe.',

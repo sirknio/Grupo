@@ -8,7 +8,7 @@
 	<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 </div>
 <!-- /.col-lg-12 -->
-<div class="col-lg-6">
+<div class="col-lg-3">
 	<div class="form-group">
 		<label>Cantidad Eventos Dashboard</label>
 		<input name="LimiteEventosDashboard" class="form-control" placeholder="Limite Eventos Dashboard" value="<?= set_value('LimiteEventosDashboard')?>" required>

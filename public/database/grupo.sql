@@ -2,10 +2,10 @@
 -- version 4.6.6
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 19, 2018 at 12:38 AM
--- Server version: 5.7.17-log
--- PHP Version: 7.1.1
+-- Servidor: localhost
+-- Tiempo de generación: 12-09-2018 a las 03:51:55
+-- Versión del servidor: 5.7.17-log
+-- Versión de PHP: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `grupo`
+-- Base de datos: `grupo`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `aplicacion`
+-- Estructura de tabla para la tabla `aplicacion`
 --
 
 CREATE TABLE `aplicacion` (
@@ -34,10 +34,11 @@ CREATE TABLE `aplicacion` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `asistencia`
+-- Estructura de tabla para la tabla `asistencia`
 --
 
 CREATE TABLE `asistencia` (
+  `idAsistencia` int(11) NOT NULL,
   `idEvento` int(11) NOT NULL,
   `idGrupo` int(11) NOT NULL,
   `idMicro` int(11) NOT NULL,
@@ -53,42 +54,7 @@ CREATE TABLE `asistencia` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `asistpersona`
---
-
-CREATE TABLE `asistpersona` (
-  `idGrupo` int(11) DEFAULT NULL,
-  `idMicro` int(11) DEFAULT NULL,
-  `FechaEvento` date DEFAULT NULL,
-  `idPersona` int(11) DEFAULT NULL,
-  `Nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Apellido` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Eventos` bigint(21) DEFAULT NULL,
-  `Asiste` decimal(25,0) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `categoria`
---
-
-CREATE TABLE `categoria` (
-  `idCategoria` int(11) NOT NULL,
-  `NombreCategoria` varchar(200) NOT NULL,
-  `Descripcion` varchar(200) NOT NULL,
-  `EdadRangoMin` int(11) NOT NULL COMMENT 'Edad Minima para Categoria',
-  `EdadRangoMax` int(11) NOT NULL COMMENT 'Edad Maxima para Categoria',
-  `EstadoCivil` enum('Soltero','Casado','Union Libre','Viudo') NOT NULL,
-  `Hijos` tinyint(1) NOT NULL COMMENT 'Requiere hijos para Categoria',
-  `EdadHijoRangoMin` int(11) NOT NULL COMMENT 'Edad Minima Referencia Hijo Mayor',
-  `EdadHijoRangoMax` int(11) NOT NULL COMMENT 'Edad Maxima Referencia Hijo Mayor'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `evento`
+-- Estructura de tabla para la tabla `evento`
 --
 
 CREATE TABLE `evento` (
@@ -105,12 +71,11 @@ CREATE TABLE `evento` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `grupo`
+-- Estructura de tabla para la tabla `grupo`
 --
 
 CREATE TABLE `grupo` (
   `idGrupo` int(11) NOT NULL,
-  `idUsuario` int(11) NOT NULL,
   `Nombre` varchar(200) NOT NULL,
   `Descripcion` varchar(200) NOT NULL,
   `Categoría` int(11) NOT NULL,
@@ -123,7 +88,7 @@ CREATE TABLE `grupo` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hijos`
+-- Estructura de tabla para la tabla `hijos`
 --
 
 CREATE TABLE `hijos` (
@@ -137,7 +102,7 @@ CREATE TABLE `hijos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `microcelula`
+-- Estructura de tabla para la tabla `microcelula`
 --
 
 CREATE TABLE `microcelula` (
@@ -164,7 +129,7 @@ CREATE TABLE `microcelula` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notificacion`
+-- Estructura de tabla para la tabla `notificacion`
 --
 
 CREATE TABLE `notificacion` (
@@ -178,7 +143,7 @@ CREATE TABLE `notificacion` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `persona`
+-- Estructura de tabla para la tabla `persona`
 --
 
 CREATE TABLE `persona` (
@@ -209,107 +174,116 @@ CREATE TABLE `persona` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
-  `idGrupo` int(11) NOT NULL,
-  `idMicrocelula` int(11) NOT NULL,
   `TipoUsuario` enum('Asistente','Apoyo','Microlider','Lider','Admin') NOT NULL,
   `Usuario` varchar(100) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Apellido` varchar(100) NOT NULL,
+  `Nombre` text NOT NULL,
+  `Apellido` text NOT NULL,
   `Password` varchar(100) NOT NULL,
   `Email` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `evento`
+-- Indices de la tabla `asistencia`
+--
+ALTER TABLE `asistencia`
+  ADD PRIMARY KEY (`idAsistencia`);
+
+--
+-- Indices de la tabla `evento`
 --
 ALTER TABLE `evento`
   ADD PRIMARY KEY (`idEvento`);
 
 --
--- Indexes for table `grupo`
+-- Indices de la tabla `grupo`
 --
 ALTER TABLE `grupo`
   ADD PRIMARY KEY (`idGrupo`);
 
 --
--- Indexes for table `hijos`
+-- Indices de la tabla `hijos`
 --
 ALTER TABLE `hijos`
   ADD PRIMARY KEY (`idHijo`);
 
 --
--- Indexes for table `microcelula`
+-- Indices de la tabla `microcelula`
 --
 ALTER TABLE `microcelula`
   ADD PRIMARY KEY (`idMicrocelula`);
 
 --
--- Indexes for table `notificacion`
+-- Indices de la tabla `notificacion`
 --
 ALTER TABLE `notificacion`
   ADD PRIMARY KEY (`idNotificacion`);
 
 --
--- Indexes for table `persona`
+-- Indices de la tabla `persona`
 --
 ALTER TABLE `persona`
   ADD PRIMARY KEY (`idPersona`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUsuario`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `evento`
+-- AUTO_INCREMENT de la tabla `asistencia`
+--
+ALTER TABLE `asistencia`
+  MODIFY `idAsistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4019;
+--
+-- AUTO_INCREMENT de la tabla `evento`
 --
 ALTER TABLE `evento`
-  MODIFY `idEvento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `idEvento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
--- AUTO_INCREMENT for table `grupo`
+-- AUTO_INCREMENT de la tabla `grupo`
 --
 ALTER TABLE `grupo`
-  MODIFY `idGrupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `idGrupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
--- AUTO_INCREMENT for table `hijos`
+-- AUTO_INCREMENT de la tabla `hijos`
 --
 ALTER TABLE `hijos`
   MODIFY `idHijo` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `microcelula`
+-- AUTO_INCREMENT de la tabla `microcelula`
 --
 ALTER TABLE `microcelula`
   MODIFY `idMicrocelula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `notificacion`
+-- AUTO_INCREMENT de la tabla `notificacion`
 --
 ALTER TABLE `notificacion`
   MODIFY `idNotificacion` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `persona`
+-- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
   MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

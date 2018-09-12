@@ -97,14 +97,16 @@ class Usuario extends CI_Controller {
 			$data['update'] = $_POST;
 			if ($data['update']['Password'] == $data['update']['Password2']) {
 				unset($data['update']['Password2']);
-				$data['update']['Password'] = md5(sha1($data['update']['Password']));
 				if ($data['update']['Password'] == '') {
 					unset($data['update']['Password']);
+				} else {
+					//echo "<pre>>>>"; print_r($data['update']['Password']); echo "<<<</pre>";
+					$data['update']['Password'] = md5(sha1($data['update']['Password']));
 				}
 				$this->loadData($data,$this->debug,$id);
 				$where = array($this->pkfield => $id);
-				if ($this->object_model->updateItem($this->controller,$data['update'],$where)) {
-					$this->loadImg($data,'update',$this->imgfield);
+				if ($this->object_model->updateItem($this->controller,$data['update'],$where,true)) {
+					//$this->loadImg($data,'update',$this->imgfield);
 					redirect($this->controller);
 				} else {
 					//Establecer mensaje de error en actualizar datos

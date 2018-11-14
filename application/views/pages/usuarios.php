@@ -7,19 +7,15 @@
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<!-- /.col-lg-12 -->
-	<div class="col-lg-11">
+	<div class="col-lg-8">
 		<div class="table">
-			<table class="table table-striped table-bordered table-hover" id="dataTableDefault">
+			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 				<thead>
 					<tr>
 						<th style="width:100px;">Usuario</th>
-						<?php if (!$userdata['mobile']): ?>
-						<th>Nombres</th>
-						<th>Apellidos</th>
-						<th>Email</th>
 						<th style="width:100px;">Tipo Usuario</th>
-						<?php endif; ?>
-						<th style="width:70px;">Acción</th>
+						<th>Email</th>
+						<th style="width:10px;">Acción</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -28,20 +24,12 @@
 							<td>
 								<?=$item['Usuario']?>
 							</td>
-							<?php if (!$userdata['mobile']): ?>
 							<td>
-								<?=$item['Nombre']?>
-							</td>
-							<td>
-								<?=$item['Apellido']?>
+								<?=$item['TipoUsuario']?>
 							</td>
 							<td>
 								<?=$item['Email']?>
 							</td>
-							<td>
-								<?=$item['TipoUsuario']?>
-							</td>
-							<?php endif; ?>
 							<td class="row-center">
 								<div class="btn-group btn-group-sm">
 									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -65,6 +53,9 @@
 					<?php endforeach; ?>
 				</tbody>
 			</table>
+		</div>
+		<div class="col-lg-12">
+			<a class="btn btn-primary" href="<?=site_url('Usuario/insertItem')?>"><i class="fa fa-users fa-fw"></i> Crear Usuario</a>
 		</div>
 		<!-- /.table-responsive -->
 	</div>

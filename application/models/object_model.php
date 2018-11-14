@@ -10,18 +10,8 @@ class Object_model extends CI_Model{
 		}
 	}
 	
-	function updateItem($table,$data,$where,$showQuery = false) {
-		if ($this->db->update($table,$data,$where)) {
-			if ($showQuery) {
-				echo "<pre>";print_r($this->db->last_query());echo "</pre>";
-			}
-			return true;
-		} else {
-			if ($showQuery) {
-				echo "<pre>";print_r($this->db->last_query());echo "</pre>";
-				sleep(30);
-			}
-		}
+	function updateItem($table,$data,$where) {
+		return $this->db->update($table,$data,$where);
 	}
 	
 	function deleteItem($table,$data) {

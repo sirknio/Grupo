@@ -93,7 +93,6 @@ class Aplicacion extends CI_Controller {
 
 	//construir la page completa y permite liberar funcion Index
 	private function loadHTML(&$data) {
-		$data['page']['buttons'] = $this->load->view('menubuttons/aplicacion',$data,true);
 		$data['page']['header']  = $this->load->view('templates/header',$data,true);
 		$data['page']['menu']    = $this->load->view('templates/menu',$data,true);
 		$data['page']['footer']  = $this->load->view('templates/footer',$data,true);

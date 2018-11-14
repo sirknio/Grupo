@@ -1,15 +1,20 @@
 <?=$page['header']?>
 
 <?=$page['menu']?>
-
 <?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	<div class="col-lg-12">
-		<div class="col-lg-9">
+		<div class="col-lg-8">
 			<h1 class="page-header">Integrantes</h1>
 		</div>
-		<div class="col-lg-2">
+		<div class="col-lg-3">
 			<br><br>
 			<ul class="nav nav-pills">
+				<li>
+					<a class="btn btn-primary" href="<?=site_url('Integrante/insertItem')?>"><i class="fa fa-user fa-fw"></i> Crear </a>
+				</li>
+				<li>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+				</li>
 				<li role="showlist" class="active">
 					<a href="<?=site_url('Integrante/index/'.$userdata['idGrupo'])?>"><span class="glyphicon glyphicon-th-list"></span></a>
 				</li>
@@ -20,28 +25,31 @@
 		</div>
 	</div>
 	<!-- /.col-lg-12 -->
-	<div class="col-lg-10">
+	<div class="col-lg-12">
 		<div class="table">
-			<table class="table table-striped table-bordered table-hover" id="dataTableDefault">
+			<table class="table table-striped table-bordered table-hover display nowrap" style="width:100%" id="dataTables-integrantes">
 				<thead>
 					<tr>
-						<?php if (!$userdata['mobile']): ?>
-						<th style="width:50px;">Foto</th>
-						<?php endif; ?>
-						<th style="width:100px;">Nombre</th>
-						<th style="width:80px;">Documento</th>
-						<?php if (!$userdata['mobile']): ?>
+						<!--<th style="width:50px;">Foto</th>
+						 <th style="width:80px;">Código</th> -->
+						<th>Nombre</th>
+						<?php if (!$mobile): ?>
 						<th style="width:80px;">Micro</th>
+						<?php endif; ?>
+						<th>Documento</th>
+						<?php if (!$mobile): ?>
+						<th>Telefono</th>
+						<th>Fecha Nacimiento</th>
+						<th>Fecha Matrimonio</th>
 						<th>Email</th>
 						<?php endif; ?>
-						<th style="width:70px;">Acción</th>
+						<th style="width:10px;">Acción</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php foreach ($records as $item): ?>
 						<tr>
-							<?php if (!$userdata['mobile']): ?>
-							<td style="text-align:center;">
+							<!-- <td style="text-align:center;">
 								<?php if ($item['foto_filename'] === '') {
 									$img_name  = 'Foto'.$item['idPersona'];
 									if ($item['Genero'] == 'Masculino') {
@@ -60,24 +68,31 @@
 									<img src="<?= $img_src ?>" class="logo-circle" style="width:36px;height:36px">
 								</a>
 							</td>
-							<?php endif; ?>
-							<!-- <td class="row-center">
+							<td class="row-center">
 								<input name="idPersona" type="hidden" value="<?=$item['idPersona']?>">
 								<?=$item['idPersona']?>
 							</td> -->
 							<td>
 								<?=$item['Nombre']?>&nbsp;<?=$item['Apellido']?>
 							</td>
-							<td>
-								<?=$item['DocumentoNo']?>
-							</td>
-							<?php if (!$userdata['mobile']): ?>
+							<?php if (!$mobile): ?>
 							<td class="row-center">
 								<?=$item['NombreMicro']?>
 							</td>
-							<!-- <td>
+							<?php endif; ?>
+							<td>
+								<?=$item['DocumentoNo']?>
+							</td>
+							<?php if (!$mobile): ?>
+							<td>
 								<?=$item['TelefonoMovil']?>
-							</td> -->
+							</td>
+							<td>
+								<?=$item['FechaNacimiento']?>
+							</td>
+							<td>
+								<?=$item['FechaMatrimonio']?>
+							</td>
 							<td>
 								<?=$item['Email']?>
 							</td>

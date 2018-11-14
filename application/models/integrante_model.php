@@ -40,7 +40,11 @@ function getEstadoCivilValues() {
 				WHERE 	p.idGrupo = g.idGrupo
 					AND p.idMicrocelula = m.idMicrocelula";
 		if($idGrupo != '') $querytxt = $querytxt." AND g.idGrupo = ".$idGrupo;
-		if($idMicro != '') $querytxt = $querytxt." AND m.idMicrocelula = ".$idMicro;
+		if($idMicro != '') {
+			$querytxt = $querytxt." AND m.idMicrocelula = ".$idMicro;
+		} else {
+			$querytxt = $querytxt." AND m.idMicrocelula != 3";
+		}
 		if($id != '')      $querytxt = $querytxt." AND p.idPersona = ".$id;
 		$querytxt = $querytxt." ORDER BY p.Nombre";
 		$query = $this->db->query($querytxt);

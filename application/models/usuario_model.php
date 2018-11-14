@@ -10,9 +10,9 @@ class Usuario_model extends CI_Model{
 			//echo "<pre>";print_r($this->db->last_query());echo "</pre>";
 			$user = $query->row_array();
 			
-			//$query = $this->db->where('idPersona',$user['idPersona']);
-			//$query = $this->db->get('persona');
-			//$person = $query->row_array();
+			$query = $this->db->where('idPersona',$user['idPersona']);
+			$query = $this->db->get('persona');
+			$person = $query->row_array();
 
 			//echo "<pre>";print_r($person);echo "</pre>";
 			
@@ -22,12 +22,12 @@ class Usuario_model extends CI_Model{
 			//echo "<pre>";print_r($evento);echo "</pre>";
 			$user['AsistAbierta'] = $query->num_rows() >= 1;
 			
-			//$user['idPersona'] = $person['idPersona'];
-			//$user['idGrupo'] = $person['idGrupo'];
-			//$user['idMicrocelula'] = $person['idMicrocelula'];
+			$user['idPersona'] = $person['idPersona'];
+			$user['idGrupo'] = $person['idGrupo'];
+			$user['idMicrocelula'] = $person['idMicrocelula'];
 			//$user['NombreUsuario'] = $person['NombreUsuario'];
-			//$user['Nombre'] = $person['Nombre'];
-			//$user['Apellido'] = $person['Apellido'];
+			$user['Nombre'] = $person['Nombre'];
+			$user['Apellido'] = $person['Apellido'];
 			return($user);
 		} else {
 			$user = '';

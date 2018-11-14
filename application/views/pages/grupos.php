@@ -9,7 +9,7 @@
 	<!-- /.col-lg-12 -->
 	<div class="col-lg-11">
 		<div class="table">
-			<table class="table table-striped table-bordered table-hover" id="dataTableDefault">
+			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 				<thead>
 					<tr>
 						<th>Logo</th>

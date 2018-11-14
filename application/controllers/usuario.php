@@ -20,8 +20,6 @@ class Usuario extends CI_Controller {
 	}
 	
 	public function index($id = '') {
-		$data['update'] = false;
-		$data['insert'] = false;
 		$this->loadData($data,$this->debug,$id);
 		$this->loadHTML($data);
 		$this->load->view('pages/'.$this->pagelist,$data);
@@ -42,7 +40,6 @@ class Usuario extends CI_Controller {
 	//Insertar registro
 	public function insertItem($createId = '') {
 		$data['update'] = false;
-		$data['insert'] = true;
 		If($createId === '') {
 			$this->loadData($data,$this->debug);
 			$this->loadHTML($data);
@@ -76,15 +73,7 @@ class Usuario extends CI_Controller {
 
 	//Actualizar registro
 	public function updateItem($id = '',$action = false) {
-		$data['insert'] = false;
 		$data['update'] = true;
-
-		if($_SESSION['TipoUsuario'] !== 'Admin') {
-			if($id != $_SESSION['idUsuario']) {
-				$id = $_SESSION['idUsuario'];
-			}
-		}
-
 		if (!$action) {
 			$where = array($this->pkfield => $id);
 			$data['info'] = $this->object_model->get($this->controller,'',$where);
@@ -97,16 +86,14 @@ class Usuario extends CI_Controller {
 			$data['update'] = $_POST;
 			if ($data['update']['Password'] == $data['update']['Password2']) {
 				unset($data['update']['Password2']);
+				$data['update']['Password'] = md5(sha1($data['update']['Password']));
 				if ($data['update']['Password'] == '') {
 					unset($data['update']['Password']);
-				} else {
-					//echo "<pre>>>>"; print_r($data['update']['Password']); echo "<<<</pre>";
-					$data['update']['Password'] = md5(sha1($data['update']['Password']));
 				}
 				$this->loadData($data,$this->debug,$id);
 				$where = array($this->pkfield => $id);
-				if ($this->object_model->updateItem($this->controller,$data['update'],$where,true)) {
-					//$this->loadImg($data,'update',$this->imgfield);
+				if ($this->object_model->updateItem($this->controller,$data['update'],$where)) {
+					$this->loadImg($data,'update',$this->imgfield);
 					redirect($this->controller);
 				} else {
 					//Establecer mensaje de error en actualizar datos
@@ -157,24 +144,13 @@ class Usuario extends CI_Controller {
 	
 	private function loadData(&$data,$debug = false,$id = '') {
 		$data['userdata'] = $_SESSION;
-
-		if($data['userdata']['TipoUsuario'] === 'Admin') {
-			//Este query es para traer los grupos para un usuario, solo si el usuario es Admin los trae todos
-			$data['Grupo'] = $this->object_model->get('grupo','Nombre');
-		} else {
-			//Este query es para traer los grupos para un usuario, solo si el usuario es Admin los trae todos
-			//HUECO: En el option queda un vacío, si el usuario actuliza cero se pierde el vinculo con el grupo
-			$data['Grupo'] = $this->object_model->get('grupo','Nombre',array('idGrupo' => $data['userdata']['idGrupo'])); 
-		}
-		
 		if ($id === '') {
 			$data['records'] = $this->object_model->get($this->controller);
 		} else {
 			$data['records'] = $this->object_model->get($this->controller,$this->orderfield,$this->pkfield.'='.$id);
 		}
-		
+		$data['Persona'] = $this->object_model->get('persona','Nombre');
 		$data['TipoUsuario'] = $this->usuario_model->getTipoUsuarioValues();
-		
 		$data['morrisjs'] = '';
 		if($debug) {
 			$print = $data;
@@ -186,21 +162,6 @@ class Usuario extends CI_Controller {
 
 	//construir la page completa y permite liberar funcion Index
 	private function loadHTML(&$data) {
-		switch(true) {
-			case $data['insert']:
-			case $data['update']:
-				$data['page']['disabled'] = '';
-				if($_SESSION['TipoUsuario'] !== 'Admin') {
-					$data['page']['disabled'] = 'disabled';
-					if($data['insert']) {
-						$_POST['idGrupo'] = $_SESSION['idGrupo'];
-					}
-				}
-				$data['page']['buttons'] = $this->load->view('menubuttons/usuario',$data,true);
-				break;
-			default:
-				$data['page']['buttons'] = $this->load->view('menubuttons/usuarios',$data,true);
-		}
 		$data['page']['header']  = $this->load->view('templates/header',$data,true);
 		$data['page']['menu']    = $this->load->view('templates/menu',$data,true);
 		$data['page']['footer']  = $this->load->view('templates/footer',$data,true);

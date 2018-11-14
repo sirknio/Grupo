@@ -10,16 +10,16 @@
 			<br><br>
 			<ul class="nav nav-pills">
 				<li role="showlist">
-					<a href="<?=site_url('Evento/insertItem')?>"><span class="fa fa-calendar fa-fw"></span></a>
+					<a class="btn btn-primary" href="<?=site_url('Evento/insertItem')?>"><span class="fa fa-calendar fa-fw"></span> Crear</a>
 				</li>
 			</ul>
 		</div>
-		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
+	<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	<!-- /.col-lg-12 -->
 	<div class="col-lg-8">
 		<div class="table">
-			<table class="table table-striped table-bordered table-hover" id="dataTableEvent">
+			<table class="table table-striped table-bordered table-hover" id="dataTablesEvento">
 				<thead>
 					<tr>
 						<th style="width:60px;">Fecha</th>
@@ -78,13 +78,18 @@
 										<?php endif; ?>
 										<?php if ($item['Estado'] == 'Cerrado'): ?>
 										<li>
-											<a href="<?=site_url('Evento/createStats/'.$item['idEvento'])?>">
-											<i class="fa fa-pie-chart fa-fw"></i> Crear Estadisticas
+											<a href="<?=site_url('Evento/showNewAssistance/'.$item['idEvento'])?>">
+											<i class="fa fa-list fa-fw"></i> Ver Nuevos
 											</a>
 										</li>
 										<li>
 											<a href="<?=site_url('Evento/reopenEvent/'.$item['idEvento'])?>">
-											<i class="fa fa-pie-chart fa-fw"></i> Reabrir Asistencia
+											<i class="fa fa-calendar fa-fw"></i> Reabrir Asistencia
+											</a>
+										</li>
+										<li>
+											<a href="<?=site_url('Evento/createStats/'.$item['idEvento'])?>">
+											<i class="fa fa-pie-chart fa-fw"></i> Crear Estadisticas
 											</a>
 										</li>
 										<?php endif; ?>

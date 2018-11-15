@@ -55,7 +55,7 @@
                         <?= form_open('login'); ?>
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Nombre Usuario" name="usuario" type="username" value="" autofocus>
+                                    <input class="form-control" placeholder="Nombre Usuario" name="usuario" type="text" value="" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Contraseña" name="password" type="password" value="">

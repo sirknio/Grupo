@@ -2,12 +2,12 @@
 
 <?=$page['menu']?>
 
-	<div class="col-lg-12">
+	<div class="col-lg-11">
 		<h1 class="page-header">Microcelulas</h1>
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<!-- /.col-lg-12 -->
-	<div class="col-lg-12">
+	<div class="col-lg-11">
 		<div class="table">
 			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 				<thead>

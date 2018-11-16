@@ -2,7 +2,7 @@
 
 <?=$page['menu']?>
 
-	<div class="col-lg-12">
+	<div class="col-lg-11">
 		<h1 class="page-header">Grupos</h1>
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>

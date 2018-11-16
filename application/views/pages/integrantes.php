@@ -10,9 +10,6 @@
 			<li>
 				<a class="btn btn-primary" href="<?=site_url('Integrante/insertItem')?>"><i class="fa fa-user fa-fw"></i> Crear </a>
 			</li>
-			<li>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-			</li>
 			<li role="showlist" class="active">
 				<a href="<?=site_url('Integrante/index/'.$userdata['idGrupo'])?>"><span class="glyphicon glyphicon-th-list"></span></a>
 			</li>

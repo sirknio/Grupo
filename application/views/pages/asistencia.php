@@ -6,7 +6,7 @@
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 		<div class="col-md-3 col-sm-6 assistance">
 			<?php if (!isset($no_evento)) :?>
-				<div class="row">
+				<div class="col-md-12">
 					<input name="idEvento" type="hidden" value="<?= set_value('idEvento')?>">
 					<input name="idGrupo" type="hidden" value="<?= set_value('idGrupo')?>">
 					<div class="form-group">
@@ -21,10 +21,10 @@
 						</center>
 					</div>
 				</div>
-				<div class="row">
+				<div class="col-md-12">
 					&nbsp;
 				</div>
-				<div class="row">
+				<div class="col-md-12">
 					<?php if (isset($success)): ?> 
 						<div class="alert alert-success"><?= $success ?></div>
 					<?php endif; ?>

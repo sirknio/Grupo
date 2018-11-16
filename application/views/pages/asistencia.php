@@ -3,9 +3,8 @@
 <?=$page['menu']?>
 
 	<?= form_open_multipart('Asistencia/checkAsist'); ?>
-		<div class="col-lg-12"><h4></h4></div>
 		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
-		<div class="col-lg-3">
+		<div class="col-md-3 col-sm-6 assistance">
 			<?php if (!isset($no_evento)) :?>
 				<div class="row">
 					<input name="idEvento" type="hidden" value="<?= set_value('idEvento')?>">
@@ -21,16 +20,6 @@
 							</button>
 						</center>
 					</div>
-					<!--<div class="form-group">
-						<center>
-							<a class="btn btn-success" href="<?=site_url('Integrante/insertItem')?>">
-								Crear Asistente
-							</a>
-							 <a class="btn btn-warning">
-								Buscar
-							</a>
-						</center>
-					</div> -->
 				</div>
 				<div class="row">
 					&nbsp;

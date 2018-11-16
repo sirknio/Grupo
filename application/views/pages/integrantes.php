@@ -2,30 +2,27 @@
 
 <?=$page['menu']?>
 <?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
-	<div class="col-lg-12">
-		<div class="col-lg-8">
-			<h1 class="page-header">Integrantes</h1>
-		</div>
-		<div class="col-lg-3">
-			<br><br>
-			<ul class="nav nav-pills">
-				<li>
-					<a class="btn btn-primary" href="<?=site_url('Integrante/insertItem')?>"><i class="fa fa-user fa-fw"></i> Crear </a>
-				</li>
-				<li>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-				</li>
-				<li role="showlist" class="active">
-					<a href="<?=site_url('Integrante/index/'.$userdata['idGrupo'])?>"><span class="glyphicon glyphicon-th-list"></span></a>
-				</li>
-				<li role="showlist">
-					<a href="<?=site_url('Integrante/index/'.$userdata['idGrupo'].'/0/0/square')?>"><span class="glyphicon glyphicon-th"></span></a>
-				</li>
-			</ul>
-		</div>
+	<div class="col-md-8">
+		<h1 class="page-header">Integrantes</h1>
+	</div>
+	<div class="col-md-4">
+		<ul class="nav nav-pills custbuttons">
+			<li>
+				<a class="btn btn-primary" href="<?=site_url('Integrante/insertItem')?>"><i class="fa fa-user fa-fw"></i> Crear </a>
+			</li>
+			<li>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</li>
+			<li role="showlist" class="active">
+				<a href="<?=site_url('Integrante/index/'.$userdata['idGrupo'])?>"><span class="glyphicon glyphicon-th-list"></span></a>
+			</li>
+			<li role="showlist">
+				<a href="<?=site_url('Integrante/index/'.$userdata['idGrupo'].'/0/0/square')?>"><span class="glyphicon glyphicon-th"></span></a>
+			</li>
+		</ul>
 	</div>
 	<!-- /.col-lg-12 -->
-	<div class="col-lg-12">
+	<div class="col-lg-11">
 		<div class="table">
 			<table class="table table-striped table-bordered table-hover display nowrap" style="width:100%" id="dataTables-integrantes">
 				<thead>

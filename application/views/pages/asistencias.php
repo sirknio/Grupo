@@ -12,11 +12,16 @@
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<th>Apellido</th>
-						<th>Nombre</th>
+						<th>Apellidos</th>
+						<th>Nombres</th>
 						<th>Cédula</th>
+						<th>Dirección</th>
 						<th>Telefono</th>
-						<th>E-mail</th>
+						<th>Celular</th>
+						<th>Email</th>
+						<th>Nacimiento</th>
+						<th>Género</th>
+						<th>Estado Civil</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,10 +37,25 @@
 								<?= $item['DocumentoNo'] ?>
 							</td>
 							<td>
+								<?= $item['Direccion'] ?>
+							</td>
+							<td>
+								<?= $item['TelefonoResidencia'] ?>
+							</td>
+							<td>
 								<?= $item['TelefonoMovil'] ?>
 							</td>
 							<td>
 								<?= $item['Email'] ?>
+							</td>
+							<td>
+								<?= $item['FechaNacimiento'] ?>
+							</td>
+							<td>
+								<?= $item['Genero'] ?>
+							</td>
+							<td>
+								<?= $item['EstadoCivil'] ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>

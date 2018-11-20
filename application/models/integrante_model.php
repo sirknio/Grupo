@@ -38,12 +38,16 @@ function getEstadoCivilValues() {
 						`microcelula` as m,
 						`grupo` as g
 				WHERE 	p.idGrupo = g.idGrupo
-					AND p.idMicrocelula = m.idMicrocelula";
+				AND 	p.idMicrocelula = m.idMicrocelula";
 		if($idGrupo != '') $querytxt = $querytxt." AND g.idGrupo = ".$idGrupo;
-		if($idMicro != '') {
-			$querytxt = $querytxt." AND m.idMicrocelula = ".$idMicro;
+		if($idMicro === '') {
+			if($idMicro === 0) {
+				$querytxt = $querytxt." AND m.idMicrocelula = 0";
+			} else {
+				$querytxt = $querytxt." AND m.idMicrocelula != 3";
+			}
 		} else {
-			$querytxt = $querytxt." AND m.idMicrocelula != 3";
+			$querytxt = $querytxt." AND m.idMicrocelula = ".$idMicro;
 		}
 		if($id != '')      $querytxt = $querytxt." AND p.idPersona = ".$id;
 		$querytxt = $querytxt." ORDER BY p.Nombre";

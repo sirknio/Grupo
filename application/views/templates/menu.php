@@ -83,7 +83,7 @@
                                     <a href="<?=site_url('asistencia')?>">Tomar Asistencia</a>
                                 </li>
                                 <li>
-                                    <a href="<?=site_url('Integrante/insertItem')?>">Crear Integrante</a>
+                                    <a href="<?=site_url('Integrante/insertQuickItem')?>">Crear Nuevo</a>
                                 </li>
                                 <!-- <li>
                                     <a href="<?=site_url('asistencia')?>">Tomar Lista</a>

@@ -3,10 +3,10 @@
 <?=$page['menu']?>
 
 	<div class="col-lg-12">
-		<div class="col-lg-9">
+		<div class="col-lg-8">
 			<h1 class="page-header">Integrantes</h1>
 		</div>
-		<div class="col-lg-2">
+		<div class="col-lg-4">
 			<br><br>
 			<ul class="nav nav-pills">
 				<li role="showlist">

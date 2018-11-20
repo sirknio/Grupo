@@ -21,7 +21,7 @@
 	<!-- /.col-lg-12 -->
 	<div class="col-lg-11">
 		<div class="table">
-			<table class="table table-striped table-bordered table-hover display nowrap" style="width:100%" id="dataTables-integrantes">
+			<table class="table table-striped table-bordered table-hover display" style="width:100%" id="dataTables-integrantes">
 				<thead>
 					<tr>
 						<!--<th style="width:50px;">Foto</th>

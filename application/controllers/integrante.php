@@ -6,6 +6,7 @@ class Integrante extends CI_Controller {
 	private $pagelist = 'integrantes';
 	private $pagesquare = 'integrantes-square';
 	private $pagecard = 'integrante';
+	private $pagequickcard = 'integrante-quick';
 	private $pkfield = 'idPersona';
 	private $orderfield = 'Nombre';
 	private $imgfield = 'foto';
@@ -23,7 +24,7 @@ class Integrante extends CI_Controller {
 	
 	public function index($idGrupo = '',$idMicro = '',$id = '',$viewList = 'list') {
 		//echo"<pre>";print_r($idGrupo." - ".$idMicro." - ".$id);echo"</pre>";
-		if ($idMicro == 0) { $idMicro = ''; }
+		//if ($idMicro == 0) { $idMicro = ''; }
 		if ($id == 0) { $id = ''; }
 		$this->loadData($data,$this->debug,$idGrupo,$idMicro,$id);
 		$this->loadHTML($data);
@@ -77,7 +78,12 @@ class Integrante extends CI_Controller {
 	}
 	
 	//Insertar registro
-	public function insertItem($createId = '') {
+	public function insertQuickItem($createId = '') {
+		$this->insertItem($createId,TRUE);
+	}
+
+	//Insertar registro
+	public function insertItem($createId = '',$quick = false) {
 		$data['update'] = false;
 		$idEvento = 0;
 		If($createId === '') {
@@ -97,7 +103,11 @@ class Integrante extends CI_Controller {
 					));
 			}
 			$this->loadHTML($data);
-			$this->load->view('pages/'.$this->pagecard,$data);
+			if (!$quick) {
+				$this->load->view('pages/'.$this->pagecard,$data);
+			} else {
+				$this->load->view('pages/'.$this->pagequickcard,$data);
+			}
 		} else {
 			$idEvento = $_POST['idEvento'];
 			unset($_POST['idEvento']);
@@ -106,7 +116,7 @@ class Integrante extends CI_Controller {
 			if($data['insert'][$this->pkfield] != 0) {
 				$this->loadData($data,$this->debug,'','',$data['insert'][$this->pkfield]);
 				if ($this->imgfield != '') {
-					$this->loadImg($data,'insert',$this->imgfield);
+					//$this->loadImg($data,'insert',$this->imgfield);
 				}
 				if ($idEvento != 0) {
 					$asistencia = array(
@@ -121,12 +131,20 @@ class Integrante extends CI_Controller {
 					);
 					$idEvento = $this->object_model->insertItem('asistencia',$asistencia);
 				}
-				redirect($this->controller);
+				if (!$quick) {
+					redirect($this->controller);
+				} else {
+					redirect('asistencia');
+				}
 			} else {
 				//Establecer mensaje de error en insercción de datos
 				$this->loadData($data,$this->debug,'','',$data['insert'][$this->pkfield]);
 				$this->loadHTML($data);
-				$this->load->view('pages/'.$this->pagecard,$data);
+				if (!$quick) {
+					$this->load->view('pages/'.$this->pagecard,$data);
+				} else {
+					$this->load->view('pages/'.$this->pagequickcard,$data);
+				}
 			}
 		}
 	}

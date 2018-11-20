@@ -14,7 +14,6 @@
 	<?php else: ?>
 		<?= form_open_multipart('Integrante/updateItem/'.set_value('idPersona').'/Update'); ?>
 	<?php endif; ?>
-		<div class="col-lg-12">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -38,7 +37,7 @@
 						<div class="form-group">
 							<label>Tipo Documento</label>
 							<select name="DocumentoTipo" class="form-control" placeholder="Seleccione Tipo Documento" required>
-								<option value=""> </option>
+							<option value="" hidden>Tipo Documento</option>
 								<?php foreach ($DocumentoTipo as $item): ?>
 									<?php if (set_value('DocumentoTipo') != $item): ?>
 										<option value="<?=$item?>"><?= $item?></option>
@@ -55,7 +54,7 @@
 						<div class="form-group">
 							<label>Genero</label>
 							<select name="Genero" class="form-control" placeholder="Seleccione Genero" required>
-								<option value=""> </option>
+							<option value="" hidden>Genero</option>
 								<?php foreach ($Genero as $item): ?>
 									<?php if (set_value('Genero') != $item): ?>
 										<option value="<?=$item?>"><?= $item?></option>
@@ -68,7 +67,7 @@
 						<div class="form-group">
 							<label>Fecha Nacimiento</label>
 							<div class="input-group date form_birthdate" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-								<input class="form-control" name="FechaNacimiento" size="16" type="text" <?php if (set_value('FechaNacimiento') != '0000-00-00') echo "value=".set_value('FechaNacimiento');?> placeholder="Seleccione Fecha" readonly>
+							<input class="form-control" name="FechaNacimiento" size="16" type="text" <?php if (set_value('FechaNacimiento') != '0000-00-00') echo "value=".'"'.set_value('FechaNacimiento').'"';?> placeholder="Fecha Nacimiento" readonly>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 							</div>
@@ -110,8 +109,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-lg-12">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -121,7 +118,7 @@
 						<div class="form-group">
 							<label>Estado Civil</label>
 							<select name="EstadoCivil" class="form-control" placeholder="Seleccione Estado Civil">
-								<option value=""> </option>
+							<option value="" hidden>Estado Civil</option>
 								<?php foreach ($EstadoCivil as $item): ?>
 									<?php if (set_value('EstadoCivil') != $item): ?>
 										<option value="<?=$item?>"><?= $item?></option>
@@ -134,7 +131,7 @@
 						<div class="form-group">
 							<label>Conyugue</label>
 							<select name="idConyugue" class="form-control">
-								<option value=""> </option>
+							<option value="" hidden>Conyugue</option>
 								<?php foreach ($Persona as $item): ?>
 									<?php if (set_value('idConyugue') != $item['idPersona']): ?>
 										<?php if (($item['idConyugue'] == 0) && (set_value('Genero') != $item['Genero'])): ?>
@@ -149,7 +146,7 @@
 						<div class="form-group">
 							<label>Fecha Matrimonio</label>
 							<div class="input-group date form_birthdate" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-								<input class="form-control" name="FechaMatrimonio" size="16" type="text" <?php if (set_value('FechaMatrimonio') != '0000-00-00') echo "value=".set_value('FechaMatrimonio');?> placeholder="Seleccione Fecha" readonly>
+							<input class="form-control" name="FechaMatrimonio" size="16" type="text" <?php if (set_value('FechaMatrimonio') != '0000-00-00') echo "value=".'"'.set_value('FechaMatrimonio').'"';?> placeholder="Fecha Matrimonio" readonly>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 							</div>
@@ -167,7 +164,7 @@
 						<div class="form-group">
 							<label>Fecha Ingreso</label>
 							<div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-								<input class="form-control" name="FechaIngreso" size="16" type="text" value="<?= set_value('FechaIngreso')?>" placeholder="Seleccione Fecha" readonly>
+							<input class="form-control" name="FechaIngreso" size="16" type="text" value="<?= set_value('FechaIngreso')?>" placeholder="Fecha Ingreso" readonly>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 							</div>
@@ -176,7 +173,7 @@
 						<div class="form-group">
 							<label>Microcelula</label>
 							<select name="idMicrocelula" class="form-control" required>
-								<option value=""> </option>
+							<option value="" hidden>Microcelula</option>
 								<?php foreach ($Micros as $item): ?>
 									<?php if (set_value('idMicrocelula') != $item['idMicrocelula']): ?>
 										<option value="<?=$item['idMicrocelula']?>"><?=$item['Descripcion']?></option>
@@ -212,7 +209,6 @@
 					<a class="btn btn-default" href="<?=site_url('Integrante')?>">Cancelar</a>
 				<?php endif; ?>
 			</div>
-		</div>
 	</form>
 
 <?=$page['footer']?>

@@ -1,4 +1,6 @@
 
+    <?php if (isset($userdata['usuario'])): ?>
+
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-fixed-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -114,7 +116,7 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-
+    <?php endif; ?>
 
 		<!-- !PAGE CONTENT! -->
         <div id="page-wrapper">

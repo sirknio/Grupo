@@ -12,9 +12,9 @@ class Asistencia extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		if(!$this->session->userdata('usuario')) {
-			redirect('login');
-		}
+		//if(!$this->session->userdata('usuario')) {
+		//	redirect('login');
+		//}
 		$this->load->model('object_model');
 		$this->load->model('integrante_model');
 		$this->load->model('evento_model');

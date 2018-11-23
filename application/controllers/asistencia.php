@@ -13,6 +13,7 @@ class Asistencia extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		//Esta es la parte fundamental para el el registro de asistencia sin logueo
+		//Aqui cree el branch de GraphAssistGender
 		//if(!$this->session->userdata('usuario')) {
 		//	redirect('login');
 		//}

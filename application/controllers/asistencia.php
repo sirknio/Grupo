@@ -12,6 +12,7 @@ class Asistencia extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		//Esta es la parte fundamental para el el registro de asistencia sin logueo
 		//if(!$this->session->userdata('usuario')) {
 		//	redirect('login');
 		//}

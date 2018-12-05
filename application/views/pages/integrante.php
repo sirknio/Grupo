@@ -14,13 +14,6 @@
 	<?php else: ?>
 		<?= form_open_multipart('Integrante/updateItem/'.set_value('idPersona').'/Update'); ?>
 	<?php endif; ?>
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="col-sm-4">
-					<div id="line-assistance" class="autoscroll assist-graphic"></div>
-				</div>
-			</div>
-		</div>
 		<div class="col-lg-12">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
@@ -223,55 +216,3 @@
 	</form>
 
 <?=$page['footer']?>
-
-<script>
-	$(function() {
-		var week_data = [
-			{"period": "2018-01-01", "asistencia": 1},
-			{"period": "2018-01-07", "asistencia": 1},
-			{"period": "2018-02-03", "asistencia": 1},
-			{"period": "2018-02-10", "asistencia": 0},
-			{"period": "2018-03-07", "asistencia": 1},
-			{"period": "2018-05-05", "asistencia": 1},
-			{"period": "2018-07-07", "asistencia": 1},
-			{"period": "2018-08-08", "asistencia": 0},
-			{"period": "2018-09-09", "asistencia": 1},
-		];
-
-	Morris.Line({
-		element: 'line-assistance',
-		axes: false,
-		data: week_data,
-		xkey: 'period',
-		ykeys: ['asistencia'],
-		labels: ['Asistencia'],
-		barRatio: 0,
-		hideHover: 'auto',
-		resize: true,
-		parseTime: false
-	});
-
-	// Bar Chart
-	Morris.Bar({
-		element: 'graph-default',
-		data: [
-		<?php if(isset($asistencia)): ?>
-			<?php foreach ($asistencia as $item): ?>
-			{
-				asistencia: '<?= $item['FechaEvento'] ?>',
-				p: <?= $item['Asistencia'] ?>
-			},
-			<?php endforeach; ?>
-		<?php endif; ?>
-		],
-		xkey: 'asistencia',
-		ykeys: ['p'],
-		labels: ['Integrantes'],
-		barRatio: 0.4,
-		xLabelAngle: 35,
-		hideHover: 'auto',
-		resize: true
-	});	
-});
-</script>
-

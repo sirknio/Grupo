@@ -29,10 +29,10 @@
 						<input name="idMicrocelula" type="hidden" value="0">
 						<input name="FechaIngreso" type="hidden" value="<?= set_value('FechaIngreso')?>">
 						<div class="form-group quick-form-group">
-							<input name="Nombres Completos" class="form-control" placeholder="Nombre" value="<?= set_value('Nombre')?>" autocomplete="off" required>
+							<input name="Nombre" class="form-control" placeholder="Nombres Completos" value="<?= set_value('Nombre')?>" autocomplete="off" required>
 						</div>
 						<div class="form-group quick-form-group">
-							<input name="Apellidos" class="form-control" placeholder="Apellido" value="<?= set_value('Apellido')?>" autocomplete="off" required>
+							<input name="Apellido" class="form-control" placeholder="Apellidos" value="<?= set_value('Apellido')?>" autocomplete="off" required>
 						</div>
 						<div class="form-group quick-form-group">
 							<select name="DocumentoTipo" class="form-control" placeholder="Seleccione Tipo Documento" autocomplete="off" required>

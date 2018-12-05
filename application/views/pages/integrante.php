@@ -14,6 +14,7 @@
 	<?php else: ?>
 		<?= form_open_multipart('Integrante/updateItem/'.set_value('idPersona').'/Update'); ?>
 	<?php endif; ?>
+		<div class="col-lg-12">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -109,6 +110,8 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="col-lg-12">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -196,20 +199,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-12">
-				<?php if (isset($idEvent)): ?>
+		</div>
+		<div class="col-lg-12">
+			<?php if (isset($idEvent)): ?>
+			<?php else: ?>
+				<button type="submit" class="btn btn-primary"><i class="fa fa-users fa-fw"></i> 
+				<?php if (!$update): ?>
+					Crear Integrante
 				<?php else: ?>
-					<button type="submit" class="btn btn-primary"><i class="fa fa-users fa-fw"></i> 
-					<?php if (!$update): ?>
-						Crear Integrante
-					<?php else: ?>
-						Actualizar Integrante
-					<?php endif; ?>
-					</button>
-					<a class="btn btn-default" href="<?=site_url('Integrante')?>">Cancelar</a>
+					Actualizar Integrante
 				<?php endif; ?>
-			</div>
+				</button>
+				<a class="btn btn-default" href="<?=site_url('Integrante')?>">Cancelar</a>
+			<?php endif; ?>
+		</div>
 	</form>
 
 <?=$page['footer']?>
-

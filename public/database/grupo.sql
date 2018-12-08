@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-12-2018 a las 14:26:38
+-- Tiempo de generación: 08-12-2018 a las 14:50:03
 -- Versión del servidor: 5.7.17-log
 -- Versión de PHP: 7.1.1
 
@@ -139,10 +139,10 @@ CREATE TABLE IF NOT EXISTS `notificacion` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `novedades`
+-- Estructura de tabla para la tabla `novedad`
 --
 
-CREATE TABLE IF NOT EXISTS `novedades` (
+CREATE TABLE IF NOT EXISTS `novedad` (
   `idNovedad` int(11) NOT NULL AUTO_INCREMENT,
   `idPersona` int(11) NOT NULL,
   `Novedad` text NOT NULL,

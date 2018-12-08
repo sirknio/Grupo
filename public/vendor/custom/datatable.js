@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	$('#dataTables-integrantes').DataTable({
-		"lengthMenu": [ [4, 10, 25, 50, -1], [4, 10, 25, 50, "Todos"] ],
+		"lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"] ],
 		"language": {
 			"search": "Buscar",
 			"info": "Mostrando _TOTAL_ registros",

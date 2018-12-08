@@ -103,7 +103,7 @@
 											</a>
 										</li>
 										<li>
-											<a href="<?=site_url('Integrante/updateItem/'.$item['idPersona'])?>">
+											<a href="<?=site_url('Integrante/createNewsItem/'.$item['idPersona'])?>">
 											<i class="fa fa-table fa-fw"></i> Reportar Novedad
 											</a>
 										</li>

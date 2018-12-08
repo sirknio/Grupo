@@ -149,6 +149,16 @@ class Integrante extends CI_Controller {
 		}
 	}
 
+	//Crear Novedad sobre integrante
+	public function createNewsItem($id = '',$action = false) {
+		if ($id == 0) { $id = ''; }
+		$this->loadData($data,$this->debug,'','',$id);
+		$this->loadHTML($data);
+		if (!$action) {
+			$this->load->view('pages/novedad',$data);
+		}
+	}
+	
 	//Actualizar registro
 	public function updateItem($id = '',$action = false) {
 		$data['update'] = true;
@@ -198,7 +208,7 @@ class Integrante extends CI_Controller {
 			}
 		}
 	}
-	
+
 	public function loadImg(&$data,$action,$fieldName) {
 		//echo "<pre>";print_r($data);echo "</pre>";
 		//echo "<pre>";print_r('foto'.str_pad($data['records']['0'][$this->pkfield],10,'0', STR_PAD_LEFT));echo "</pre>";

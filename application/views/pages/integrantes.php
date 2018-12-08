@@ -115,9 +115,6 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-lg-12">
-			<a class="btn btn-primary" href="<?=site_url('Integrante/insertItem')?>"><i class="fa fa-user fa-fw"></i> Crear Integrante</a>
-		</div>
 		<!-- /.table-responsive -->
 	</div>
 	<!-- /.col-lg-12 -->

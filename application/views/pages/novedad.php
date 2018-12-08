@@ -91,13 +91,21 @@
 					</div>
 					<!-- /.panel-body -->
 					<div class="panel-footer">
-						<div class="input-group">
-							<input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-							<span class="input-group-btn">
-								<button class="btn btn-warning btn-sm" id="btn-chat">
-									Reportar
-								</button>
-							</span>
+						<div class="col-10">
+							<div class="input-group">
+								<input id="btn-input" type="text" class="form-control input-sm" placeholder="Escriba el reporte aqui..." />
+								<span class="input-group-btn">
+									<button class="btn btn-warning btn-sm" id="btn-chat">
+										Reportar
+									</button>
+								</span>
+							</div>
+						</div>
+						<div class="col-2">
+							<div class="input-group">
+								<input type="checkbox" title="Marcar como Urgente/Importante" />
+								&nbsp; <i class="fa fa-exclamation fa-fw"></i> Urgente/Importante
+							</div>
 						</div>
 					</div>
 					<!-- /.panel-footer -->

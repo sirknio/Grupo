@@ -103,6 +103,12 @@
 											</a>
 										</li>
 										<li>
+											<a href="<?=site_url('Integrante/updateItem/'.$item['idPersona'])?>">
+											<i class="fa fa-table fa-fw"></i> Reportar Novedad
+											</a>
+										</li>
+										<li class="divider"></li>
+										<li>
 											<a data-toggle="modal" data-target="#deleteModal" data-code="<?= $item['idPersona']?>" data-name="<?= $item['Nombre']?>" data-surname="<?= $item['Apellido']?>">
 											<i class="fa fa-trash-o fa-fw"></i> Eliminar
 											</a>

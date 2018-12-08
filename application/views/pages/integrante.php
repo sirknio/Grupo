@@ -4,18 +4,36 @@
 
 <?php $item = ''; ?>
 
-	<div class="col-lg-12">
-		<h1 class="page-header">Integrante</h1>
-		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
-	</div>
-	<!-- /.col-lg-12 -->
 	<?php if (!$update): ?>
 		<?= form_open_multipart('Integrante/insertItem/Crear'); ?>
 	<?php else: ?>
 		<?= form_open_multipart('Integrante/updateItem/'.set_value('idPersona').'/Update'); ?>
 	<?php endif; ?>
-		<div class="col-lg-12">
-			<div class="col-lg-6">
+		<div class="col-md-12">
+			<div class="col-8 col-md-8">
+				<h1 class="page-header">Integrante</h1>
+				<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
+			</div>
+			<div class="col-4 col-md-4">
+
+				<?php if (isset($idEvent)): ?>
+				<?php else: ?>
+					<a class="btn btn-primary" href="<?=site_url('Integrante')?>" title="Abrir Reporte"><i class="fa fa-comments fa-fw"></i></a>
+					<button type="submit" class="btn btn-primary custbuttons"
+					<?php if (!$update): ?>
+						title="Crear nuevo integrante"><i class="fa fa-plus-square fa-fw"></i>
+					<?php else: ?>
+						title="Actualizar integrante"><i class="fa fa-pencil-square-o fa-fw"></i>
+					<?php endif; ?>
+					</button>
+					<a class="btn btn-default" href="<?=site_url('Integrante')?>" title="Cancelar"><i class="fa fa-times-circle"></i></a>
+				<?php endif; ?>
+
+			</div>
+		</div>
+		<!-- /.col-lg-12 -->
+		<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">Datos Básicos</h3>
@@ -77,7 +95,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">Comunicación</h3>
@@ -111,8 +129,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-12">
-			<div class="col-lg-6">
+		<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">Estado Civil</h3>
@@ -158,7 +176,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">Grupo Conexi&oacute;n (Solo para Microl&iacute;der)</h3>
@@ -200,7 +218,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-12">
+		<div class="col-md-12">
 			<?php if (isset($idEvent)): ?>
 			<?php else: ?>
 				<button type="submit" class="btn btn-primary"><i class="fa fa-users fa-fw"></i> 

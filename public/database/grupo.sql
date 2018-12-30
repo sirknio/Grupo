@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-12-2018 a las 14:50:03
+-- Tiempo de generación: 29-12-2018 a las 03:17:13
 -- Versión del servidor: 5.7.17-log
 -- Versión de PHP: 7.1.1
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `grupo`
 --
-CREATE DATABASE IF NOT EXISTS `grupo` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `grupo`;
 
 -- --------------------------------------------------------
 
@@ -150,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `novedad` (
   `ReportaUsuario` varchar(100) NOT NULL,
   `ReportaFecha` datetime NOT NULL,
   PRIMARY KEY (`idNovedad`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de Novedades de microlider y lideres';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Tabla de Novedades de microlider y lideres';
 
 -- --------------------------------------------------------
 

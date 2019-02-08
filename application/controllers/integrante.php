@@ -150,57 +150,75 @@ class Integrante extends CI_Controller {
 	}
 
 	//Crear Novedad sobre integrante
-	public function createNewsItem($id = '',$action = false) {
+	public function createNewsItem($id = '',$action = '') {
 		date_default_timezone_set("America/Bogota");
-		if ($id == 0) { $id = ''; }
-		if (!$action) {
-			$where = array($this->pkfield => $id);
-			$data['news'] = $this->object_model->get('novedad','',$where);
+		$dateNow = new DateTime("now");
+		$this->loadDataNews($data,$this->debug,'','',$id);
 
-			$dateNow = new DateTime("now");
-			foreach ($data['news'] as &$novedad) {
-				//agregar otros datos desde otra tabla
-				//$n = $this->object_model->get('usuario','',"Usuario = '".$novedad['ReportaUsuario']."'");
-				//$novedad['UsuarioNombre'] = $n[0]['Nombre'];
-				//$novedad['usuarioApellido'] = $n[0]['Apellido'];
-
-				$datetime2 = date_create($novedad['ReportaFecha']);
-				$interval = date_diff($dateNow, $datetime2);
-				$novedad['diff'] = $interval;
-				$novedad['dateNow'] = $dateNow;
-
-				switch (true) {
-					case ($interval->y !== 0):
-						$novedad['diffText'] = $interval->y.' año(s) atras';
-						break;
-
-					case ($interval->m !== 0):
-						$novedad['diffText'] = $interval->m.' mes(es) atras';
-						break;
-
-					case ($interval->d !== 0):
-						$novedad['diffText'] = $interval->d.' dia(s) atras';
-						break;
-
-					case ($interval->h !== 0):
-						$novedad['diffText'] = $interval->h.' hora(s) atras';
-						break;
-
-					case ($interval->i !== 0):
-						$novedad['diffText'] = 'hace unos minutos';
-						break;
-
-					case (($interval->s !== 0) || ($interval->f !== 0)):
-						$novedad['diffText'] = 'hace unos instantes';
-						break;
+		if ($action !== '') {
+			$_POST = array_merge($_POST,array(
+				'ReportaUsuario' => $data['userdata']['usuario']
+				));
+		
+			$_POST = array_merge($_POST,array(
+				'ReportaFecha' => $dateNow
+				));
+		
+			if (isset($_POST['ImportanteUrgente'])) {
+				if ($_POST['ImportanteUrgente'] === 'on') {
+					$_POST['ImportanteUrgente'] = 1;
 				}
-
-			}	
-
-			$this->loadDataNews($data,$this->debug,'','',$id);
-			$this->loadHTML($data);
-			$this->load->view('pages/novedad',$data);
+			}
+			echo "<hr><pre>";
+			print_r($_POST);
+			echo "</pre><hr>";
 		}
+
+		$where = array($this->pkfield => $id);
+		$data['news'] = $this->object_model->get('novedad','',$where);
+
+
+		foreach ($data['news'] as &$novedad) {
+			//agregar otros datos desde otra tabla
+			//$n = $this->object_model->get('usuario','',"Usuario = '".$novedad['ReportaUsuario']."'");
+			//$novedad['UsuarioNombre'] = $n[0]['Nombre'];
+			//$novedad['usuarioApellido'] = $n[0]['Apellido'];
+
+			$datetime2 = date_create($novedad['ReportaFecha']);
+			$interval = date_diff($dateNow, $datetime2);
+			$novedad['diff'] = $interval;
+			$novedad['dateNow'] = $dateNow;
+
+			switch (true) {
+				case ($interval->y !== 0):
+					$novedad['diffText'] = $interval->y.' año(s) atras';
+					break;
+
+				case ($interval->m !== 0):
+					$novedad['diffText'] = $interval->m.' mes(es) atras';
+					break;
+
+				case ($interval->d !== 0):
+					$novedad['diffText'] = $interval->d.' dia(s) atras';
+					break;
+
+				case ($interval->h !== 0):
+					$novedad['diffText'] = $interval->h.' hora(s) atras';
+					break;
+
+				case ($interval->i !== 0):
+					$novedad['diffText'] = 'hace unos minutos';
+					break;
+
+				case (($interval->s !== 0) || ($interval->f !== 0)):
+					$novedad['diffText'] = 'hace unos instantes';
+					break;
+			}
+
+		}	
+
+		$this->loadHTML($data);
+		$this->load->view('pages/novedad',$data);
 	}
 	
 	//Actualizar registro

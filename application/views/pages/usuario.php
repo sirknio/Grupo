@@ -13,23 +13,31 @@
 		<?= form_open_multipart('Usuario/updateItem/'.set_value('idUsuario').'/Update'); ?>
 	<?php endif; ?>
 		<div class="col-lg-6">
-			<div class="form-group">
+		<div class="form-group">
 				<label>Usuario</label>
 				<input name="Usuario" class="form-control" placeholder="Usuario" value="<?= set_value('Usuario')?>" required />
+			</div>
+			<div class="form-group">
+				<label>Nombre</label>
+				<input name="Nombre" class="form-control" placeholder="Nombres" value="<?= set_value('Nombre')?>" required />
+			</div>
+			<div class="form-group">
+				<label>Apellido</label>
+				<input name="Apellido" class="form-control" placeholder="Apellidos" value="<?= set_value('Apellido')?>" required />
 			</div>
 			<div class="form-group">
 				<label>Correo Electronico</label>
 				<input name="Email" class="form-control" placeholder="Correo Electronico" value="<?= set_value('Email')?>" required />
 			</div>
 			<div class="form-group">
-				<label>Persona Asociada</label>
-				<select name="idPersona" class="form-control">
+				<label>Asociar a Grupo Conexion</label>
+				<select name="idGrupo" class="form-control">
 					<option value="0"> </option>
-					<?php foreach ($Persona as $item): ?>
-						<?php if (set_value('idColider1') != $item['idPersona']): ?>
-							<option value="<?=$item['idPersona']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
+					<?php foreach ($Grupos as $item): ?>
+						<?php if (set_value('idGrupo') != $item['idGrupo']): ?>
+							<option value="<?=$item['idGrupo']?>"><?=$item['Nombre']?></option>
 						<?php else: ?>
-							<option value="<?=$item['idPersona']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
+							<option value="<?=$item['idGrupo']?>" selected><?=$item['Nombre']?></option>
 						<?php endif; ?>
 					<?php endforeach; ?>
 				</select>

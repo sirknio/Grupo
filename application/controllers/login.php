@@ -12,7 +12,6 @@ class Login extends CI_Controller {
 		}
 		
 		if((isset($_POST['password'])) && ($this->input->post('token') && $this->input->post('token') == $this->session->userdata('token'))) {
-			//echo "<pre>"; print_r($this->input->post('password',true)); echo "</pre>";
 			$user = $this->usuario_model->login(
 						$this->input->post('usuario',true),
 						md5(sha1($_POST['password'])));
@@ -26,7 +25,6 @@ class Login extends CI_Controller {
 					$this->session->set_userdata('TipoUsuario',$user['TipoUsuario']);
 					$this->session->set_userdata('idPersona',$user['idPersona']);
 					$this->session->set_userdata('idGrupo',$user['idGrupo']);
-					$this->session->set_userdata('idMicrocelula',$user['idMicrocelula']);
 					$this->session->set_userdata('Nombre',$user['Nombre']);
 					$this->session->set_userdata('Apellido',$user['Apellido']);
 					$this->session->set_userdata('AsistAbierta',$user['AsistAbierta']);

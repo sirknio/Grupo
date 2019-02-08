@@ -52,9 +52,6 @@ class Usuario extends CI_Controller {
 				$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->controller,$data['insert']);
 				if($data['insert'][$this->pkfield] != 0) {
 					$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
-					if ($this->imgfield != '') {
-						$this->loadImg($data,'insert',$this->imgfield);
-					}
 					redirect($this->controller);
 				} else {
 					//Establecer mensaje de error en insercción de datos
@@ -86,14 +83,15 @@ class Usuario extends CI_Controller {
 			$data['update'] = $_POST;
 			if ($data['update']['Password'] == $data['update']['Password2']) {
 				unset($data['update']['Password2']);
-				$data['update']['Password'] = md5(sha1($data['update']['Password']));
 				if ($data['update']['Password'] == '') {
 					unset($data['update']['Password']);
+				} else {
+					$data['update']['Password'] = md5(sha1($data['update']['Password']));
 				}
+				
 				$this->loadData($data,$this->debug,$id);
 				$where = array($this->pkfield => $id);
 				if ($this->object_model->updateItem($this->controller,$data['update'],$where)) {
-					$this->loadImg($data,'update',$this->imgfield);
 					redirect($this->controller);
 				} else {
 					//Establecer mensaje de error en actualizar datos
@@ -149,7 +147,7 @@ class Usuario extends CI_Controller {
 		} else {
 			$data['records'] = $this->object_model->get($this->controller,$this->orderfield,$this->pkfield.'='.$id);
 		}
-		$data['Persona'] = $this->object_model->get('persona','Nombre');
+		$data['Grupos'] = $this->object_model->get('grupo','Nombre');
 		$data['TipoUsuario'] = $this->usuario_model->getTipoUsuarioValues();
 		$data['morrisjs'] = '';
 		if($debug) {

@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>Klipsia</title>
+    <link rel="icon" type="image/png" href="<?=base_url('')?>public/images/default/favicon.png" />
 
     <!-- Bootstrap Core CSS -->
     <link href="<?=base_url('')?>public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

@@ -6,6 +6,7 @@
 		<?php if ($print) { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<!-- /.col-lg-4 -->
+	<?php if (!empty($asistencia)): ?>
 	<div class="col-lg-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -27,7 +28,9 @@
 		</div>
 		<!-- /.panel -->
 	</div>
+	<?php endif; ?>
 	<!-- /.col-lg-4 -->
+	<?php if (!empty($eventos)): ?>
 	<div class="col-lg-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -68,6 +71,7 @@
 		</div>
 		<!-- /.panel -->
 	</div>
+	<?php endif; ?>
 	<!-- /.col-lg-4 -->
 		
 <?=$page['footer']?>

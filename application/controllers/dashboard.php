@@ -23,13 +23,16 @@ class Dashboard extends CI_Controller {
 		$data['userdata'] = $_SESSION;
 		$data['setupapp'] = $this->object_model->getSetup(); 
 		$data['date'] = '';
-		$data['eventos'] = $this->object_model->get('evento','FechaEvento DESC',
-				array('idGrupo' => $data['userdata']['idGrupo']));
-		$data['asistencia'] = $this->evento_model->getMainGraph($data['userdata']['idGrupo'],
-				$data['setupapp']['LimiteEventosDashboard']);
-		$data['morrisjs'] = 'morris-data-dashboard.js';
-		$this->statistics->loadDashStatistics($data['statistics'],$data['userdata']['idGrupo']);
-		
+		if($data['userdata']['idGrupo'] !== null) {
+			$data['asistencia'] = $this->evento_model->getMainGraph($data['userdata']['idGrupo'],
+					$data['setupapp']['LimiteEventosDashboard']);
+			$data['eventos'] = $this->object_model->get('evento','FechaEvento DESC',
+					array('idGrupo' => $data['userdata']['idGrupo']));
+			$data['morrisjs'] = 'morris-data-dashboard.js';
+		} else {
+			$data['asistencia'] = array();
+			$data['eventos'] = array();
+		}
 		if($debug) {
 			$print = $data;
 		} else {

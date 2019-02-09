@@ -61,12 +61,15 @@
                             <!-- /.nav-second-level -->
                         </li>
 						<?php endif; ?>
+                        <?php if ($userdata['idGrupo'] !== null): ?>
                         <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Grupo<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
                                 <li>
                                     <a href="<?=site_url('Grupo/index/'.$userdata['idGrupo'])?>">Grupo</a>
                                 </li>
+                                <?php endif; ?>
                                 <li>
                                     <a href="<?=site_url('Microcelula/index/'.$userdata['idGrupo'])?>">Microcélulas</a>
                                 </li>
@@ -111,6 +114,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

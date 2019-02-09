@@ -20,7 +20,6 @@ class Login extends CI_Controller {
 					$this->session->set_userdata('usuario',$_POST['usuario']);
 					$this->session->set_userdata('idUsuario',$user['idUsuario']);
 					$this->session->set_userdata('Usuario',$user['Usuario']);
-					$this->session->set_userdata('Password',md5(sha1($user['Password'])));
 					$this->session->set_userdata('Email',$user['Email']);
 					$this->session->set_userdata('TipoUsuario',$user['TipoUsuario']);
 					$this->session->set_userdata('idPersona',$user['idPersona']);

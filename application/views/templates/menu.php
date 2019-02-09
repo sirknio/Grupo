@@ -24,8 +24,10 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="<?=site_url('Usuario/updateItem/'.$userdata['idUsuario'])?>"><i class="fa fa-user fa-fw"></i> Perfil Usuario</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Configuración</a>
+                        <?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
+                        <li><a href="<?=site_url('aplicacion')?>"><i class="fa fa-gear fa-fw"></i> Configuración</a>
                         </li>
+                        <?php endif; ?>
                         <li class="divider"></li>
                         <li><a href="<?=site_url('login/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>
                         </li>

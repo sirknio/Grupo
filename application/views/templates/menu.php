@@ -60,7 +60,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-						<?php endif; ?>
+                        <?php endif; ?>
                         <?php if ($userdata['idGrupo'] !== null): ?>
                         <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Grupo<span class="fa arrow"></span></a>
@@ -68,6 +68,10 @@
                                 <?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
                                 <li>
                                     <a href="<?=site_url('Grupo/index/'.$userdata['idGrupo'])?>">Grupo</a>
+                                </li>
+                                <?php elseif ($userdata['TipoUsuario'] == 'Lider'): ?>
+                                <li>
+                                    <a href="<?=site_url('Grupo/updateItem/'.$userdata['idGrupo'])?>">Grupo</a>
                                 </li>
                                 <?php endif; ?>
                                 <li>

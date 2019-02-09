@@ -33,6 +33,12 @@ class Dashboard extends CI_Controller {
 			$data['asistencia'] = array();
 			$data['eventos'] = array();
 		}
+		if ($data['userdata']['TipoUsuario'] == 'Admin') {
+			$data['cant_grupos'] = $this->object_model->RecCount('grupo');
+			$data['cant_micros'] = $this->object_model->RecCount('microcelula');
+			$data['cant_personas'] = $this->object_model->RecCount('persona');
+			$data['cant_eventos'] = $this->object_model->RecCount('evento');
+		}
 		if($debug) {
 			$print = $data;
 		} else {

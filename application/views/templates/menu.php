@@ -86,8 +86,8 @@
                         <li>
                             <a href="#"><i class="fa fa-calendar fa-fw"></i> Eventos<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?=site_url('evento')?>">Gestión Eventos</a>
+                                <li>        
+                                    <a href="<?=site_url('evento/index/'.$userdata['idGrupo'])?>">Gestión Eventos</a>
                                 </li>
                                 <?php if ($userdata['AsistAbierta']): ?>
                                 <li>

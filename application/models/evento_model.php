@@ -2,6 +2,20 @@
 
 class Evento_model extends CI_model{
 	
+	function get($idGrupo = '',$id = '') {
+		$querytxt = 
+				"SELECT e.*
+				FROM 	`evento` as e, 
+						`grupo` as g
+				WHERE 	e.idGrupo = g.idGrupo";
+		if($idGrupo != '') $querytxt = $querytxt." AND g.idGrupo = ".$idGrupo;
+		if($id != '')      $querytxt = $querytxt." AND e.idEvento = ".$id;
+		$querytxt = $querytxt." ORDER BY e.FechaEvento DESC";
+		$query = $this->db->query($querytxt);
+		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";		
+		return $query->result_array();
+	}
+	
 	function getFiltroValues() {
 		return $this->getFieldValues('Filtro');
 	}

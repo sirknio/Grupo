@@ -48,6 +48,19 @@ class Usuario extends CI_Controller {
 			$data['insert'] = $_POST;
 			if ($data['insert']['Password'] = $data['insert']['Password']) {
 				unset($data['insert']['Password2']);
+				if ($data['update']['Password'] == '') {
+					unset($data['update']['Password']);
+				} else {
+					$data['update']['Password'] = md5(sha1($data['update']['Password']));
+				}
+				if ($data['update']['idGrupo'] == '') {
+					unset($data['update']['idGrupo']);
+				}
+				
+				if ($data['update']['idPersona'] == '') {
+					unset($data['update']['idPersona']);
+				}
+				
 				$data['insert']['Password'] = md5(sha1($data['insert']['Password']));
 				$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->controller,$data['insert']);
 				if($data['insert'][$this->pkfield] != 0) {
@@ -87,6 +100,14 @@ class Usuario extends CI_Controller {
 					unset($data['update']['Password']);
 				} else {
 					$data['update']['Password'] = md5(sha1($data['update']['Password']));
+				}
+
+				if ($data['update']['idGrupo'] == '') {
+					unset($data['update']['idGrupo']);
+				}
+				
+				if ($data['update']['idPersona'] == '') {
+					unset($data['update']['idPersona']);
 				}
 				
 				$this->loadData($data,$this->debug,$id);

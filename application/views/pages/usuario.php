@@ -28,7 +28,6 @@
 					</button>
 					<a class="btn btn-default" href="<?=site_url('Usuario')?>" title="Cancelar"><i class="fa fa-times-circle"></i></a>
 				<?php endif; ?>
-
 			</div>
 		</div>
 		<!-- /.col-lg-12 -->
@@ -54,7 +53,7 @@
 				<div class="form-group">
 					<label>Asociar a Grupo Conexion</label>
 					<select name="idGrupo" class="form-control">
-						<option value="0"> </option>
+						<option value=""> </option>
 						<?php foreach ($Grupos as $item): ?>
 							<?php if (set_value('idGrupo') != $item['idGrupo']): ?>
 								<option value="<?=$item['idGrupo']?>"><?=$item['Nombre']?></option>

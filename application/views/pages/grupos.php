@@ -2,14 +2,22 @@
 
 <?=$page['menu']?>
 
-	<div class="col-lg-11">
-		<h1 class="page-header">Grupos</h1>
-		<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
+<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
+	<div class="col-md-8">
+		<h1 class="page-header">Grupos</h1>		
 	</div>
+	<div class="col-md-4">
+		<ul class="nav nav-pills custbuttons">
+			<li>
+				<a class="btn btn-primary" href="<?=site_url('Grupo/insertItem')?>"><i class="fa fa-plus-square fa-fw"></i></a>
+			</li>
+		</ul>
+	</div>
+
 	<!-- /.col-lg-12 -->
-	<div class="col-lg-11">
+	<div class="col-md-11">
 		<div class="table">
-			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+			<table class="table table-striped table-bordered table-hover" style="width:100%" id="dataTables-integrantes">
 				<thead>
 					<tr>
 						<th>Logo</th>
@@ -76,9 +84,6 @@
 					<?php endforeach; ?>
 				</tbody>
 			</table>
-		</div>
-		<div class="col-lg-12">
-			<a class="btn btn-primary" href="<?=site_url('Grupo/insertItem')?>"><i class="fa fa-users fa-fw"></i> Crear Grupo</a>
 		</div>
 		<!-- /.table-responsive -->
 	</div>

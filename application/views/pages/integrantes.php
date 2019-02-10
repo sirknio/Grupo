@@ -1,6 +1,7 @@
 <?=$page['header']?>
 
 <?=$page['menu']?>
+
 <?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	<div class="col-md-8">
 		<h1 class="page-header">Integrantes</h1>
@@ -8,7 +9,7 @@
 	<div class="col-md-4">
 		<ul class="nav nav-pills custbuttons">
 			<li>
-				<a class="btn btn-primary" href="<?=site_url('Integrante/insertItem')?>"><i class="fa fa-user fa-fw"></i> Crear </a>
+				<a class="btn btn-primary" href="<?=site_url('Integrante/insertItem')?>"><i class="fa fa-plus-square fa-fw"></i></a>
 			</li>
 			<li role="showlist" class="active">
 				<a href="<?=site_url('Integrante/index/'.$userdata['idGrupo'])?>"><span class="glyphicon glyphicon-th-list"></span></a>
@@ -18,8 +19,9 @@
 			</li>
 		</ul>
 	</div>
+	
 	<!-- /.col-lg-12 -->
-	<div class="col-lg-11">
+	<div class="col-md-11">
 		<div class="table">
 			<table class="table table-striped table-bordered table-hover display" style="width:100%" id="dataTables-integrantes">
 				<thead>

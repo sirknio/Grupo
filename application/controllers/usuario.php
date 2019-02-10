@@ -48,17 +48,17 @@ class Usuario extends CI_Controller {
 			$data['insert'] = $_POST;
 			if ($data['insert']['Password'] = $data['insert']['Password']) {
 				unset($data['insert']['Password2']);
-				if ($data['update']['Password'] == '') {
-					unset($data['update']['Password']);
+				if ($data['insert']['Password'] == '') {
+					unset($data['insert']['Password']);
 				} else {
-					$data['update']['Password'] = md5(sha1($data['update']['Password']));
+					$data['insert']['Password'] = md5(sha1($data['insert']['Password']));
 				}
-				if ($data['update']['idGrupo'] == '') {
-					unset($data['update']['idGrupo']);
+				if ($data['insert']['idGrupo'] == '') {
+					unset($data['insert']['idGrupo']);
 				}
 				
-				if ($data['update']['idPersona'] == '') {
-					unset($data['update']['idPersona']);
+				if ($data['insert']['idPersona'] == '') {
+					unset($data['insert']['idPersona']);
 				}
 				
 				$data['insert']['Password'] = md5(sha1($data['insert']['Password']));

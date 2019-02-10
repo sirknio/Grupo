@@ -46,6 +46,15 @@ class Grupo extends CI_Controller {
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
 			$data['insert'] = $_POST;
+
+			if ($data['insert']['idLider1'] == '') {
+				unset($data['insert']['idLider1']);
+			}
+			
+			if ($data['insert']['idLider2'] == '') {
+				unset($data['insert']['idLider2']);
+			}
+			
 			$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->controller,$data['insert']);
 			if($data['insert'][$this->pkfield] != 0) {
 				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);

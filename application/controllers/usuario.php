@@ -61,7 +61,6 @@ class Usuario extends CI_Controller {
 					unset($data['insert']['idPersona']);
 				}
 				
-				$data['insert']['Password'] = md5(sha1($data['insert']['Password']));
 				$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->controller,$data['insert']);
 				if($data['insert'][$this->pkfield] != 0) {
 					$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);

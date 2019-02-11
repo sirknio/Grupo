@@ -91,18 +91,18 @@ function getEstadoCivilValues() {
 				WHERE 	TipoUsuario = 'Lider' 
 				ORDER BY u.Nombre");
 		$array = $query->result_array();
+		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";
 		return $array;
 	}
 	
 	function getColideres() {
 		$query = $this->db->query(
-				"SELECT p.idPersona, p.Nombre, p.Apellido 
-				FROM 	`persona` as p, 
-						`usuario` as u 
-				WHERE 	p.idPersona = u.idPersona 
-					AND TipoUsuario = 'Microlider' 
-				ORDER BY p.Nombre");
+				"SELECT u.idUsuario, u.Nombre, u.Apellido 
+				FROM 	`usuario` as u 
+				WHERE 	u.TipoUsuario = 'Microlider' 
+				ORDER BY u.Nombre");
 		$array = $query->result_array();
+		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";
 		return $array;
 	}
 	

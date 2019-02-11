@@ -321,7 +321,6 @@ class Integrante extends CI_Controller {
 		} else {
 			$data['records'] = $this->integrante_model->get();
 		}
-		$data['lider'] = $this->integrante_model->getLideres();
 		$data['Micros'] = $this->integrante_model->getMicros($data['userdata']['idGrupo']);
 		$data['DocumentoTipo'] = $this->integrante_model->getDocumentoTipoValues();
 		$data['Genero'] = $this->integrante_model->getGeneroValues();
@@ -347,8 +346,6 @@ class Integrante extends CI_Controller {
 		} else {
 			$data['records'] = $this->integrante_model->get();
 		}
-		//$data['lider'] = $this->integrante_model->getLideres();
-		//$data['Micros'] = $this->integrante_model->getMicros($data['userdata']['idGrupo']);
 		$data['morrisjs'] = '';
 		if($debug) {
 			$print = $data;

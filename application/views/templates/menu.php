@@ -16,6 +16,13 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <!-- /.dropdown -->
+                <?php if ($userdata['idGrupo'] !== null): ?>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Grupo <b><?= $userdata['idGrupo']." - ".$userdata['NombreGrupo'] ?></b>
+                    </a>
+                </li>
+                <?php endif; ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <?= $userdata['Nombre']?> <?= $userdata['Apellido']?>

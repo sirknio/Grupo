@@ -22,6 +22,7 @@
 					<tr>
 						<th>Logo</th>
 						<th>Nombre Grupo</th>
+						<th style="width:100px;">Selecci&oacute;n</th>
 						<th>Descripci&oacute;n</th>
 						<th style="width:10px;">Acción</th>
 					</tr>
@@ -46,6 +47,19 @@
 							</td>
 							<td>
 								<?=$item['Nombre']?>
+							</td>
+							<td>
+								<?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
+									<?php if ($userdata['idGrupo'] === $item['idGrupo']): ?>
+										<a class="btn btn-success btn-block" href="<?=site_url('Grupo/selectGroup')?>">
+											Desmarcar
+										</a>
+									<?php else: ?>
+										<a class="btn btn-default btn-block" href="<?=site_url('Grupo/selectGroup/'.$item['idGrupo'])?>">
+											Seleccionar
+										</a>
+									<?php endif; ?>
+								<?php endif; ?>
 							</td>
 							<td>
 								<?=$item['Descripcion']?>

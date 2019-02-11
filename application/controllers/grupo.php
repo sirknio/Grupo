@@ -147,6 +147,13 @@ class Grupo extends CI_Controller {
 		$data['print'] = $print;
 	}
 
+	public function selectGroup($idGrupo = null) {
+		$group = $this->object_model->get('grupo','','idGrupo='.$idGrupo);
+		$this->session->set_userdata('idGrupo',$idGrupo);
+		$this->session->set_userdata('NombreGrupo',$group[0]['Nombre']);
+		redirect($this->controller);
+	}
+
 	//construir la page completa y permite liberar funcion Index
 	private function loadHTML(&$data) {
 		$data['page']['header']  = $this->load->view('templates/header',$data,true);

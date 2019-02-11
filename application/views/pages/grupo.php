@@ -47,13 +47,13 @@
 				</div>
 				<div class="form-group">
 					<label>Lider 1</label>
-					<select name="idLider1" class="form-control" required>
+					<select name="idLider1" class="form-control">
 						<option value=""> </option>
 						<?php foreach ($lider as $item): ?>
-							<?php if (set_value('idLider1') != $item['idPersona']): ?>
-								<option value="<?=$item['idPersona']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
+							<?php if (set_value('idLider1') != $item['idUsuario']): ?>
+								<option value="<?=$item['idUsuario']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
 							<?php else: ?>
-								<option value="<?=$item['idPersona']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
+								<option value="<?=$item['idUsuario']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
 							<?php endif; ?>
 						<?php endforeach; ?>
 					</select>
@@ -63,10 +63,10 @@
 					<select name="idLider2" class="form-control">
 						<option value=""> </option>
 						<?php foreach ($lider as $item): ?>
-							<?php if (set_value('idLider2') != $item['idPersona']): ?>
-								<option value="<?=$item['idPersona']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
+							<?php if (set_value('idLider2') != $item['idUsuario']): ?>
+								<option value="<?=$item['idUsuario']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
 							<?php else: ?>
-								<option value="<?=$item['idPersona']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
+								<option value="<?=$item['idUsuario']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
 							<?php endif; ?>
 						<?php endforeach; ?>
 					</select>

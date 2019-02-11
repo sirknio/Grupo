@@ -39,17 +39,17 @@ function getEstadoCivilValues() {
 						`grupo` as g
 				WHERE 	p.idGrupo = g.idGrupo
 				AND 	p.idMicrocelula = m.idMicrocelula";
-		if($idGrupo != '') $querytxt = $querytxt." AND g.idGrupo = ".$idGrupo;
-		if($idMicro === '') {
-			if($idMicro === 0) {
-				$querytxt = $querytxt." AND m.idMicrocelula = 0";
-			} else {
-				$querytxt = $querytxt." AND m.idMicrocelula != 3";
-			}
+		if($idGrupo !== '') $querytxt .= " AND g.idGrupo = $idGrupo";
+		if($idMicro !== '') {
+			$querytxt .= " AND m.idMicrocelula = $idMicro";
 		} else {
-			$querytxt = $querytxt." AND m.idMicrocelula = ".$idMicro;
+			// if($idMicro === 0) {
+			// 	$querytxt = $querytxt." AND m.idMicrocelula = 0";
+			// } else {
+			// 	$querytxt = $querytxt." AND m.idMicrocelula != 3";
+			// }
 		}
-		if($id != '')      $querytxt = $querytxt." AND p.idPersona = ".$id;
+		if($id != '') $querytxt = $querytxt." AND p.idPersona = ".$id;
 		$querytxt = $querytxt." ORDER BY p.Nombre";
 		$query = $this->db->query($querytxt);
 		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";
@@ -70,14 +70,26 @@ function getEstadoCivilValues() {
 		return $array;
 	}
 	
+	function getSelectLideres($idLider1 = '',$idLider2 = '') {
+		$query = $this->db->query(
+				"SELECT u.idUsuario, u.Nombre, u.Apellido 
+				FROM 	`usuario` as u 
+				WHERE 	((TipoUsuario = 'Lider' OR TipoUsuario = 'Admin')
+				AND		idGrupo IS NULL)
+				OR 		(idUsuario = $idLider1)
+				OR		(idUsuario = $idLider2)
+				ORDER BY u.Nombre");
+		$array = $query->result_array();
+		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";
+		return $array;
+	}
+	
 	function getLideres() {
 		$query = $this->db->query(
-				"SELECT p.idPersona, p.Nombre, p.Apellido 
-				FROM 	`persona` as p, 
-						`usuario` as u 
-				WHERE 	p.idPersona = u.idPersona 
-					AND TipoUsuario = 'Lider' 
-				ORDER BY p.Nombre");
+				"SELECT u.idUsuario, u.Nombre, u.Apellido 
+				FROM 	`usuario` as u 
+				WHERE 	TipoUsuario = 'Lider' 
+				ORDER BY u.Nombre");
 		$array = $query->result_array();
 		return $array;
 	}

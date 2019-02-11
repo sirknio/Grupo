@@ -57,6 +57,24 @@ class Grupo extends CI_Controller {
 			
 			$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->controller,$data['insert']);
 			if($data['insert'][$this->pkfield] != 0) {
+				if (isset($data['insert']['idLider1'])) {
+					$group = array('idGrupo' => $id);
+					$where = array(
+						'idUsuario' => $data['insert']['idLider1'],
+						'TipoUsuario !=' => 'Admin'
+					);
+					$this->object_model->updateItem('usuario',$group,$where);
+				}
+				
+				if (isset($data['insert']['idLider2'])) {
+					$group = array('idGrupo' => $id);
+					$where = array(
+						'idUsuario' => $data['insert']['idLider2'],
+						'TipoUsuario !=' => 'Admin'
+					);
+					$this->object_model->updateItem('usuario',$group,$where);
+				}
+				
 				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
 				if ($this->imgfield != '') {
 					$this->loadImg($data,'insert',$this->imgfield);
@@ -84,9 +102,36 @@ class Grupo extends CI_Controller {
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
 			$data['update'] = $_POST;
+
+			if ($data['update']['idLider1'] == '') {
+				unset($data['update']['idLider1']);
+			}
+			
+			if ($data['update']['idLider2'] == '') {
+				unset($data['update']['idLider2']);
+			}
+			
 			$this->loadData($data,$this->debug,$id);
 			$where = array($this->pkfield => $id);
 			if ($this->object_model->updateItem($this->controller,$data['update'],$where)) {
+				if (isset($data['update']['idLider1'])) {
+					$group = array('idGrupo' => $id);
+					$where = array(
+						'idUsuario' => $data['update']['idLider1'],
+						'TipoUsuario !=' => 'Admin'
+					);
+					$this->object_model->updateItem('usuario',$group,$where);
+				}
+				
+				if (isset($data['update']['idLider2'])) {
+					$group = array('idGrupo' => $id);
+					$where = array(
+						'idUsuario' => $data['update']['idLider2'],
+						'TipoUsuario !=' => 'Admin'
+					);
+					$this->object_model->updateItem('usuario',$group,$where);
+				}
+				
 				$this->loadImg($data,'update',$this->imgfield);
 				redirect($this->controller);
 			} else {
@@ -136,8 +181,11 @@ class Grupo extends CI_Controller {
 			$data['records'] = $this->object_model->get($this->controller);
 		} else {
 			$data['records'] = $this->object_model->get($this->controller,$this->orderfield,$this->pkfield.'='.$id);
+			$data['lider'] = $this->integrante_model->getSelectLideres(
+				$data['records'][0]['idLider1'],
+				$data['records'][0]['idLider2']
+			);
 		}
-		$data['lider'] = $this->integrante_model->getLideres();
 		$data['morrisjs'] = '';
 		if($debug) {
 			$print = $data;

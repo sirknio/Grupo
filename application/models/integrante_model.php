@@ -52,11 +52,12 @@ function getEstadoCivilValues() {
 		if($id != '')      $querytxt = $querytxt." AND p.idPersona = ".$id;
 		$querytxt = $querytxt." ORDER BY p.Nombre";
 		$query = $this->db->query($querytxt);
-		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";		
+		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";
 		return $query->result_array();
 	}
 	
 	function getMicros($idGrupo) {
+		$array = array();
 		if ($idGrupo != '') {
 			$query = $this->db->query(
 					"SELECT *
@@ -65,6 +66,7 @@ function getEstadoCivilValues() {
 					ORDER BY m.Nombre");
 			$array = $query->result_array();
 		}
+		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";
 		return $array;
 	}
 	

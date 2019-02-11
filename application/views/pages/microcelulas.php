@@ -20,7 +20,7 @@
 			<table class="table table-striped table-bordered table-hover" id="dataTablesEvento">
 				<thead>
 					<tr>
-						<th style="width:100px;">Código</th>
+						<th style="width:100px;">Nombre</th>
 						<th>Descripci&oacute;n</th>
 						<th style="width:10px;">Acción</th>
 					</tr>

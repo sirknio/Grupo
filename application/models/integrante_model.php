@@ -95,11 +95,14 @@ function getEstadoCivilValues() {
 		return $array;
 	}
 	
-	function getColideres() {
+	function getColideres($idGrupo) {
 		$query = $this->db->query(
 				"SELECT u.idUsuario, u.Nombre, u.Apellido 
 				FROM 	`usuario` as u 
-				WHERE 	u.TipoUsuario = 'Microlider' 
+				WHERE 	(u.TipoUsuario = 'Microlider' 
+				OR		u.TipoUsuario = 'Lider'
+				OR		u.TipoUsuario = 'Admin')
+				AND		(u.idGrupo = $idGrupo)
 				ORDER BY u.Nombre");
 		$array = $query->result_array();
 		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";

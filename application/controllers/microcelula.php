@@ -45,8 +45,17 @@ class Microcelula extends CI_Controller {
 			$this->loadHTML($data);
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
-			$this->loadData($aux,$this->debug);
 			$data['insert'] = $_POST;
+			
+			$this->loadData($aux,$this->debug,$data['insert']['idGrupo']);
+			if ($data['insert']['idColider1'] == '') {
+				unset($data['insert']['idColider1']);
+			}
+			
+			if ($data['insert']['idColider2'] == '') {
+				unset($data['insert']['idColider2']);
+			}
+
 			$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->controller,$data['insert']);
 			if($data['insert'][$this->pkfield] != 0) {
 				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
@@ -76,6 +85,16 @@ class Microcelula extends CI_Controller {
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
 			$data['update'] = $_POST;
+			//echo "<pre>";print_r($data['update']);echo "</pre>";
+
+			if ($data['update']['idColider1'] == '') {
+				unset($data['update']['idColider1']);
+			}
+			
+			if ($data['update']['idColider2'] == '') {
+				unset($data['update']['idColider2']);
+			}
+			
 			$this->loadData($data,$this->debug,$id);
 			$where = array($this->pkfield => $id);
 			if ($this->object_model->updateItem($this->controller,$data['update'],$where)) {

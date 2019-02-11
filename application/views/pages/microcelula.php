@@ -41,12 +41,12 @@
 			<div class="form-group">
 				<label>Colider 1</label>
 				<select name="idColider1" class="form-control">
-					<option value="0"> </option>
+						<option value=""> </option>
 					<?php foreach ($colider as $item): ?>
-						<?php if (set_value('idColider1') != $item['idPersona']): ?>
-							<option value="<?=$item['idPersona']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
+							<?php if (set_value('idColider1') != $item['idUsuario']): ?>
+								<option value="<?=$item['idUsuario']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
 						<?php else: ?>
-							<option value="<?=$item['idPersona']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
+								<option value="<?=$item['idUsuario']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
 						<?php endif; ?>
 					<?php endforeach; ?>
 				</select>
@@ -54,12 +54,12 @@
 			<div class="form-group">
 				<label>Colider 2</label>
 				<select name="idColider2" class="form-control">
-					<option value="0"> </option>
+						<option value=""> </option>
 					<?php foreach ($colider as $item): ?>
-						<?php if (set_value('idColider2') != $item['idPersona']): ?>
-							<option value="<?=$item['idPersona']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
+							<?php if (set_value('idColider2') != $item['idUsuario']): ?>
+								<option value="<?=$item['idUsuario']?>"><?=$item['Nombre'].' '.$item['Apellido']?></option>
 						<?php else: ?>
-							<option value="<?=$item['idPersona']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
+								<option value="<?=$item['idUsuario']?>" selected><?=$item['Nombre'].' '.$item['Apellido']?></option>
 						<?php endif; ?>
 					<?php endforeach; ?>
 				</select>

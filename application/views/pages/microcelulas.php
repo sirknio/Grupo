@@ -47,12 +47,12 @@
 										</li>
 										<li role="separator" class="divider"></li>
 										<li>
-											<a href="<?=site_url('Microcelula/updateItem/'.$item['idMicrocelula'])?>">
+											<a href="<?=site_url('Microcelula/updateItem/'.$item['idGrupo'].'/'.$item['idMicrocelula'])?>">
 											<i class="fa fa-pencil-square-o fa-fw"></i> Actualizar
 											</a>
 										</li>
 										<li>
-											<a href="<?=site_url('Microcelula/deleteItem/'.$item['idMicrocelula'])?>">
+											<a href="<?=site_url('Microcelula/deleteItem/'.$item['idGrupo'].'/'.$item['idMicrocelula'])?>">
 											<i class="fa fa-trash-o fa-fw"></i> Eliminar
 											</a>
 										</li>

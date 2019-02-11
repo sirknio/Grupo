@@ -19,29 +19,29 @@ class Microcelula extends CI_Controller {
 		$this->load->model('integrante_model');
 	}
 	
-	public function index($id = '') {
-		$this->loadData($data,$this->debug,$id);
+	public function index($idGrupo = '',$idMicro = '') {
+		$this->loadData($data,$this->debug,$idGrupo,$idMicro);
 		$this->loadHTML($data);
 		$this->load->view('pages/'.$this->pagelist,$data);
 	}	
 		
 	//Eliminar registro
-	public function deleteItem($id = '') {
-		if($id !== '') {
-			$this->loadData($data,$this->debug,$id);
+	public function deleteItem($idGrupo = '',$idMicro = '') {
+		if($idMicro !== '') {
+			$this->loadData($data,$this->debug,$idGrupo,$idMicro);
 			if ($this->imgfield != '') {
 				$this->deleteImg($data);
 			}
-			$this->object_model->deleteItem($this->controller,array($this->pkfield => $id));
+			$this->object_model->deleteItem($this->controller,array($this->pkfield => $idMicro));
 		}
-		redirect($this->controller);
+		redirect($this->controller.'/index/'.$idGrupo);
 	}
 	
 	//Insertar registro
-	public function insertItem($id,$createId = '') {
+	public function insertItem($idGrupo = '',$createId = '') {
 		$data['update'] = false;
 		If($createId === '') {
-			$this->loadData($data,$this->debug);
+			$this->loadData($data,$this->debug,$idGrupo);
 			$this->loadHTML($data);
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
@@ -59,10 +59,7 @@ class Microcelula extends CI_Controller {
 			$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->controller,$data['insert']);
 			if($data['insert'][$this->pkfield] != 0) {
 				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
-				if ($this->imgfield != '') {
-					$this->loadImg($data,'insert',$this->imgfield);
-				}
-				redirect($this->controller);
+				redirect($this->controller.'/index/'.$data['insert']['idGrupo']);
 			} else {
 				//Establecer mensaje de error en insercción de datos
 				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
@@ -98,7 +95,6 @@ class Microcelula extends CI_Controller {
 			$this->loadData($data,$this->debug,$id);
 			$where = array($this->pkfield => $id);
 			if ($this->object_model->updateItem($this->controller,$data['update'],$where)) {
-				$this->loadImg($data,'update',$this->imgfield);
 				redirect($this->controller);
 			} else {
 				//Establecer mensaje de error en actualizar datos
@@ -141,15 +137,18 @@ class Microcelula extends CI_Controller {
 		}
 	}
 	
-	private function loadData(&$data,$debug = false,$id = '') {
+	private function loadData(&$data,$debug = false,$idGrupo = '',$idMicro = '') {
 		$data['userdata'] = $_SESSION;
-		if ($id === '') {
-			$data['records'] = $this->object_model->get($this->controller);
+		if ($idMicro === '') {
+			$where = array('idGrupo' => $idGrupo);
+			$data['records'] = $this->object_model->get($this->controller,'',$where);
 		} else {
-			$data['records'] = $this->object_model->get($this->controller,$this->orderfield,array ('idGrupo' => $id));
+			$where = array($this->pkfield => $idMicro);
+			$data['records'] = $this->object_model->get($this->controller,'',$where,true);
 		}
-		$data['lider'] = $this->integrante_model->getLideres();
-		$data['colider'] = $this->integrante_model->getColideres();
+
+		$data['colider'] = $this->integrante_model->getColideres($idGrupo);
+		$data['TipoMicro'] = $this->object_model->getTipoValues('Microcelula','TipoMicro');
 		$data['morrisjs'] = '';
 		if($debug) {
 			$print = $data;

@@ -2,17 +2,17 @@
 
 <?=$page['menu']?>
 
-<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	<div class="col-md-8">
 		<h1 class="page-header">Grupos</h1>		
 	</div>
 	<div class="col-md-4">
 		<ul class="nav nav-pills custbuttons">
-			<li>
+			<li role="showlist">
 				<a class="btn btn-primary" href="<?=site_url('Grupo/insertItem')?>"><i class="fa fa-plus-square fa-fw"></i></a>
 			</li>
 		</ul>
 	</div>
+	<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 
 	<!-- /.col-lg-12 -->
 	<div class="col-md-11">

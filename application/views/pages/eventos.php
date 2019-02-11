@@ -1,17 +1,19 @@
 <?=$page['header']?>
 
 <?=$page['menu']?>
+
 	<div class="col-md-8">
 		<h1 class="page-header">Eventos</h1>
 	</div>
 	<div class="col-md-4">
 		<ul class="nav nav-pills custbuttons">
 			<li role="showlist">
-				<a class="btn btn-primary" href="<?=site_url('Evento/insertItem')?>"><span class="fa fa-calendar fa-fw"></span> Crear</a>
+				<a class="btn btn-primary" href="<?=site_url('Evento/insertItem')?>"><i class="fa fa-plus-square fa-fw"></i></a>
 			</li>
 		</ul>
 	</div>
 	<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
+
 	<!-- /.col-lg-12 -->
 	<div class="col-md-11">
 		<div class="table">

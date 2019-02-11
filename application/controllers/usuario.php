@@ -57,10 +57,6 @@ class Usuario extends CI_Controller {
 					unset($data['insert']['idGrupo']);
 				}
 				
-				if ($data['insert']['idPersona'] == '') {
-					unset($data['insert']['idPersona']);
-				}
-				
 				$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->controller,$data['insert']);
 				if($data['insert'][$this->pkfield] != 0) {
 					$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
@@ -103,10 +99,6 @@ class Usuario extends CI_Controller {
 
 				if ($data['update']['idGrupo'] == '') {
 					unset($data['update']['idGrupo']);
-				}
-				
-				if ($data['update']['idPersona'] == '') {
-					unset($data['update']['idPersona']);
 				}
 				
 				$this->loadData($data,$this->debug,$id);

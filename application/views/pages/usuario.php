@@ -64,19 +64,6 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<label>Asociar a Integrante</label>
-					<select name="idPersona" class="form-control">
-						<option value=""> </option>
-						<?php foreach ($Personas as $item): ?>
-							<?php if (set_value('idPersona') != $item['idPersona']): ?>
-								<option value="<?=$item['idPersona']?>"><?=$item['Nombre']?> <?=$item['Apellido']?></option>
-							<?php else: ?>
-								<option value="<?=$item['idPersona']?>" selected><?=$item['Nombre']?> <?=$item['Apellido']?></option>
-							<?php endif; ?>
-						<?php endforeach; ?>
-					</select>
-				</div>
-				<div class="form-group">
 					<label>Nombre</label>
 					<input name="Nombre" class="form-control" placeholder="Nombres" value="<?= set_value('Nombre')?>" required />
 				</div>

@@ -24,6 +24,20 @@
 				<label>Descripción</label>
 				<input name="Descripcion" class="form-control" placeholder="Descripción" value="<?= set_value('Descripcion')?>">
 			</div>
+
+				<div class="form-group">
+					<label>Tipo Microcelula</label>
+					<select name="TipoMicro" class="form-control" placeholder="Seleccione Tipo Microcelula">
+						<?php foreach ($TipoMicro as $item): ?>
+							<?php if (set_value('TipoMicro') != $item): ?>
+								<option value="<?=$item?>"><?= $item?></option>
+							<?php else: ?>
+								<option value="<?=$item?>" selected><?=$item?></option>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</select>
+				</div>
+
 			<div class="form-group">
 				<label>Colider 1</label>
 				<select name="idColider1" class="form-control">

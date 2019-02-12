@@ -57,15 +57,13 @@ class Integrante extends CI_Controller {
 					}
 				}
 				$data['records'] = $person;
-
-				
 				$this->load->view('pages/'.$this->pagesquare,$data);
 				break;		
 		}
 	}	
 		
 	//Eliminar registro
-	public function deleteItem() {
+	public function deleteItem($idGrupo = '') {
 		$data['delete'] = $_POST; 
 		if($data['delete']['idPersona'] !== '') {
 			$this->loadData($data,$this->debug,'','',$data['delete']['idPersona']);
@@ -74,7 +72,7 @@ class Integrante extends CI_Controller {
 			}
 			$this->object_model->deleteItem($this->tablename,$data['delete']);
 		}
-		redirect($this->controller);
+		redirect($this->controller."/index/".$idGrupo);
 	}
 	
 	//Insertar registro
@@ -132,7 +130,7 @@ class Integrante extends CI_Controller {
 					$idEvento = $this->object_model->insertItem('asistencia',$asistencia);
 				}
 				if (!$quick) {
-					redirect($this->controller);
+					redirect($this->controller."/index/".$data['insert']['idGrupo']);
 				} else {
 					redirect('asistencia');
 				}
@@ -258,7 +256,7 @@ class Integrante extends CI_Controller {
 				
 				$this->loadImg($data,'update',$this->imgfield);
 				//echo "<pre>";echo "OK CARGUE DE IMAGEN";echo "</pre>";
-				redirect($this->controller);
+				redirect($this->controller."/index/".$data['update']['idGrupo']);
 				//$this->loadData($data,$this->debug,$id);
 				//$this->loadHTML($data);
 				//$this->load->view('pages/'.$this->pagecard,$data);

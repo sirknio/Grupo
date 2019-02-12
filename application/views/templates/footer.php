@@ -1,4 +1,4 @@
-					<div class="col-lg-12"><h6>&nbsp;</h6></div>
+					<!-- <div class="col-lg-12"><h6>&nbsp;</h6></div> -->
 										
 					<!-- modal fade -->
 					<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -11,7 +11,7 @@
 								<h4 class="modal-title" id="myModalLabel">Eliminar integrante</h4>
 							</div>
 							<div class="modal-body">
-							  <?php echo form_open(site_url("Integrante/deleteItem"), array("class" => "form-horizontal")) ?>
+							  <?php echo form_open(site_url("Integrante/deleteItem/".$userdata['idGrupo']), array("class" => "form-horizontal")) ?>
 								<div class="form-group">
 									<div class="col-lg-12">
 										<h5>Esta seguro que desea eliminar el integrante?</h5>

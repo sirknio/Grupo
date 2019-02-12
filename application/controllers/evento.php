@@ -146,11 +146,11 @@ class Evento extends CI_Controller {
 			$where = array($this->pkfield => $id);
 			$this->object_model->updateItem($this->controller,$update,$where);
 			$this->session->set_userdata('AsistAbierta',true);
-			redirect('Evento');
+			redirect($this->controller."/index/".$evento['idGrupo']);
 		} else {
 			//Mostrar error dicendo que ya existen eventos
 			//echo "<pre>";print_r($eventos);echo "Ya existen eventos [".count($eventos)."] abiertos</pre>";
-			redirect('Evento');
+			redirect($this->controller."/index/".$evento['idGrupo']);
 		}
 	}
 	
@@ -187,7 +187,7 @@ class Evento extends CI_Controller {
 	}
 		
 	//Eliminar registro
-	public function deleteItem($id = '') {
+	public function deleteItem($idGrupo = '',$id = '') {
 		if($id !== '') {
 			$this->loadData($data,$this->debug,$id);
 			if ($this->imgfield != '') {
@@ -195,7 +195,7 @@ class Evento extends CI_Controller {
 			}
 			$this->object_model->deleteItem($this->controller,array($this->pkfield => $id));
 		}
-		redirect($this->controller);
+		redirect($this->controller.'/index/'.$idGrupo);
 	}
 	
 	//Insertar registro
@@ -213,7 +213,7 @@ class Evento extends CI_Controller {
 				if ($this->imgfield != '') {
 					$this->loadImg($data,'insert',$this->imgfield);
 				}
-				redirect($this->controller);
+				redirect($this->controller."/index/".$data['insert']['idGrupo']);
 			} else {
 				//Establecer mensaje de error en insercción de datos
 				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
@@ -240,10 +240,10 @@ class Evento extends CI_Controller {
 			$where = array($this->pkfield => $id);
 			if ($this->object_model->updateItem($this->controller,$data['update'],$where)) {
 				$this->loadImg($data,'update',$this->imgfield);
-				redirect($this->controller);
+				redirect($this->controller."/index/".$data['update']['idGrupo']);
 			} else {
 				//Establecer mensaje de error en actualizar datos
-				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
+				$this->loadData($data,$this->debug,$data['update'][$this->pkfield]);
 				$this->loadHTML($data);
 				$this->load->view('pages/'.$this->pagecard,$data);
 			}

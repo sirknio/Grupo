@@ -70,14 +70,14 @@ class Microcelula extends CI_Controller {
 	}
 
 	//Actualizar registro
-	public function updateItem($id = '',$action = false) {
+	public function updateItem($idGrupo = '',$idMicro = '',$action = false) {
 		$data['update'] = true;
 		if (!$action) {
-			$where = array($this->pkfield => $id);
+			$where = array($this->pkfield => $idMicro);
 			$data['info'] = $this->object_model->get($this->controller,'',$where);
 			$_POST = array_merge($_POST,$data['info'][0]);
 
-			$this->loadData($data,$this->debug,$id);
+			$this->loadData($data,$this->debug,$idMicro);
 			$this->loadHTML($data);
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
@@ -92,10 +92,10 @@ class Microcelula extends CI_Controller {
 				unset($data['update']['idColider2']);
 			}
 			
-			$this->loadData($data,$this->debug,$id);
-			$where = array($this->pkfield => $id);
+			$this->loadData($data,$this->debug,$idMicro);
+			$where = array($this->pkfield => $idMicro);
 			if ($this->object_model->updateItem($this->controller,$data['update'],$where)) {
-				redirect($this->controller);
+				redirect($this->controller.'/index/'.$data['update']['idGrupo']);
 			} else {
 				//Establecer mensaje de error en actualizar datos
 				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);

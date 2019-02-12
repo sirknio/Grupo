@@ -7,7 +7,7 @@
 	<?php if (!$update): ?>
 		<?= form_open_multipart('Microcelula/insertItem/'.$userdata['idGrupo'].'/Create'); ?>
 	<?php else: ?>
-		<?= form_open_multipart('Microcelula/updateItem/'.set_value('idMicrocelula').'/Update'); ?>
+		<?= form_open_multipart('Microcelula/updateItem/'.$userdata['idGrupo'].'/'.set_value('idMicrocelula').'/Update'); ?>
 	<?php endif; ?>
 
 		<div class="col-md-12">
@@ -26,7 +26,7 @@
 						title="Actualizar Microcelula"><i class="fa fa-pencil-square-o fa-fw"></i>
 					<?php endif; ?>
 					</button>
-					<a class="btn btn-default" href="<?=site_url('Microcelula')?>" title="Cancelar"><i class="fa fa-times-circle"></i></a>
+					<a class="btn btn-default" href="<?=site_url('Microcelula/index/'.$userdata['idGrupo'])?>" title="Cancelar"><i class="fa fa-times-circle"></i></a>
 				<?php endif; ?>
 			</div>
 		</div>

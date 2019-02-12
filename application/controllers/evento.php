@@ -117,10 +117,15 @@ class Evento extends CI_Controller {
 		
 	public function openEvent($id) {
 		$insert   = false;
-		$eventos  = $this->object_model->get($this->controller, $this->orderfield, "Estado = 'Abierto'");
+		$evento   = $this->object_model->get($this->controller, $this->orderfield, $this->pkfield.'='.$id);
+		$evento   = $evento[0];
+		
+		$where = array(
+			'Estado' 	=> 'Abierto',
+			'idGrupo' 	=> $evento['idGrupo']
+		);
+		$eventos  = $this->object_model->get($this->controller, $this->orderfield, $where);
 		if (count($eventos) == 0) {
-			$evento   = $this->object_model->get($this->controller, $this->orderfield, $this->pkfield.'='.$id);
-			$evento   = $evento[0];
 			$personas = $this->integrante_model->get($evento['idGrupo']);
 			foreach ($personas as $persona) {
 				$asistencia = array(
@@ -149,7 +154,7 @@ class Evento extends CI_Controller {
 			redirect($this->controller."/index/".$evento['idGrupo']);
 		} else {
 			//Mostrar error dicendo que ya existen eventos
-			//echo "<pre>";print_r($eventos);echo "Ya existen eventos [".count($eventos)."] abiertos</pre>";
+			//echo "<pre>";print_r($eventos);echo "</pre><hr>Ya existen eventos [".count($eventos)."] abiertos";
 			redirect($this->controller."/index/".$evento['idGrupo']);
 		}
 	}

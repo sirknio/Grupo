@@ -199,6 +199,13 @@ class Grupo extends CI_Controller {
 		$group = $this->object_model->get('grupo','','idGrupo='.$idGrupo);
 		$this->session->set_userdata('idGrupo',$idGrupo);
 		$this->session->set_userdata('NombreGrupo',$group[0]['Nombre']);
+
+		$where = array(
+			'Estado' 	=> 'Abierto',
+			'idGrupo' 	=> $idGrupo
+		);
+		$eventos = $this->object_model->get('Evento','',$where);
+		$this->session->set_userdata('AsistAbierta',count($eventos) !== 0);
 		redirect($this->controller);
 	}
 

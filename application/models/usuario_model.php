@@ -11,6 +11,7 @@ class Usuario_model extends CI_Model{
 			$user = $query->row_array();
 			
 			$query = $this->db->where('Estado','Abierto');
+			$query = $this->db->where('idGrupo',$user['idGrupo']);
 			$query = $this->db->get('evento');
 			$user['AsistAbierta'] = $query->num_rows() >= 1;
 			

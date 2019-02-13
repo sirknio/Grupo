@@ -106,9 +106,6 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-lg-12">
-			<a class="btn btn-primary" href="<?=site_url('Evento/insertItem')?>"><i class="fa fa-calendar fa-fw"></i> Crear Evento</a>
-		</div>
 		<!-- /.table-responsive -->
 	</div>
 	<!-- /.col-lg-12 -->

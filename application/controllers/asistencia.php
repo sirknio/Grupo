@@ -22,10 +22,14 @@ class Asistencia extends CI_Controller {
 		$this->load->model('evento_model');
 	}
 	
-	public function index() {
-		$evento = $this->object_model->get('evento', $this->orderfield, "Estado = 'Abierto'");
-		if (count($evento) == 0) {
-			$data['no_evento'] = "Por favor abra un evento para tomar asistencia.";
+	public function index($idGrupo = '') {
+		$where = array(
+			'Estado' 	=> 'Abierto',
+			'idGrupo' 	=> $idGrupo
+		);
+		$evento = $this->object_model->get('evento', $this->orderfield, $where);
+		if ((count($evento) == 0) || ($idGrupo == '')) {
+			$data['no_evento'] = "Por favor seleccione un Grupo y abra un evento para tomar asistencia.";
 		} else {
 			$evento = $evento[0];
 			$_POST = array_merge($_POST,array(
@@ -44,7 +48,7 @@ class Asistencia extends CI_Controller {
 		$this->loadData($data,$this->debug);
 		unset($data['error']);
 		unset($data['success']);
-		//echo "<pre>";print_r($check);echo "</pre>";
+		//echo "<pre>";print_r($_POST);echo "</pre>";
 		$where = array(
 			'idGrupo' => $_POST['idGrupo'],
 			'idEvento' => $_POST['idEvento'],

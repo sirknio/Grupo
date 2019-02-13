@@ -94,7 +94,7 @@
                                 </li>
                                 <?php if ($userdata['AsistAbierta']): ?>
                                 <li>
-                                    <a href="<?=site_url('asistencia')?>">Tomar Asistencia</a>
+                                    <a href="<?=site_url('asistencia/index/'.$userdata['idGrupo'])?>">Tomar Asistencia</a>
                                 </li>
                                 <li>
                                     <a href="<?=site_url('Integrante/insertQuickItem')?>">Crear Nuevo</a>

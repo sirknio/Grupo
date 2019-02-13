@@ -5,11 +5,7 @@
 <?php $item = ''; ?>
 
 <div class="col-lg-12">
-	<?php if (!$update): ?>
-		<?= form_open_multipart('Integrante/insertItem/Crear'); ?>
-	<?php else: ?>
-		<?= form_open_multipart('Integrante/updateItem/'.set_value('idPersona').'/Update'); ?>
-	<?php endif; ?>
+		<?= form_open_multipart('Integrante/insertQuickItem/Crear'); ?>
 		<div class="row">
 			<div class="col-lg-6">
 				<h1 class="page-header">Integrante</h1>
@@ -21,13 +17,21 @@
 			<div class="col-lg-6">
 				<input name="idEvento" type="hidden" value="<?= set_value('idEvento')?>">
 				<input name="idGrupo" type="hidden" value="<?= set_value('idGrupo')?>">
-				<input name="idMicrocelula" type="hidden" value="0">
+				<input name="idMicrocelula" type="hidden" value="<?= set_value('idMicrocelula')?>">
 				<input name="FechaIngreso" type="hidden" value="<?= set_value('FechaIngreso')?>">
 				<div class="form-group quick-form-group">
 					<input name="Nombre" class="form-control" placeholder="Nombres Completos" value="<?= set_value('Nombre')?>" autocomplete="off" required>
 				</div>
 				<div class="form-group quick-form-group">
 					<input name="Apellido" class="form-control" placeholder="Apellidos" value="<?= set_value('Apellido')?>" autocomplete="off" required>
+				</div>
+				<div class="form-group quick-form-group">
+					<div class="input-group date form_birthdate" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+					<input class="form-control" name="FechaNacimiento" size="16" type="text" <?php if (set_value('FechaNacimiento') != '0000-00-00') echo "value=".'"'.set_value('FechaNacimiento').'"';?> placeholder="Fecha Nacimiento" required readonly>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+					<input type="hidden" id="dtp_input2" value="" />
 				</div>
 				<div class="form-group quick-form-group">
 					<select name="DocumentoTipo" class="form-control" placeholder="Seleccione Tipo Documento" autocomplete="off" required>
@@ -80,27 +84,12 @@
 				<div class="form-group quick-form-group">
 					<input name="Email" class="form-control" placeholder="Correo Electrónico" value="<?= set_value('Email')?>" required>
 				</div>
-				<div class="form-group quick-form-group">
-					<div class="input-group date form_birthdate" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-					<input class="form-control" name="FechaNacimiento" size="16" type="text" <?php if (set_value('FechaNacimiento') != '0000-00-00') echo "value=".'"'.set_value('FechaNacimiento').'"';?> placeholder="Fecha Nacimiento" readonly>
-						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-					</div>
-					<input type="hidden" id="dtp_input2" value="" />
-				</div>
 			</div>
 			<div class="col-lg-8">
-				<?php if (isset($idEvent)): ?>
-				<?php else: ?>
-					<button type="submit" class="btn btn-primary"><i class="fa fa-users fa-fw"></i> 
-					<?php if (!$update): ?>
-						Crear Integrante
-					<?php else: ?>
-						Actualizar Integrante
-					<?php endif; ?>
-					</button>
-					<a class="btn btn-default" href="<?=site_url('asistencia')?>">Cancelar</a>
-				<?php endif; ?>
+				<button type="submit" class="btn btn-primary"><i class="fa fa-users fa-fw"></i> 
+					Crear
+				</button>
+				<a class="btn btn-default" href="<?=site_url('asistencia/index/'.set_value('idGrupo'))?>">Cancelar</a>
 			</div>
 		</div>
 	</form>

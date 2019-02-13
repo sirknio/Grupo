@@ -86,25 +86,32 @@ class Integrante extends CI_Controller {
 		$idEvento = 0;
 		If($createId === '') {
 			$this->loadData($data,$this->debug);
-			$_POST = array_merge($_POST,array(
-				'idGrupo' => $data['userdata']['idGrupo']
-				));
+			$where = array (
+				'idGrupo' => $data['userdata']['idGrupo'],
+				'TipoMicro' => 'Nuevos'
+			);
+			$microNuevos = $this->object_model->get('microcelula', '', $where);
 			$eventos  = $this->object_model->get('evento', $this->orderfield, "Estado = 'Abierto'");
 			if (count($eventos) != 0) {
 				$_POST = array_merge($_POST,array(
-					'idEvento' => $eventos[0]['idEvento'],
-					'FechaIngreso' => $eventos[0]['FechaEvento']
+					'idGrupo' 		=> $data['userdata']['idGrupo'],
+					'idMicrocelula' => $microNuevos[0]['idMicrocelula'],
+					'idEvento' 		=> $eventos[0]['idEvento'],
+					'FechaIngreso' 	=> $eventos[0]['FechaEvento']
 					));
 			} else {
 				$_POST = array_merge($_POST,array(
+					'idGrupo' => $data['userdata']['idGrupo'],
+					'idMicrocelula' => $microNuevos[0]['idMicrocelula'],
 					'FechaIngreso' => date('Y-m-d', time())
 					));
 			}
 			$this->loadHTML($data);
-			if (!$quick) {
-				$this->load->view('pages/'.$this->pagecard,$data);
-			} else {
+			// echo "<hr><pre>";print_r($_POST);echo "</pre><hr>";
+			if ($quick) {
 				$this->load->view('pages/'.$this->pagequickcard,$data);
+			} else {
+				$this->load->view('pages/'.$this->pagecard,$data);
 			}
 		} else {
 			$idEvento = $_POST['idEvento'];
@@ -113,9 +120,6 @@ class Integrante extends CI_Controller {
 			$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->tablename,$data['insert']);
 			if($data['insert'][$this->pkfield] != 0) {
 				$this->loadData($data,$this->debug,'','',$data['insert'][$this->pkfield]);
-				if ($this->imgfield != '') {
-					//$this->loadImg($data,'insert',$this->imgfield);
-				}
 				if ($idEvento != 0) {
 					$asistencia = array(
 						'idEvento' 		=> $idEvento,
@@ -129,10 +133,10 @@ class Integrante extends CI_Controller {
 					);
 					$idEvento = $this->object_model->insertItem('asistencia',$asistencia);
 				}
-				if (!$quick) {
-					redirect($this->controller."/index/".$data['insert']['idGrupo']);
+				if ($quick) {
+					redirect('asistencia/index/'.$data['insert']['idGrupo']);
 				} else {
-					redirect('asistencia');
+					redirect($this->controller.'/index/'.$data['insert']['idGrupo']);
 				}
 			} else {
 				//Establecer mensaje de error en insercción de datos
@@ -167,9 +171,7 @@ class Integrante extends CI_Controller {
 					$_POST['ImportanteUrgente'] = 1;
 				}
 			}
-			echo "<hr><pre>";
-			print_r($_POST);
-			echo "</pre><hr>";
+			echo "<hr><pre>";print_r($_POST);echo "</pre><hr>";
 		}
 
 		$where = array($this->pkfield => $id);

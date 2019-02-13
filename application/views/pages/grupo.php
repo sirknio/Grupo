@@ -26,7 +26,9 @@
 						title="Actualizar Grupo"><i class="fa fa-pencil-square-o fa-fw"></i>
 					<?php endif; ?>
 					</button>
+					<?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
 					<a class="btn btn-default" href="<?=site_url('Grupo')?>" title="Cancelar"><i class="fa fa-times-circle"></i></a>
+					<?php endif; ?>
 				<?php endif; ?>
 			</div>
 		</div>

@@ -98,7 +98,7 @@ class Microcelula extends CI_Controller {
 				redirect($this->controller.'/index/'.$data['update']['idGrupo']);
 			} else {
 				//Establecer mensaje de error en actualizar datos
-				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
+				$this->loadData($data,$this->debug,$data['update'][$this->pkfield]);
 				$this->loadHTML($data);
 				$this->load->view('pages/'.$this->pagecard,$data);
 			}

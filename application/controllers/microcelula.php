@@ -144,7 +144,7 @@ class Microcelula extends CI_Controller {
 			$data['records'] = $this->object_model->get($this->controller,'',$where);
 		} else {
 			$where = array($this->pkfield => $idMicro);
-			$data['records'] = $this->object_model->get($this->controller,'',$where,true);
+			$data['records'] = $this->object_model->get($this->controller,'',$where);
 		}
 
 		$data['colider'] = $this->integrante_model->getColideres($idGrupo);

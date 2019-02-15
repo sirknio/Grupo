@@ -5,6 +5,8 @@ class Object_model extends CI_Model{
 	
 	function insertItem($table,$data) {
 		if ($this->db->insert($table, $data) == 1) {
+			$this->initLog('Insercion',$table,$data,$this->db->insert_id());
+			$this->applyLog();
 			return($this->db->insert_id());
 		} else {
 			return(0);
@@ -16,14 +18,14 @@ class Object_model extends CI_Model{
 	}
 	
 	function deleteItem($table,$data) {
-		$this->initLog('Eliminacion',$table,$data,'');
+		$this->initLog('Eliminacion',$table,$data);
 		$this->db->delete($table, $data);
 		$this->applyLog();
 	}
 
-	function initLog($changeType,$table,$data,$where = '') {
+	function initLog($changeType,$table,$data,$id = '') {
 		$this->load->library('ChangeLog');
-		$this->log = $this->changelog->insertChange($changeType,$table,$data,$where);
+		$this->log = $this->changelog->insertChange($changeType,$table,$data,$id);
 	}
 
 	function applyLog() {

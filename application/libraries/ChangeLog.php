@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ChangeLog {
-    public function insertChange($changeType,$table,$data,$where = '') {
+    public function insertChange($changeType,$table,$data,$id = '') {
         date_default_timezone_set("America/Bogota");
         $dateNow = new DateTime("now");
         $user = $_SESSION;
@@ -10,8 +10,22 @@ class ChangeLog {
         $CI =& get_instance();
         $CI->load->model('object_model');
         $def  = $CI->object_model->getPK($table);
-        $orig = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
+        // echo "<hr><pre>";print_r($table);echo "</pre><hr>";
+        // echo "<hr><pre>";print_r($data);echo "</pre><hr>";
+        // echo "<hr><pre>";print_r($def);echo "</pre><hr>";
+
+        if ($id !== '') {
+            $orig = '';
+            $data[$def[0]['COLUMN_NAME']] = $id;
+            $new = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
+            $new = http_build_query($new[0],'',', ');
+        } else {
+            $new = '';
+            $orig = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
+            $orig = http_build_query($orig[0],'',', ');
+        }
         
+        $defPK = $def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']];
         // echo "<hr><pre>";print_r($orig[0]);echo "</pre><hr>";
         
         $log = array(
@@ -24,9 +38,9 @@ class ChangeLog {
             'TablaNombre' 	=> $table,
             'CampoNombre' 	=> '',
             'TipoCambio' 	=> $changeType,
-            'ValorOriginal' => http_build_query($orig[0],'',', '),
-            'ValorNuevo' 	=> '',
-            'LlavePrimaria' => $def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]
+            'ValorOriginal' => $orig,
+            'ValorNuevo' 	=> $new,
+            'LlavePrimaria' => $defPK
         );
         
         // Para recuperar el registro original, reemplazar , por &

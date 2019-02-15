@@ -14,7 +14,10 @@ class Object_model extends CI_Model{
 	}
 	
 	function updateItem($table,$data,$where) {
-		return $this->db->update($table,$data,$where);
+		$this->initLog('Modificacion',$table,$data,'',$where);
+		$dev = $this->db->update($table,$data,$where);
+		$this->applyLog();
+		return $dev;
 	}
 	
 	function deleteItem($table,$data) {
@@ -23,9 +26,9 @@ class Object_model extends CI_Model{
 		$this->applyLog();
 	}
 
-	function initLog($changeType,$table,$data,$id = '') {
+	function initLog($changeType,$table,$data,$id = '',$where = '') {
 		$this->load->library('ChangeLog');
-		$this->log = $this->changelog->insertChange($changeType,$table,$data,$id);
+		$this->log = $this->changelog->insertChange($changeType,$table,$data,$id,$where);
 	}
 
 	function applyLog() {

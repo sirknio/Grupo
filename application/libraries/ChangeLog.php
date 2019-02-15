@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ChangeLog {
-    public function insertChange($changeType,$table,$data,$id = '') {
+    public function insertChange($changeType,$table,$data,$id = '',$where = '') {
         date_default_timezone_set("America/Bogota");
         $dateNow = new DateTime("now");
         $user = $_SESSION;
@@ -10,23 +10,33 @@ class ChangeLog {
         $CI =& get_instance();
         $CI->load->model('object_model');
         $def  = $CI->object_model->getPK($table);
-        // echo "<hr><pre>";print_r($table);echo "</pre><hr>";
-        // echo "<hr><pre>";print_r($data);echo "</pre><hr>";
-        // echo "<hr><pre>";print_r($def);echo "</pre><hr>";
-
-        if ($id !== '') {
-            $orig = '';
-            $data[$def[0]['COLUMN_NAME']] = $id;
-            $new = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
-            $new = http_build_query($new[0],'',', ');
-        } else {
-            $new = '';
-            $orig = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
-            $orig = http_build_query($orig[0],'',', ');
+        switch($changeType) {
+            case 'Insercion':
+                $orig = '';
+                $data[$def[0]['COLUMN_NAME']] = $id;
+                $new = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
+                $new = http_build_query($new[0],'',', ');
+                break;
+            case 'Eliminacion':
+                $new = '';
+                $orig = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
+                $orig = http_build_query($orig[0],'',', ');
+                break;
+            case 'Modificacion':
+                $data[$def[0]['COLUMN_NAME']] = $where[$def[0]['COLUMN_NAME']];
+                $orig = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
+                $orig = http_build_query($orig[0],'',', ');
+                $new = http_build_query($data,'',', ');
+                break;
         }
         
         $defPK = $def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']];
-        // echo "<hr><pre>";print_r($orig[0]);echo "</pre><hr>";
+        // echo "<hr><pre>";print_r($table);echo "</pre><hr>";
+        // echo "<hr><pre>";print_r($data);echo "</pre><hr>";
+        // echo "<hr><pre>";print_r($where);echo "</pre><hr>";
+        // echo "<hr><pre>";print_r($def);echo "</pre><hr>";
+        // echo "<hr><pre>";print_r($orig);echo "</pre><hr>";
+        // echo "<hr><pre>";print_r($new);echo "</pre><hr>";
         
         $log = array(
             'FechaLog' 		=> $dateNow->format('Y-m-d H:i:s'),

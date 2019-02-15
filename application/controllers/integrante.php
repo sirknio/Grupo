@@ -91,7 +91,12 @@ class Integrante extends CI_Controller {
 				'TipoMicro' => 'Nuevos'
 			);
 			$microNuevos = $this->object_model->get('microcelula', '', $where);
-			$eventos  = $this->object_model->get('evento', $this->orderfield, "Estado = 'Abierto'");
+
+			$where = array(
+				'Estado' 	=> 'Abierto',
+				'idGrupo' 	=> $data['userdata']['idGrupo']
+			);
+			$eventos  = $this->object_model->get('evento', $this->orderfield, $where);
 			if (count($eventos) != 0) {
 				$_POST = array_merge($_POST,array(
 					'idGrupo' 		=> $data['userdata']['idGrupo'],
@@ -129,6 +134,7 @@ class Integrante extends CI_Controller {
 						'Nombre' 		=> $data['insert']['Nombre'],
 						'Apellido' 		=> $data['insert']['Apellido'],
 						'DocumentoNo' 	=> $data['insert']['DocumentoNo'],
+						'FechaEvento' 	=> $data['insert']['FechaIngreso'],
 						'Asiste' 		=> '1'
 					);
 					$idEvento = $this->object_model->insertItem('asistencia',$asistencia);

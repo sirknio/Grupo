@@ -1,6 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct access allowed');
 
 class Object_model extends CI_Model{
+	private $log;
 	
 	function insertItem($table,$data) {
 		if ($this->db->insert($table, $data) == 1) {
@@ -15,7 +16,20 @@ class Object_model extends CI_Model{
 	}
 	
 	function deleteItem($table,$data) {
-		return $this->db->delete($table, $data);
+		$this->initLog('Eliminacion',$table,$data,'');
+		$this->db->delete($table, $data);
+		$this->applyLog();
+	}
+
+	function initLog($changeType,$table,$data,$where = '') {
+		$this->load->library('ChangeLog');
+		$this->log = $this->changelog->insertChange($changeType,$table,$data,$where);
+	}
+
+	function applyLog() {
+		//Aqui debemos poner toda la información transformada para el Log de Cambios
+		// echo "<hr><pre>";print_r($this->log);echo "</pre><hr>";
+		$this->db->insert('logcambios', $this->log);
 	}
 	
 	function get($table,$orderby = '',$where = '',$showQuery = false) {
@@ -77,6 +91,18 @@ class Object_model extends CI_Model{
 		return $array;
 	}
 
+	function getPK($table) {
+		$array = array();
+		$query = $this->db->query(
+			"SELECT COLUMN_NAME
+			FROM INFORMATION_SCHEMA.COLUMNS 
+			WHERE 	TABLE_SCHEMA = 'grupo'
+			AND 	TABLE_NAME = '$table'
+			AND 	COLUMN_KEY IN('PRI', 'UNI')");
+		$array = $query->result_array();
+		// echo"<pre>";print_r($array);echo"</pre>";
+		return $array;
+	}
 
 }
 ?>

@@ -26,7 +26,7 @@
 						title="Actualizar integrante"><i class="fa fa-pencil-square-o fa-fw"></i>
 					<?php endif; ?>
 					</button>
-					<a class="btn btn-default" href="<?=site_url('Integrante')?>" title="Cancelar"><i class="fa fa-times-circle"></i></a>
+					<a class="btn btn-default" href="<?=site_url('Integrante/index/'.$userdata['idGrupo'])?>" title="Cancelar"><i class="fa fa-times-circle"></i></a>
 				<?php endif; ?>
 
 			</div>

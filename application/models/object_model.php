@@ -26,7 +26,17 @@ class Object_model extends CI_Model{
 		$this->applyLog();
 	}
 
-	function initLog($changeType,$table,$data,$id = '',$where = '') {
+	function registerLogin($data) {
+		$this->initLog('Acceso','Log In',$data);
+		$this->applyLog();
+	}
+
+	function registerLogout() {
+		$this->initLog('Acceso','Log Out');
+		$this->applyLog();
+	}
+
+	function initLog($changeType,$table,$data = '',$id = '',$where = '') {
 		$this->load->library('ChangeLog');
 		$this->log = $this->changelog->insertChange($changeType,$table,$data,$id,$where);
 	}

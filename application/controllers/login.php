@@ -25,10 +25,15 @@ class Login extends CI_Controller {
 					$this->session->set_userdata('Email',$user['Email']);
 					$this->session->set_userdata('TipoUsuario',$user['TipoUsuario']);
 					$this->session->set_userdata('idGrupo',$user['idGrupo']);
-					$this->session->set_userdata('NombreGrupo',$group[0]['Nombre']);
+					if (count($group) !== 0) {
+						$this->session->set_userdata('NombreGrupo',$group[0]['Nombre']);
+					} else {
+						$this->session->set_userdata('NombreGrupo',null);
+					}
 					$this->session->set_userdata('Nombre',$user['Nombre']);
 					$this->session->set_userdata('Apellido',$user['Apellido']);
 					$this->session->set_userdata('AsistAbierta',$user['AsistAbierta']);
+					$this->object_model->registerLogin($user);
 					redirect('Dashboard');
 				} else {
 					redirect('login#bad-attempt');
@@ -49,9 +54,9 @@ class Login extends CI_Controller {
 	}
 	
 	public function logout() {
+		$this->object_model->registerLogout();
 		$this->session->sess_destroy();
 		redirect('login');
-		//$this->load->view('login');
 	}
 }
 

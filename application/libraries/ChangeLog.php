@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ChangeLog {
-    public function insertChange($changeType,$table,$data,$id = '',$where = '') {
+    public function insertChange($changeType,$table = '',$data = '',$id = '',$where = '') {
         date_default_timezone_set("America/Bogota");
         $dateNow = new DateTime("now");
         $user = $_SESSION;
@@ -16,21 +16,34 @@ class ChangeLog {
                 $data[$def[0]['COLUMN_NAME']] = $id;
                 $new = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
                 $new = http_build_query($new[0],'',', ');
+                $defPK = $def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']];
                 break;
             case 'Eliminacion':
                 $new = '';
                 $orig = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
                 $orig = http_build_query($orig[0],'',', ');
+                $defPK = $def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']];
                 break;
             case 'Modificacion':
                 $data[$def[0]['COLUMN_NAME']] = $where[$def[0]['COLUMN_NAME']];
                 $orig = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
                 $orig = http_build_query($orig[0],'',', ');
                 $new = http_build_query($data,'',', ');
+                $defPK = $def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']];
+                break;
+            case 'Acceso':
+                $new = '';
+                $defPK = '';
+                if (isset($user['__ci_last_regenerate'])) {
+                    unset($user['__ci_last_regenerate']);
+                }
+                if (isset($user['token'])) {
+                    unset($user['token']);
+                }
+                $orig = http_build_query($user,'',', ');
                 break;
         }
         
-        $defPK = $def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']];
         // echo "<hr><pre>";print_r($table);echo "</pre><hr>";
         // echo "<hr><pre>";print_r($data);echo "</pre><hr>";
         // echo "<hr><pre>";print_r($where);echo "</pre><hr>";
@@ -46,7 +59,6 @@ class ChangeLog {
             'Apellido' 		=> $user['Apellido'],
             'TipoUsuario' 	=> $user['TipoUsuario'],
             'TablaNombre' 	=> $table,
-            'CampoNombre' 	=> '',
             'TipoCambio' 	=> $changeType,
             'ValorOriginal' => $orig,
             'ValorNuevo' 	=> $new,

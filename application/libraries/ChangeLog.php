@@ -12,6 +12,9 @@ class ChangeLog {
         $def  = $CI->object_model->getPK($table);
         switch($changeType) {
             case 'Insercion':
+                if ($table == 'asistencia') {
+                    return '';
+                }
                 $orig = '';
                 $data[$def[0]['COLUMN_NAME']] = $id;
                 $new = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
@@ -25,6 +28,9 @@ class ChangeLog {
                 $defPK = $def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']];
                 break;
             case 'Modificacion':
+                if ($table == 'asistencia') {
+                    return '';
+                }
                 $data[$def[0]['COLUMN_NAME']] = $where[$def[0]['COLUMN_NAME']];
                 $orig = $CI->object_model->get($table,'',$def[0]['COLUMN_NAME']." = ".$data[$def[0]['COLUMN_NAME']]);
                 $orig = http_build_query($orig[0],'',', ');

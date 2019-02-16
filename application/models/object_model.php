@@ -44,7 +44,9 @@ class Object_model extends CI_Model{
 	function applyLog() {
 		//Aqui debemos poner toda la información transformada para el Log de Cambios
 		// echo "<hr><pre>";print_r($this->log);echo "</pre><hr>";
-		$this->db->insert('logcambios', $this->log);
+		if (!empty($log)) {
+			$this->db->insert('logcambios', $this->log);
+		}
 	}
 	
 	function get($table,$orderby = '',$where = '',$showQuery = false) {

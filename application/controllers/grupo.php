@@ -46,7 +46,7 @@ class Grupo extends CI_Controller {
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
 			$data['insert'] = $_POST;
-
+			
 			if ($data['insert']['idLider1'] == '') {
 				unset($data['insert']['idLider1']);
 			}

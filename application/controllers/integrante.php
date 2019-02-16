@@ -254,8 +254,10 @@ class Integrante extends CI_Controller {
 					$dataspouse += ['idMicrocelula' => $data['update']['idMicrocelula']];
 				if ($data['update']['EstadoCivil'] != "")
 					$dataspouse += ['EstadoCivil' => $data['update']['EstadoCivil']];
+				if (isset($data['update']['foto_filepath']))
 				if ($data['update']['foto_filepath'] != "")
 					$dataspouse += ['foto_filepath' => $data['update']['foto_filepath']];
+				if (isset($data['update']['foto_filename']))
 				if ($data['update']['foto_filename'] != "")
 					$dataspouse += ['foto_filename' => $data['update']['foto_filename']];
 				$where = array($this->pkfield => $data['update']['idConyugue']);

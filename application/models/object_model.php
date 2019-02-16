@@ -44,9 +44,11 @@ class Object_model extends CI_Model{
 
 	function applyLog() {
 		//Aqui debemos poner toda la información transformada para el Log de Cambios
-		if (!isset($log)) {
-			// echo "<hr><pre>";print_r($this->log);echo "</pre><hr>";
-			$this->db->insert('logcambios', $this->log);
+		if (isset($log)) {
+			if (is_array($log)) {
+				echo "<hr><pre>";print_r($this->log);echo "</pre><hr>";
+				$this->db->insert('logcambios', $this->log);
+			}
 		}
 	}
 	

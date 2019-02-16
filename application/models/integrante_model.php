@@ -71,14 +71,16 @@ function getEstadoCivilValues() {
 	}
 	
 	function getSelectLideres($idLider1 = '',$idLider2 = '') {
-		$query = $this->db->query(
-				"SELECT u.idUsuario, u.Nombre, u.Apellido 
-				FROM 	`usuario` as u 
-				WHERE 	((TipoUsuario = 'Lider' OR TipoUsuario = 'Admin')
-				AND		idGrupo IS NULL)
-				OR 		(idUsuario = $idLider1)
-				OR		(idUsuario = $idLider2)
-				ORDER BY u.Nombre");
+		$query = 
+			"SELECT u.idUsuario, u.Nombre, u.Apellido 
+			FROM 	`usuario` as u 
+			WHERE 	((TipoUsuario = 'Lider' OR TipoUsuario = 'Admin')
+			AND		idGrupo IS NULL)";
+
+		if ($idLider1 != '') $query .= " OR (idUsuario = $idLider1)";
+		if ($idLider1 != '') $query .= " OR (idUsuario = $idLider2)";
+		$query .= " ORDER BY u.Nombre";
+		$query = $this->db->query($query);
 		$array = $query->result_array();
 		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";
 		return $array;

@@ -5,9 +5,10 @@ class Object_model extends CI_Model{
 	
 	function insertItem($table,$data) {
 		if ($this->db->insert($table, $data) == 1) {
+			$insertID = $this->db->insert_id();
 			$this->initLog('Insercion',$table,$data,$this->db->insert_id());
 			$this->applyLog();
-			return($this->db->insert_id());
+			return($insertID);
 		} else {
 			return(0);
 		}

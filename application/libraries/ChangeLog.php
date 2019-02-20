@@ -49,12 +49,13 @@ class ChangeLog {
                 $orig = http_build_query($user,'',', ');
                 break;
         }
-        
+       
         // echo "<hr><pre>";print_r($table);echo "</pre><hr>";
         // echo "<hr><pre>";print_r($data);echo "</pre><hr>";
         // echo "<hr><pre>";print_r($where);echo "</pre><hr>";
         // echo "<hr><pre>";print_r($def);echo "</pre><hr>";
         // echo "<hr><pre>";print_r($orig);echo "</pre><hr>";
+        // echo "<hr><pre>";print_r($new);echo "</pre><hr>";
         // echo "<hr><pre>";print_r($new);echo "</pre><hr>";
         
         $log = array(
@@ -64,6 +65,8 @@ class ChangeLog {
             'Nombre' 		=> $user['Nombre'],
             'Apellido' 		=> $user['Apellido'],
             'TipoUsuario' 	=> $user['TipoUsuario'],
+            'idGrupo'       => $user['idGrupo'],
+            'GrupoNombre'   => $user['NombreGrupo'],
             'TablaNombre' 	=> $table,
             'TipoCambio' 	=> $changeType,
             'ValorOriginal' => $orig,

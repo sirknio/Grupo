@@ -21,6 +21,12 @@ class Aplicacion extends CI_Controller {
 		$this->load->view('pages/'.$this->pagecard,$data);
 	}	
 		
+	public function logcambios($idGrupo = '') {
+		$this->loadLogData($data,$this->debug,$idGrupo);
+		$this->loadHTML($data);
+		$this->load->view('pages/logcambios',$data);
+	}	
+		
 	//Actualizar registro
 	public function updateItem($action = false) {
 		$data['update'] = $_POST;
@@ -80,8 +86,22 @@ class Aplicacion extends CI_Controller {
 		$data['info'] = $this->object_model->get($this->controller,'',$where);
 		$_POST = array_merge($_POST,$data['info'][0]);
 
-		//$data['Persona'] = $this->object_model->get('persona','Nombre');
-		//$data['TipoUsuario'] = $this->usuario_model->getTipoUsuarioValues();
+		$data['morrisjs'] = '';
+		if($debug) {
+			$print = $data;
+		} else {
+			$print = '';
+		}
+		$data['print'] = $print;
+	}
+
+	private function loadLogData(&$data,$debug = false,$idGrupo = '') {
+		$data['userdata'] = $_SESSION;
+		if ($idGrupo === '') {
+			$data['records'] = $this->object_model->get('logcambios');
+		} else {
+			$data['records'] = $this->object_model->get('logcambios','',$this->pkfield.'='.$id);
+		}
 		$data['morrisjs'] = '';
 		if($debug) {
 			$print = $data;

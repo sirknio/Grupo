@@ -64,6 +64,9 @@
                                 <li>
                                     <a href="<?=site_url('grupo')?>">Grupos</a>
                                 </li>
+                                <li>
+                                    <a href="<?=site_url('Aplicacion/logcambios')?>">Log Cambios</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

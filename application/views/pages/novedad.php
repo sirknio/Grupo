@@ -5,7 +5,7 @@
 <?php $item = ''; ?>
 	<div class="col-md-12">
 		<div class="col-8 col-md-8">
-			<h1 class="page-header">Reporte Novedades</h1>
+			<h1 class="page-header"><?= $records[0]['Nombre'].' '.$records[0]['Apellido'] ?></h1>
 			<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 		</div>
 		<div class="col-4 col-md-4">
@@ -19,7 +19,7 @@
 		<div class="col-md-6">
 			<div class="chat-panel panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-comments fa-fw"></i> Novedades</h3>
+					<h3 class="panel-title"><i class="fa fa-comments fa-fw"></i> Reporte Novedades </h3>
 				</div>
 				<!-- /.panel-heading -->
 				<div class="panel-news">

@@ -9,7 +9,7 @@
 			<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 		</div>
 		<div class="col-4 col-md-4">
-			<a class="btn btn-default custbuttons" href="<?=site_url('Integrante')?>" title="Volver">
+			<a class="btn btn-default custbuttons" href="<?=site_url('Integrante/index/'.$userdata['idGrupo'])?>" title="Volver">
 				<i class="fa fa-arrow-left"></i>
 			</a>
 		</div>
@@ -29,8 +29,26 @@
 						<li class="clearfix">
 							<div class="chat-body clearfix">
 								<div class="header">
-									<strong class="primary-font"><?=$item['ReportaUsuario']?></strong>
+									<strong class="primary-font"><?=$item['NombreUsuario']?></strong>
 									<small class="pull-right text-muted">
+										<?php if ($userdata['TipoUsuario'] == 'Lider'): ?>
+											<?php if ($item['LeidoLider'] == ''): ?>
+											<span class="badge badge-warning">Sin Leer</span>
+											<?php endif; ?>
+										<?php endif; ?>
+										<?php if ($userdata['TipoUsuario'] == 'Microlider'): ?>
+											<?php if ($item['LeidoMicro'] == ''): ?>
+											<span class="badge badge-warning">Sin Leer</span>
+											<?php endif; ?>
+										<?php endif; ?>
+										<?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
+											<?php if (($lider) && ($item['LeidoLider'] == '')): ?>
+											<span class="badge badge-warning">Sin Leer</span>
+											<?php endif; ?>
+											<?php if (($colider) && ($item['LeidoMicro'] == '')): ?>
+											<span class="badge badge-warning">Sin Leer</span>
+											<?php endif; ?>
+										<?php endif; ?>
 										<i class="fa fa-clock-o fa-fw"></i> <?=$item['diffText']?>
 									</small>
 								</div>

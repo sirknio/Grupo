@@ -164,12 +164,30 @@ class Integrante extends CI_Controller {
 		$this->loadDataNews($data,$this->debug,'','',$id);
 
 		if ($action !== '') {
+			if ($data['lider']) {
+				// echo "LIIIIIIIIIIIIIIII";
+				$_POST = array_merge($_POST,array(
+					'LeidoLider' => 1
+					));
+			}
+
+			if ($data['colider']) {
+				// echo "COOOOOOOOOO";
+				$_POST = array_merge($_POST,array(
+					'LeidoMicro' => 1
+					));
+			}
+
 			$_POST = array_merge($_POST,array(
-				'ReportaUsuario' => $data['userdata']['usuario']
+				'idGrupo' => $data['userdata']['idGrupo']
 				));
 		
 			$_POST = array_merge($_POST,array(
-				'ReportaFecha' => $dateNow
+				'ReportaUsuario' => $data['userdata']['idUsuario']
+				));
+		
+			$_POST = array_merge($_POST,array(
+				'ReportaFecha' => $dateNow->format('Y-m-d H:i:s')
 				));
 		
 			if (isset($_POST['ImportanteUrgente'])) {
@@ -177,19 +195,73 @@ class Integrante extends CI_Controller {
 					$_POST['ImportanteUrgente'] = 1;
 				}
 			}
-			echo "<hr><pre>";print_r($_POST);echo "</pre><hr>";
+
+			$data['insert'] = $_POST;
+			$data['insert'][$this->pkfield] = $this->object_model->insertItem('novedad',$data['insert']);
+			if($data['insert'][$this->pkfield] != 0) { 
+				$where = array($this->pkfield => $id);
+				$data['news'] = $this->object_model->get('novedad','',$where);
+				// echo "<hr><pre>";print_r($_POST);echo "</pre><hr>";
+			}
+		} else {
+			if (isset($data['news'][0])) {
+				$where = array('idGrupo' => $data['news'][0]['idGrupo']);
+				$grupo = $this->object_model->get('grupo','',$where);
+				// echo "<hr><pre>";print_r($grupo);echo "</pre><hr>";
+	
+				$where = array('idPersona' => $data['news'][0]['idPersona']);
+				$persona = $this->object_model->get('persona','',$where);
+				// echo "<hr><pre>";print_r($persona);echo "</pre><hr>";
+	
+				$where = array('idMicrocelula' => $persona[0]['idMicrocelula']);
+				$micro = $this->object_model->get('microcelula','',$where);
+				// echo "<hr><pre>";print_r($data['userdata']);echo "</pre><hr>";
+
+				$idUser = $data['userdata']['idUsuario'];
+
+				$lider = (($grupo[0]['idLider1'] == $idUser) || ($grupo[0]['idLider2'] == $idUser));
+				$colider = (($micro[0]['idColider1'] == $idUser) || ($micro[0]['idColider2'] == $idUser));
+
+				if ($lider || $colider) {
+					// echo "<hr><pre>";print_r($data['news']);echo "</pre><hr>";
+					foreach ($data['news'] as $novedad) {
+						if ($lider && empty($novedad['LeidoLider'])) {
+							// echo "<hr><pre>";print_r($novedad);echo "</pre><hr>";
+							$leido = array('LeidoLider' => 1);
+							$where = array('idNovedad' => $novedad['idNovedad']);
+							$this->object_model->updateItem('novedad',$leido,$where);
+						}
+						
+						if ($colider && empty($novedad['LeidoMicro'])) {
+							// echo "<hr><pre>";print_r($novedad);echo "</pre><hr>";
+							$leido = array('LeidoMicro' => 1);
+							$where = array('idNovedad' => $novedad['idNovedad']);
+							$this->object_model->updateItem('novedad',$leido,$where);
+						}
+
+					}
+				}
+	
+			}
 		}
 
-		$where = array($this->pkfield => $id);
-		$data['news'] = $this->object_model->get('novedad','',$where);
-
+		$data['news'] = array_reverse($data['news']);
+		// echo "<hr><pre>";print_r($data['news']);echo "</pre><hr>";
 
 		foreach ($data['news'] as &$novedad) {
 			//agregar otros datos desde otra tabla
+			$where = array('idUsuario' => $novedad['ReportaUsuario']);
+			$novedad['NombreUsuario'] = $this->object_model->get('usuario','',$where);
+			
+			// echo "<hr><pre>";print_r($novedad['NombreUsuario']);echo "</pre><hr>";
+			
+			$novedad['NombreUsuario'] = $novedad['NombreUsuario'][0]['Nombre'].' '.
+				$novedad['NombreUsuario'][0]['Apellido'];
+			
 			//$n = $this->object_model->get('usuario','',"Usuario = '".$novedad['ReportaUsuario']."'");
 			//$novedad['UsuarioNombre'] = $n[0]['Nombre'];
 			//$novedad['usuarioApellido'] = $n[0]['Apellido'];
-
+			
 			$datetime2 = date_create($novedad['ReportaFecha']);
 			$interval = date_diff($dateNow, $datetime2);
 			$novedad['diff'] = $interval;
@@ -354,7 +426,28 @@ class Integrante extends CI_Controller {
 		} else {
 			$data['records'] = $this->integrante_model->get();
 		}
+
+		$where = array('idGrupo' => $data['userdata']['idGrupo']);
+		$grupo = $this->object_model->get('grupo','',$where);
+		// echo "<hr><pre>";print_r($grupo);echo "</pre><hr>";
+		
+		$where = array('idPersona' => $data['records'][0]['idPersona']);
+		$persona = $this->object_model->get('persona','',$where);
+		// echo "<hr><pre>";print_r($persona);echo "</pre><hr>";
+
+		$where = array('idMicrocelula' => $persona[0]['idMicrocelula']);
+		$micro = $this->object_model->get('microcelula','',$where);
+		// echo "<hr><pre>";print_r($micro);echo "</pre><hr>";
+
+		$idUser = $data['userdata']['idUsuario'];
+
+		$data['lider']   = (($grupo[0]['idLider1'] == $idUser) || ($grupo[0]['idLider2'] == $idUser));
+		$data['colider'] = (($micro[0]['idColider1'] == $idUser) || ($micro[0]['idColider2'] == $idUser));
+
 		$data['morrisjs'] = '';
+		$where = array($this->pkfield => $id);
+		$data['news'] = $this->object_model->get('novedad','',$where);
+
 		if($debug) {
 			$print = $data;
 		} else {

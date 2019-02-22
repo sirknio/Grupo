@@ -58,11 +58,11 @@ class Microcelula extends CI_Controller {
 
 			$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->controller,$data['insert']);
 			if($data['insert'][$this->pkfield] != 0) {
-				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
+				$this->loadData($data,$this->debug,$idGrupo,$data['insert'][$this->pkfield]);
 				redirect($this->controller.'/index/'.$data['insert']['idGrupo']);
 			} else {
 				//Establecer mensaje de error en insercción de datos
-				$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
+				$this->loadData($data,$this->debug,$idGrupo,$data['insert'][$this->pkfield]);
 				$this->loadHTML($data);
 				$this->load->view('pages/'.$this->pagecard,$data);
 			}
@@ -77,7 +77,7 @@ class Microcelula extends CI_Controller {
 			$data['info'] = $this->object_model->get($this->controller,'',$where);
 			$_POST = array_merge($_POST,$data['info'][0]);
 
-			$this->loadData($data,$this->debug,$idMicro);
+			$this->loadData($data,$this->debug,$idGrupo,$idMicro);
 			$this->loadHTML($data);
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
@@ -92,13 +92,13 @@ class Microcelula extends CI_Controller {
 				unset($data['update']['idColider2']);
 			}
 			
-			$this->loadData($data,$this->debug,$idMicro);
+			$this->loadData($data,$this->debug,$idGrupo,$idMicro);
 			$where = array($this->pkfield => $idMicro);
 			if ($this->object_model->updateItem($this->controller,$data['update'],$where)) {
 				redirect($this->controller.'/index/'.$data['update']['idGrupo']);
 			} else {
 				//Establecer mensaje de error en actualizar datos
-				$this->loadData($data,$this->debug,$data['update'][$this->pkfield]);
+				$this->loadData($data,$idGrupo,$this->debug,$idGrupo,$data['update'][$this->pkfield]);
 				$this->loadHTML($data);
 				$this->load->view('pages/'.$this->pagecard,$data);
 			}

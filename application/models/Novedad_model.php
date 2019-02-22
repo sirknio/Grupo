@@ -59,8 +59,8 @@ class Novedad_model extends CI_model{
         }
         $array = $query->result_array();
         
-        echo "<pre>";print_r($this->db->last_query());echo "</pre>";
-        echo"<pre>";print_r($array);echo"</pre>";
+        // echo "<pre>";print_r($this->db->last_query());echo "</pre>";
+        // echo"<pre>";print_r($array);echo"</pre>";
 		return $query->result_array(); 
 		
     }

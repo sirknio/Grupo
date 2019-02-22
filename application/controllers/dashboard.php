@@ -11,6 +11,11 @@ class Dashboard extends CI_Controller {
 		$this->load->model('object_model');
 		$this->load->model('evento_model');
 		$this->load->library('statistics');
+		$this->load->model('novedad_model');
+		$Updnovedad = $this->novedad_model->getNews($this->session->userdata('idGrupo'), 
+			$this->session->userdata('TipoUsuario'), 
+			$this->session->userdata('idUsuario'));
+		$this->session->set_userdata('Novedades', $Updnovedad);
 	}
 	
 	public function index($id = '') {

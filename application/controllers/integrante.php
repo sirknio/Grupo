@@ -20,6 +20,11 @@ class Integrante extends CI_Controller {
 		}
 		$this->load->model('object_model');
 		$this->load->model('integrante_model');
+		$this->load->model('novedad_model');
+		$Updnovedad = $this->novedad_model->getNews($this->session->userdata('idGrupo'), 
+			$this->session->userdata('TipoUsuario'), 
+			$this->session->userdata('idUsuario'));
+		$this->session->set_userdata('Novedades', $Updnovedad);
 	}
 	
 	public function index($idGrupo = '',$idMicro = '',$id = '',$viewList = 'list') {
@@ -165,14 +170,12 @@ class Integrante extends CI_Controller {
 
 		if ($action !== '') {
 			if ($data['lider']) {
-				// echo "LIIIIIIIIIIIIIIII";
 				$_POST = array_merge($_POST,array(
 					'LeidoLider' => 1
 					));
 			}
 
 			if ($data['colider']) {
-				// echo "COOOOOOOOOO";
 				$_POST = array_merge($_POST,array(
 					'LeidoMicro' => 1
 					));
@@ -244,6 +247,13 @@ class Integrante extends CI_Controller {
 	
 			}
 		}
+
+
+		$Updnovedad = $this->novedad_model->getNews($this->session->userdata('idGrupo'), 
+			$this->session->userdata('TipoUsuario'), 
+			$this->session->userdata('idUsuario'));
+		$this->session->set_userdata('Novedades', $Updnovedad);
+		$data['userdata']['Novedades'] = $Updnovedad;
 
 		$data['news'] = array_reverse($data['news']);
 		// echo "<hr><pre>";print_r($data['news']);echo "</pre><hr>";

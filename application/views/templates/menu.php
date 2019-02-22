@@ -32,7 +32,7 @@
                         <ul class="dropdown-menu dropdown-messages">
                         <?php foreach ($userdata['Novedades'] as $item): ?>
                             <li>
-                                <a href="#"> <!-- Necesitamos llevar aqui al reporte de la novedad para dar como leido -->
+                                <a href="<?=site_url('Integrante/createNewsItem/'.$item['idPersona'])?>"> <!-- Necesitamos llevar aqui al reporte de la novedad para dar como leido -->
                                     <div>
                                         <strong><?= $item['PersNombre'].' '.$item['PersApellido'] ?></strong>
                                         <span class="pull-right text-muted">

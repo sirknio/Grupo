@@ -18,7 +18,7 @@
 
 				<?php if (isset($idEvent)): ?>
 				<?php else: ?>
-					<a class="btn btn-primary" href="<?=site_url('Integrante')?>" title="Abrir Reporte"><i class="fa fa-comments fa-fw"></i></a>
+					<a class="btn btn-primary" href="<?=site_url('Integrante/createNewsItem/'.set_value('idPersona')); ?>" title="Reportar Novedad"><i class="fa fa-comments fa-fw"></i></a>
 					<button type="submit" class="btn btn-primary custbuttons"
 					<?php if (!$update): ?>
 						title="Crear nuevo integrante"><i class="fa fa-plus-square fa-fw"></i>

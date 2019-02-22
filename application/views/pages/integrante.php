@@ -207,10 +207,10 @@
 						<div class="form-group">
 							<label>Habilidades</label>
 							<?php foreach ($Habilidades as $item): ?>
-								<?php if (set_value('Habilidades') != $item): ?>
-									<br><input type="checkbox" name="Habilidades" value="<?=$item?>"> <?=$item?>
+								<?php if (in_array($item,set_value('Habilidades'))): ?>
+									<br><input type="checkbox" name="Habilidades[ ]" value="<?=$item?>" checked> <?=$item?>
 								<?php else: ?>
-									<br><input type="checkbox" name="Habilidades" value="<?=$item?>" checked> <?=$item?>
+									<br><input type="checkbox" name="Habilidades[ ]" value="<?=$item?>"> <?=$item?>
 								<?php endif; ?>
 							<?php endforeach; ?>
 						</div>

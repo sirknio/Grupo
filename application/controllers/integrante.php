@@ -124,6 +124,10 @@ class Integrante extends CI_Controller {
 				$this->load->view('pages/'.$this->pagecard,$data);
 			}
 		} else {
+			// echo "<hr><pre>";print_r($_POST);echo "</pre><hr>";
+			if (isset($_POST['Habilidades'])) {
+				$_POST['Habilidades'] = implode(",", $_POST['Habilidades']);
+			}
 			$idEvento = $_POST['idEvento'];
 			unset($_POST['idEvento']);
 			$data['insert'] = $_POST;
@@ -248,7 +252,6 @@ class Integrante extends CI_Controller {
 			}
 		}
 
-
 		$Updnovedad = $this->novedad_model->getNews($this->session->userdata('idGrupo'), 
 			$this->session->userdata('TipoUsuario'), 
 			$this->session->userdata('idUsuario'));
@@ -315,12 +318,18 @@ class Integrante extends CI_Controller {
 		if (!$action) {
 			$where = array($this->pkfield => $id);
 			$data['info'] = $this->object_model->get($this->tablename,'',$where);
+			if (isset($data['info'][0]['Habilidades'])) {
+				$data['info'][0]['Habilidades'] = explode(",",$data['info'][0]['Habilidades']);
+			}
 			$_POST = array_merge($_POST,$data['info'][0]);
 
 			$this->loadData($data,$this->debug,'','',$id);
 			$this->loadHTML($data);
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
+			if (isset($_POST['Habilidades'])) {
+				$_POST['Habilidades'] = implode(",", $_POST['Habilidades']);
+			}
 			$idEvento = $_POST['idEvento'];
 			unset($_POST['idEvento']);
 			$data['update'] = $_POST;

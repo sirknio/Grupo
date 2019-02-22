@@ -30,6 +30,9 @@ class Login extends CI_Controller {
 					} else {
 						$this->session->set_userdata('NombreGrupo',null);
 					}
+					$this->load->model('novedad_model');
+					$novedad = $this->novedad_model->getNews($user['idGrupo'],$user['TipoUsuario'],$user['idUsuario']);
+					$this->session->set_userdata('Novedades', $novedad);			
 					$this->session->set_userdata('Nombre',$user['Nombre']);
 					$this->session->set_userdata('Apellido',$user['Apellido']);
 					$this->session->set_userdata('AsistAbierta',$user['AsistAbierta']);

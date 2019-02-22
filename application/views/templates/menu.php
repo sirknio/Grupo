@@ -22,7 +22,41 @@
                         Grupo <b><?= $userdata['idGrupo']." - ".$userdata['NombreGrupo'] ?></b>
                     </a>
                 </li>
+
+                    <?php if (count($userdata['Novedades']) !== 0): ?>
+                    <!-- Menu de reportes -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
+                            <i class="fa fa-envelope fa-fw"></i> <span class="badge badge-light"><?php echo count($userdata['Novedades']); ?></span> <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-messages">
+                        <?php foreach ($userdata['Novedades'] as $item): ?>
+                            <li>
+                                <a href="#"> <!-- Necesitamos llevar aqui al reporte de la novedad para dar como leido -->
+                                    <div>
+                                        <strong><?= $item['PersNombre'].' '.$item['PersApellido'] ?></strong>
+                                        <span class="pull-right text-muted">
+                                            <em><?= $item['Nombre'].' '.$item['Apellido'] ?></em>
+                                        </span>
+                                    </div>
+                                    <div><?= $item['Novedad'] ?></div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                        <?php endforeach; ?>
+                            <li>
+                                <a class="text-center" href="#">
+                                    <strong>Read All Messages</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-messages -->
+                    <?php endif; ?>
+                    </li>
+
                 <?php endif; ?>
+
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <?= $userdata['Nombre']?> <?= $userdata['Apellido']?>

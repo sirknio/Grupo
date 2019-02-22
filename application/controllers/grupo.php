@@ -198,7 +198,11 @@ class Grupo extends CI_Controller {
 	public function selectGroup($idGrupo = null) {
 		$group = $this->object_model->get('grupo','','idGrupo='.$idGrupo);
 		$this->session->set_userdata('idGrupo',$idGrupo);
-		$this->session->set_userdata('NombreGrupo',$group[0]['Nombre']);
+		if (count($group) !== 0) {
+			$this->session->set_userdata('NombreGrupo',$group[0]['Nombre']);
+		} else {
+			$this->session->set_userdata('NombreGrupo',null);
+		}
 
 		$where = array(
 			'Estado' 	=> 'Abierto',
@@ -206,6 +210,10 @@ class Grupo extends CI_Controller {
 		);
 		$eventos = $this->object_model->get('Evento','',$where);
 		$this->session->set_userdata('AsistAbierta',count($eventos) !== 0);
+
+		$this->load->model('novedad_model');
+		$novedad = $this->novedad_model->getNews($idGrupo, $this->session->userdata('TipoUsuario'), $this->session->userdata('idUsuario'));
+		$this->session->set_userdata('Novedades', $novedad);
 		redirect($this->controller);
 	}
 

@@ -13,6 +13,13 @@
 		<div class="col-md-12">
 			<div class="col-8 col-md-8">
 				<h1 class="page-header">Usuario</h1>
+				<?php if (isset($txtError)): ?>
+					<?php if ($tipoError == 'e'): ?>
+					<div class="alert alert-danger" role="alert">
+						<?= $txtError; ?>
+					</div>
+					<?php endif; ?>
+				<?php endif; ?>
 				<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 			</div>
 			<div class="col-4 col-md-4">

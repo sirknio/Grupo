@@ -81,7 +81,9 @@ class Usuario extends CI_Controller {
 		$data['update'] = true;
 		if (!$action) {
 			$where = array($this->pkfield => $id);
+			// echo "<hr><pre>";print_r($id);echo "</pre><hr>";
 			$data['info'] = $this->object_model->get($this->controller,'',$where);
+			// echo "<hr><pre>";print_r($data['info']);echo "</pre><hr>";
 			$_POST = array_merge($_POST,$data['info'][0]);
 
 			$this->loadData($data,$this->debug,$id);
@@ -112,10 +114,18 @@ class Usuario extends CI_Controller {
 					$this->load->view('pages/'.$this->pagecard,$data);
 				}
 			} else {
+					//Establecer data nuevamente luego de error
+					$where = array($this->pkfield => $id);
+					$data['info'] = $this->object_model->get($this->controller,'',$where);
+					$_POST = array_merge($_POST,$data['info'][0]);
+					
 					//Establecer mensaje de error en contraseña
-					$this->loadData($data,$this->debug,$data['update'][$this->pkfield]);
+					$this->loadError($data,'PASS_NOEQUAL');
+					// echo "<hr><pre>";print_r($data['txtError']);echo "</pre><hr>";
+					$this->loadData($data,$this->debug,$id);
 					$this->loadHTML($data);
 					$this->load->view('pages/'.$this->pagecard,$data);
+					$this->loadError($data,'clear');
 			}
 		}
 	}
@@ -169,6 +179,20 @@ class Usuario extends CI_Controller {
 			$print = '';
 		}
 		$data['print'] = $print;
+	}
+
+	//Construccion de errores
+	private function loadError(&$data,$code) {
+		switch($code) {
+			case 'PASS_NOEQUAL':
+				$data['tipoError'] = 'e';
+				$data['txtError'] = 'El password digitado en las dos casillas no coincide.';
+				break;
+			case 'clear':
+				unset($data['tipoError']);
+				unset($data['txtError']);
+				break;
+		}
 	}
 
 	//construir la page completa y permite liberar funcion Index

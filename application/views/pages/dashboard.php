@@ -56,7 +56,7 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-shopping-cart fa-5x"></i>
+							<i class="fa fa-users fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
 							<div class="huge"><?= $cant_personas ?></div>
@@ -78,7 +78,7 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-support fa-5x"></i>
+							<i class="fa fa-calendar fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
 							<div class="huge"><?= $cant_eventos ?></div>

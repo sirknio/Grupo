@@ -186,6 +186,7 @@ class Grupo extends CI_Controller {
 				$data['records'][0]['idLider2']
 			);
 		}
+		$data['TipoGrupo'] = $this->object_model->getTipoValues('grupo','TipoGrupo');
 		$data['morrisjs'] = '';
 		if($debug) {
 			$print = $data;

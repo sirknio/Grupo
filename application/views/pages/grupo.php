@@ -48,6 +48,18 @@
 					<input name="Descripcion" class="form-control" placeholder="Descripción" value="<?= set_value('Descripcion')?>">
 				</div>
 				<div class="form-group">
+					<label>Tipo Grupo</label>
+					<select name="TipoGrupo" class="form-control">
+						<?php foreach ($TipoGrupo as $item): ?>
+							<?php if (set_value('TipoGrupo') != $item): ?>
+								<option value="<?=$item?>"><?=$item?></option>
+							<?php else: ?>
+								<option value="<?=$item?>" selected><?=$item?></option>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</select>
+				</div>
+				<div class="form-group">
 					<label>Lider 1</label>
 					<select name="idLider1" class="form-control">
 						<option value=""> </option>

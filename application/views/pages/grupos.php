@@ -22,6 +22,7 @@
 					<tr>
 						<th>Logo</th>
 						<th>Nombre Grupo</th>
+						<th>Tipo Grupo</th>
 						<?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
 						<th style="width:100px;">Selecci&oacute;n</th>
 						<?php endif; ?>
@@ -49,6 +50,9 @@
 							</td>
 							<td>
 								<?=$item['Nombre']?>
+							</td>
+							<td>
+								<?=$item['TipoGrupo']?>
 							</td>
 							<?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
 							<td>

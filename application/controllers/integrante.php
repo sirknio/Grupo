@@ -90,18 +90,26 @@ class Integrante extends CI_Controller {
 		$data['update'] = false;
 		$idEvento = 0;
 		If($createId === '') {
+
+			$_POST = array_merge($_POST,array(
+				'Habilidades' => array(
+					0 => ''
+				)
+			));
+
 			$this->loadData($data,$this->debug);
 			$where = array (
 				'idGrupo' => $data['userdata']['idGrupo'],
 				'TipoMicro' => 'Nuevos'
 			);
 			$microNuevos = $this->object_model->get('microcelula', '', $where);
-
+			
 			$where = array(
 				'Estado' 	=> 'Abierto',
 				'idGrupo' 	=> $data['userdata']['idGrupo']
 			);
 			$eventos  = $this->object_model->get('evento', $this->orderfield, $where);
+			
 			if (count($eventos) != 0) {
 				$_POST = array_merge($_POST,array(
 					'idGrupo' 		=> $data['userdata']['idGrupo'],

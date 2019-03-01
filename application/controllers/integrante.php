@@ -31,13 +31,15 @@ class Integrante extends CI_Controller {
 		//echo"<pre>";print_r($idGrupo." - ".$idMicro." - ".$id);echo"</pre>";
 		//if ($idMicro == 0) { $idMicro = ''; }
 		if ($id == 0) { $id = ''; }
-		$this->loadData($data,$this->debug,$idGrupo,$idMicro,$id);
+		$this->loadData($data,$this->debug,$idGrupo);
+		// echo"<pre>";print_r($data);echo"</pre>";
 		$this->loadHTML($data);
 		switch ($viewList) {
 			case 'list':
 				$this->load->view('pages/'.$this->pagelist,$data);
 				break;		
 			case 'square':
+				$person = array();
 				$j = 0;
 				for($i = 0;$i < count($data['records']);$i++) {
 					//$pos = strpos(); //Mostrar solo el primer apellido
@@ -442,7 +444,7 @@ class Integrante extends CI_Controller {
 				'idConyugue' => '0'
 			);
 			$data['Persona'] = $this->object_model->get('persona','Nombre',$where);
-			echo "<hr><pre>";print_r($data['Persona']);echo "</pre><hr>";
+			// echo "<hr><pre>";print_r($data['Persona']);echo "</pre><hr>";
 		}
 		$data['Micros'] = $this->integrante_model->getMicros($data['userdata']['idGrupo']);
 		$data['DocumentoTipo'] = $this->integrante_model->getDocumentoTipoValues();

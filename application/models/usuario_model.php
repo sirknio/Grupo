@@ -22,18 +22,5 @@ class Usuario_model extends CI_Model{
 		}
 	}
 	
-	function getTipoUsuarioValues() {
-		$query = $this->db->query(
-				"SHOW COLUMNS FROM usuario LIKE 'TipoUsuario'");
-		$array = $query->result_array();
-		$array = $array[0]['Type'];
-		$off  = strpos($array,"('");
-        $array = substr($array, $off+2, strlen($array)-$off-4);
-		$array = explode("','",$array);
-		//echo"<pre>";print_r($array);echo"</pre>";
-		return $array;
-	}
-
-
 }
 ?>

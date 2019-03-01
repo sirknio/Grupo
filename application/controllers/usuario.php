@@ -161,7 +161,7 @@ class Usuario extends CI_Controller {
 		}
 		$data['Grupos'] = $this->object_model->get('grupo','Nombre');
 		$data['Personas'] = $this->object_model->get('persona','Nombre');
-		$data['TipoUsuario'] = $this->usuario_model->getTipoUsuarioValues();
+		$data['TipoUsuario'] = $this->object_model->getTipoValues('usuario','TipoUsuario');
 		$data['morrisjs'] = '';
 		if($debug) {
 			$print = $data;

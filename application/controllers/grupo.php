@@ -182,6 +182,7 @@ class Grupo extends CI_Controller {
 		} else {
 			$data['records'] = $this->object_model->get($this->controller,$this->orderfield,$this->pkfield.'='.$id);
 			$data['lider'] = $this->integrante_model->getSelectLideres(
+				$id,
 				$data['records'][0]['idLider1'],
 				$data['records'][0]['idLider2']
 			);

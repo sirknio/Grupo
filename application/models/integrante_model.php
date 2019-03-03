@@ -70,19 +70,19 @@ function getEstadoCivilValues() {
 		return $array;
 	}
 	
-	function getSelectLideres($idLider1 = '',$idLider2 = '') {
+	function getSelectLideres($idGrupo, $idLider1 = '',$idLider2 = '') {
 		$query = 
 			"SELECT u.idUsuario, u.Nombre, u.Apellido 
 			FROM 	`usuario` as u 
 			WHERE 	((TipoUsuario = 'Lider' OR TipoUsuario = 'Admin')
-			AND		idGrupo IS NULL)";
+			AND		((idGrupo IS NULL) OR (idGrupo = '$idGrupo')))";
 
 		if ($idLider1 != '') $query .= " OR (idUsuario = $idLider1)";
 		if ($idLider1 != '') $query .= " OR (idUsuario = $idLider2)";
 		$query .= " ORDER BY u.Nombre";
 		$query = $this->db->query($query);
 		$array = $query->result_array();
-		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";
+		// echo"<pre>";print_r($this->db->last_query());echo"</pre>";
 		return $array;
 	}
 	

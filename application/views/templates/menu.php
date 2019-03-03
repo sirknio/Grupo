@@ -54,12 +54,11 @@
                         <!-- /.dropdown-messages -->
                     <?php endif; ?>
                     </li>
-
                 <?php endif; ?>
 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <?= $userdata['Nombre']?> <?= $userdata['Apellido']?>
+                        <i class="fa fa-user fa-fw"></i> <?= $userdata['Nombre']?> <?= $userdata['Apellido']?> (<?= $userdata['TipoUsuario']?>)
 						<i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">

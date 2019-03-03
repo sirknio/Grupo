@@ -33,10 +33,9 @@ class Integrante extends CI_Controller {
 		if ($id == 0) { $id = ''; }
 		$this->loadData($data,$this->debug,$idGrupo);
 		// echo"<pre>";print_r($data);echo"</pre>";
-		$this->loadHTML($data);
 		switch ($viewList) {
 			case 'list':
-				$this->load->view('pages/'.$this->pagelist,$data);
+				$this->loadHTML($data,$this->pagelist);
 				break;		
 			case 'square':
 				$person = array();
@@ -64,7 +63,7 @@ class Integrante extends CI_Controller {
 					}
 				}
 				$data['records'] = $person;
-				$this->load->view('pages/'.$this->pagesquare,$data);
+				$this->loadHTML($data,$this->pagesquare);
 				break;		
 		}
 	}	
@@ -126,12 +125,11 @@ class Integrante extends CI_Controller {
 					'FechaIngreso' => date('Y-m-d', time())
 					));
 			}
-			$this->loadHTML($data);
 			// echo "<hr><pre>";print_r($_POST);echo "</pre><hr>";
 			if ($quick) {
-				$this->load->view('pages/'.$this->pagequickcard,$data);
+				$this->loadHTML($data,$this->pagequickcard);
 			} else {
-				$this->load->view('pages/'.$this->pagecard,$data);
+				$this->loadHTML($data,$this->pagecard);
 			}
 		} else {
 			// echo "<hr><pre>";print_r($_POST);echo "</pre><hr>";
@@ -166,11 +164,10 @@ class Integrante extends CI_Controller {
 			} else {
 				//Establecer mensaje de error en insercción de datos
 				$this->loadData($data,$this->debug,'','',$data['insert'][$this->pkfield]);
-				$this->loadHTML($data);
-				if (!$quick) {
-					$this->load->view('pages/'.$this->pagecard,$data);
+				if ($quick) {
+					$this->loadHTML($data,$this->pagequickcard);
 				} else {
-					$this->load->view('pages/'.$this->pagequickcard,$data);
+					$this->loadHTML($data,$this->pagecard);
 				}
 			}
 		}
@@ -318,8 +315,7 @@ class Integrante extends CI_Controller {
 
 		}	
 
-		$this->loadHTML($data);
-		$this->load->view('pages/novedad',$data);
+		$this->loadHTML($data,'novedad');
 	}
 	
 	//Actualizar registro
@@ -334,8 +330,7 @@ class Integrante extends CI_Controller {
 			$_POST = array_merge($_POST,$data['info'][0]);
 
 			$this->loadData($data,$this->debug,'','',$id);
-			$this->loadHTML($data);
-			$this->load->view('pages/'.$this->pagecard,$data);
+			$this->loadHTML($data,$this->pagecard);
 		} else {
 			if (isset($_POST['Habilidades'])) {
 				$_POST['Habilidades'] = implode(",", $_POST['Habilidades']);
@@ -374,8 +369,7 @@ class Integrante extends CI_Controller {
 			} else {
 				//Establecer mensaje de error en actualizar datos
 				$this->loadData($data,$this->debug,'','',$data['update'][$this->pkfield]);
-				$this->loadHTML($data);
-				$this->load->view('pages/'.$this->pagecard,$data);
+				$this->loadHTML($data,$this->pagecard);
 			}
 		}
 	}
@@ -499,11 +493,28 @@ class Integrante extends CI_Controller {
 		$data['print'] = $print;
 	}
 
+	//Construccion de errores
+	private function loadError(&$data,$code = '') {
+		switch($code) {
+			case 'DOC_EXIST':
+				$data['tipoError'] = 'e';
+				$data['txtError'] = 'El documento digitado ya se encuentra registrado en el sistema.';
+				break;
+			default:
+				if (empty($data['tipoError']))	unset($data['tipoError']);
+				if (empty($data['txtError']))	unset($data['txtError']);
+				break;
+		}
+	}
+
 	//construir la page completa y permite liberar funcion Index
-	private function loadHTML(&$data) {
+	private function loadHTML(&$data,$page,$error = '') {
+		$this->loadError($data,$error);
 		$data['page']['header']  = $this->load->view('templates/header',$data,true);
 		$data['page']['menu']    = $this->load->view('templates/menu',$data,true);
 		$data['page']['footer']  = $this->load->view('templates/footer',$data,true);
+		$this->load->view('pages/'.$page,$data);
+		$this->loadError($data);
 	}
 	
 }

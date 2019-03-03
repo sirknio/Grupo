@@ -421,7 +421,7 @@ class Integrante extends CI_Controller {
 		$data['useragent'] =  $_SERVER['HTTP_USER_AGENT'];
 		$data['Genero'] = $this->integrante_model->getGeneroValues();
 		if (($idGrupo != '')||($idMicro != '')||($id != '')) {
-			$data['records'] = $this->integrante_model->get($idGrupo,$idMicro,$id);
+			$data['records'] = $this->integrante_model->get($idGrupo,$data['userdata']['idMicro'],$id);
 			if (!empty($id)) {
 				$idGenero = ($data['records'][0]['Genero'] == $data['Genero'][0]);
 				$where = "

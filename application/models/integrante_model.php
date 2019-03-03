@@ -39,17 +39,9 @@ function getEstadoCivilValues() {
 						`grupo` as g
 				WHERE 	p.idGrupo = g.idGrupo
 				AND 	p.idMicrocelula = m.idMicrocelula";
-		if($idGrupo !== '') $querytxt .= " AND g.idGrupo = $idGrupo";
-		if($idMicro !== '') {
-			$querytxt .= " AND m.idMicrocelula = $idMicro";
-		} else {
-			// if($idMicro === 0) {
-			// 	$querytxt = $querytxt." AND m.idMicrocelula = 0";
-			// } else {
-			// 	$querytxt = $querytxt." AND m.idMicrocelula != 3";
-			// }
-		}
-		if($id != '') $querytxt = $querytxt." AND p.idPersona = ".$id;
+		if(!empty($idGrupo)) $querytxt .= " AND g.idGrupo = $idGrupo";
+		if(!empty($idMicro)) $querytxt .= " AND m.idMicrocelula = $idMicro";
+		if(!empty($id != '')) $querytxt = $querytxt." AND p.idPersona = ".$id;
 		$querytxt = $querytxt." ORDER BY p.Nombre";
 		$query = $this->db->query($querytxt);
 		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";

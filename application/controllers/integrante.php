@@ -71,12 +71,78 @@ class Integrante extends CI_Controller {
 	//Eliminar registro
 	public function deleteItem($idGrupo = '') {
 		$data['delete'] = $_POST; 
+		// echo "<hr><pre>";print_r($data['delete']);echo "</pre><hr>";
 		if($data['delete']['idPersona'] !== '') {
 			$this->loadData($data,$this->debug,'','',$data['delete']['idPersona']);
 			if ($this->imgfield != '') {
 				$this->deleteImg($data);
 			}
 			$this->object_model->deleteItem($this->tablename,$data['delete']);
+		}
+		redirect($this->controller."/index/".$idGrupo);
+	}
+	
+	//Inactivar registro
+	public function archiveItem($idGrupo = '') {
+		$data['archive'] = $_POST; 
+		// echo "<hr><pre>";print_r($data['archive']);echo "</pre><hr>";
+
+		if(!empty($data['archive']['idPersona'])) {
+			$where = array(
+				'idGrupo' 	=> $idGrupo,
+				'TipoMicro'	=> 'Inactivos'
+			);
+			$inactivos = $this->object_model->get('microcelula','',$where);
+			$inactivos = $inactivos[0];
+			// echo "<hr><pre>";print_r($inactivos);echo "</pre><hr>";
+
+			if (!empty($inactivos)) {
+				$leido = array('idMicrocelula' => $inactivos['idMicrocelula']);
+				$where = array('idPersona' => $data['archive']['idPersona']);
+				$this->object_model->updateItem('persona',$leido,$where);
+
+				date_default_timezone_set("America/Bogota");
+				$dateNow = new DateTime("now");
+				$this->loadDataNews($data,$this->debug,'','',$data['archive']['idPersona']);
+				// echo "<hr><pre>";print_r($data);echo "</pre><hr>";
+
+				$data['insert'] = array();
+				$data['insert'] = array_merge($data['insert'],array(
+					'idPersona' => $data['archive']['idPersona']
+					));
+			
+				$data['insert'] = array_merge($data['insert'],array(
+					'idGrupo' => $data['userdata']['idGrupo']
+					));
+			
+				$data['insert'] = array_merge($data['insert'],array(
+					'Novedad' => 'Cambio a Inactivo: '.$data['archive']['razonCambio']
+					));
+			
+				$data['insert'] = array_merge($data['insert'],array(
+					'ReportaUsuario' => $data['userdata']['idUsuario']
+					));
+			
+				$data['insert'] = array_merge($data['insert'],array(
+					'ReportaFecha' => $dateNow->format('Y-m-d H:i:s')
+					));
+			
+				if ($data['lider']) {
+					$data['insert'] = array_merge($data['insert'],array(
+						'LeidoLider' => 1
+						));
+				}
+	
+				if ($data['colider']) {
+					$data['insert'] = array_merge($data['insert'],array(
+						'LeidoMicro' => 1
+						));
+				}
+	
+				$data['insert']['idNovedad'] = $this->object_model->insertItem('novedad',$data['insert']);
+				// echo "<hr><pre>";print_r($data['insert']);echo "</pre><hr>";
+			}
+
 		}
 		redirect($this->controller."/index/".$idGrupo);
 	}
@@ -448,6 +514,12 @@ class Integrante extends CI_Controller {
 		$data['DocumentoTipo'] = $this->integrante_model->getDocumentoTipoValues();
 		$data['EstadoCivil'] = $this->integrante_model->getEstadoCivilValues();
 		$data['Habilidades'] = $this->integrante_model->getHabilidadesValues();
+		$where = array(
+			'idGrupo' 	=> $idGrupo,
+			'TipoMicro'	=> 'Inactivos'
+		);
+		$data['inactivos'] = $this->object_model->get('microcelula','',$where);
+		$data['inactivos'] = $data['inactivos'][0];
 		$data['morrisjs'] = '';
 		if($debug) {
 			$print = $data;

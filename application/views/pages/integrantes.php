@@ -109,8 +109,15 @@
 											<i class="fa fa-table fa-fw"></i> Reportar Novedad
 											</a>
 										</li>
-										<?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
 										<li class="divider"></li>
+										<?php if ((!empty($inactivos)) && ($inactivos['idMicrocelula'] != $item['idMicrocelula'])): ?>
+										<li>
+											<a data-toggle="modal" data-target="#archiveModal" data-code="<?= $item['idPersona']?>" data-name="<?= $item['Nombre']?>" data-surname="<?= $item['Apellido']?>">
+											<i class="fa fa-archive fa-fw"></i> Pasar Inactivo
+											</a>
+										</li>
+										<?php endif; ?>
+										<?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
 										<li>
 											<a data-toggle="modal" data-target="#deleteModal" data-code="<?= $item['idPersona']?>" data-name="<?= $item['Nombre']?>" data-surname="<?= $item['Apellido']?>">
 											<i class="fa fa-trash-o fa-fw"></i> Eliminar

@@ -24,10 +24,20 @@ function valida(e){
 
 $('#deleteModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget); 		// Button that triggered the modal
-  var code = button.data('code');  			// Extract info from data-* attributes
-  var name = button.data('name');  			// Extract info from data-* attributes
+  var code = button.data('code');  			  // Extract info from data-* attributes
+  var name = button.data('name');  			  // Extract info from data-* attributes
   var surname = button.data('surname');  	// Extract info from data-* attributes
   var modal = $(this);
   modal.find('.modal-body input').val(code);
-  modal.find('.modal-body h5').text('Esta seguro que desea eliminar el integrante ' + name + ' ' + surname + ' ?');
+  modal.find('.modal-body h5').text('Esta seguro que desea eliminar el integrante ' + name + ' ' + surname + '?');
+})
+
+$('#archiveModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget); 	  // Button that triggered the modal
+  var code = button.data('code');  			  // Extract info from data-* attributes
+  var name = button.data('name');  			  // Extract info from data-* attributes
+  var surname = button.data('surname');  	// Extract info from data-* attributes
+  var modal = $(this);
+  modal.find('.modal-body input').val(code);
+  modal.find('.modal-body h5').text('Esta seguro que desea pasar el integrante ' + name + ' ' + surname + ' como inactivo?');
 })

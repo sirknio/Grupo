@@ -31,6 +31,47 @@
 					</div>
 					<!-- /.modal fade -->
 					
+					<!-- modal fade -->
+					<div class="modal fade" id="archiveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<!-- modal-dialog -->
+						<div class="modal-dialog" role="document">
+						<!-- modal-content -->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel">Pasar integrante a Inactivos</h4>
+							</div>
+							<div class="modal-body">
+							  <?php echo form_open(site_url("Integrante/archiveItem/".$userdata['idGrupo']), array("class" => "form-horizontal")) ?>
+								<div class="form-group">
+									<div class="col-lg-12">
+										<h5>Esta seguro que desea pasar el integrante como inactivo?</h5>
+									</div>
+									<input type="hidden" class="form-control" name="idPersona" id="idPersona" value="0" />
+								</div>
+								<div class="form-group">
+									<div class="col-lg-12">
+										<div class="col-lg-12">
+											<div class="form-group">
+												<label for="message-text" class="col-form-label">Razón del cambio:</label>
+												<textarea class="form-control" name="razonCambio" id="message-text"></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								<input type="submit" class="btn btn-primary" value="Inactivar Integrante">
+							</div>
+							<?php echo form_close() ?>
+						</div>
+						<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+					</div>
+					<!-- /.modal fade -->
+					
 				</div>
                 <!-- /.row -->
             </div>

@@ -15,6 +15,21 @@ class Usuario_model extends CI_Model{
 			$query = $this->db->get('evento');
 			$user['AsistAbierta'] = $query->num_rows() >= 1;
 			
+			$query = $this->db->where('idGrupo',$user['idGrupo']);
+			$query = $this->db->get('grupo');
+			$user['grupo'] = $query->row_array();
+			
+			if ($user['TipoUsuario'] == 'Microlider') {
+				$query = $this->db->where('idGrupo',$user['idGrupo']);
+				$query = $this->db->where('idColider1',$user['idUsuario']);
+				$query = $this->db->or_where('idColider2',$user['idUsuario']);
+				$query = $this->db->get('microcelula');
+				$user['microcelula'] = $query->row_array();
+			}
+
+			// echo "<pre>";print_r($this->db->last_query());echo "</pre>";
+			// echo "<pre>";print_r($user);echo "</pre>";
+			
 			return($user);
 		} else {
 			$user = '';

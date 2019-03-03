@@ -18,17 +18,21 @@ class Login extends CI_Controller {
 						md5(sha1($_POST['password'])));
 			if(isset($user['Usuario'])) {
 				if($user['Usuario'] != '') {
-					$group = $this->object_model->get('grupo','','idGrupo='.$user['idGrupo']);
 					$this->session->set_userdata('usuario',$_POST['usuario']);
 					$this->session->set_userdata('idUsuario',$user['idUsuario']);
 					$this->session->set_userdata('Usuario',$user['Usuario']);
 					$this->session->set_userdata('Email',$user['Email']);
 					$this->session->set_userdata('TipoUsuario',$user['TipoUsuario']);
 					$this->session->set_userdata('idGrupo',$user['idGrupo']);
-					if (count($group) !== 0) {
-						$this->session->set_userdata('NombreGrupo',$group[0]['Nombre']);
+					if (!empty($user['grupo'])) {
+						$this->session->set_userdata('NombreGrupo',$user['grupo']['Nombre']);
 					} else {
 						$this->session->set_userdata('NombreGrupo',null);
+					}
+					if (!empty($user['microcelula'])) {
+						$this->session->set_userdata('idMicro',$user['microcelula']['idMicrocelula']);
+					} else {
+						$this->session->set_userdata('idMicro',null);
 					}
 					$this->load->model('novedad_model');
 					$novedad = $this->novedad_model->getNews($user['idGrupo'],$user['TipoUsuario'],$user['idUsuario']);

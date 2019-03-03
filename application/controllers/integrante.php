@@ -179,6 +179,8 @@ class Integrante extends CI_Controller {
 		$dateNow = new DateTime("now");
 		$this->loadDataNews($data,$this->debug,'','',$id);
 
+		// echo "<hr><pre>";print_r($data);echo "</pre><hr>";
+
 		if ($action !== '') {
 			if ($data['lider']) {
 				$_POST = array_merge($_POST,array(
@@ -233,8 +235,10 @@ class Integrante extends CI_Controller {
 
 				$idUser = $data['userdata']['idUsuario'];
 
-				$lider = (($grupo[0]['idLider1'] == $idUser) || ($grupo[0]['idLider2'] == $idUser));
-				$colider = (($micro[0]['idColider1'] == $idUser) || ($micro[0]['idColider2'] == $idUser));
+				$lider = ((($grupo[0]['idLider1'] == $idUser) || ($grupo[0]['idLider2'] == $idUser)) 
+					&& ($data['userdata']['TipoUsuario'] == 'Lider'));
+				$colider = ((($micro[0]['idColider1'] == $idUser) || ($micro[0]['idColider2'] == $idUser)) 
+					&& ($data['userdata']['TipoUsuario'] == 'Microlider'));
 
 				if ($lider || $colider) {
 					// echo "<hr><pre>";print_r($data['news']);echo "</pre><hr>";
@@ -478,8 +482,14 @@ class Integrante extends CI_Controller {
 
 		$idUser = $data['userdata']['idUsuario'];
 
-		$data['lider']   = (($grupo[0]['idLider1'] == $idUser) || ($grupo[0]['idLider2'] == $idUser));
-		$data['colider'] = (($micro[0]['idColider1'] == $idUser) || ($micro[0]['idColider2'] == $idUser));
+		$data['lider'] = 
+			((($grupo[0]['idLider1'] == $idUser) || ($grupo[0]['idLider2'] == $idUser))
+			&& ($data['userdata']['TipoUsuario'] == 'Lider'));
+		$data['colider'] = 
+			((($micro[0]['idColider1'] == $idUser) || ($micro[0]['idColider2'] == $idUser))
+			&& ($data['userdata']['TipoUsuario'] == 'Microlider'));
+
+		// echo "<hr><pre>";print_r($data['userdata']);echo "</pre><hr>";
 
 		$data['morrisjs'] = '';
 		$where = array($this->pkfield => $id);

@@ -302,9 +302,11 @@ class Integrante extends CI_Controller {
 				$idUser = $data['userdata']['idUsuario'];
 
 				$lider = ((($grupo[0]['idLider1'] == $idUser) || ($grupo[0]['idLider2'] == $idUser)) 
-					&& ($data['userdata']['TipoUsuario'] == 'Lider'));
+					&& (($data['userdata']['TipoUsuario'] == 'Lider') || ($data['userdata']['TipoUsuario'] == 'Admin')));
 				$colider = ((($micro[0]['idColider1'] == $idUser) || ($micro[0]['idColider2'] == $idUser)) 
 					&& ($data['userdata']['TipoUsuario'] == 'Microlider'));
+
+				// echo "<hr><pre>";print_r($lider);echo "</pre><hr>";
 
 				if ($lider || $colider) {
 					// echo "<hr><pre>";print_r($data['news']);echo "</pre><hr>";
@@ -556,7 +558,7 @@ class Integrante extends CI_Controller {
 
 		$data['lider'] = 
 			((($grupo[0]['idLider1'] == $idUser) || ($grupo[0]['idLider2'] == $idUser))
-			&& ($data['userdata']['TipoUsuario'] == 'Lider'));
+			&& (($data['userdata']['TipoUsuario'] == 'Lider') || ($data['userdata']['TipoUsuario'] == 'Admin')));
 		$data['colider'] = 
 			((($micro[0]['idColider1'] == $idUser) || ($micro[0]['idColider2'] == $idUser))
 			&& ($data['userdata']['TipoUsuario'] == 'Microlider'));

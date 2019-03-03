@@ -15,7 +15,8 @@
 				<h1 class="page-header">Usuario</h1>
 				<?php if (isset($txtError)): ?>
 					<?php if ($tipoError == 'e'): ?>
-					<div class="alert alert-danger" role="alert">
+					<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 						<?= $txtError; ?>
 					</div>
 					<?php endif; ?>

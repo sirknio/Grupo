@@ -31,7 +31,7 @@ class Integrante extends CI_Controller {
 		//echo"<pre>";print_r($idGrupo." - ".$idMicro." - ".$id);echo"</pre>";
 		//if ($idMicro == 0) { $idMicro = ''; }
 		if ($id == 0) { $id = ''; }
-		$this->loadData($data,$this->debug,$idGrupo);
+		$this->loadData($data,$this->debug,$idGrupo,$idMicro);
 		// echo"<pre>";print_r($data);echo"</pre>";
 		switch ($viewList) {
 			case 'list':
@@ -421,7 +421,8 @@ class Integrante extends CI_Controller {
 		$data['useragent'] =  $_SERVER['HTTP_USER_AGENT'];
 		$data['Genero'] = $this->integrante_model->getGeneroValues();
 		if (($idGrupo != '')||($idMicro != '')||($id != '')) {
-			$data['records'] = $this->integrante_model->get($idGrupo,$data['userdata']['idMicro'],$id);
+			if (empty($idMicro)) $idMicro = $data['userdata']['idMicro'];
+			$data['records'] = $this->integrante_model->get($idGrupo,$idMicro,$id);
 			if (!empty($id)) {
 				$idGenero = ($data['records'][0]['Genero'] == $data['Genero'][0]);
 				$where = "
@@ -430,7 +431,6 @@ class Integrante extends CI_Controller {
 					(idPersona	= '".$data['records'][0]['idConyugue']."')) AND
 					Genero		= '".$data['Genero'][$idGenero]."'";
 				$data['Persona'] = $this->object_model->get('persona','Nombre',$where);
-				// echo "<hr><pre>";print_r($idGenero);echo "</pre><hr>";
 			}
 		} else {
 			$where = array(

@@ -140,7 +140,15 @@ class Microcelula extends CI_Controller {
 	private function loadData(&$data,$debug = false,$idGrupo = '',$idMicro = '') {
 		$data['userdata'] = $_SESSION;
 		if ($idMicro === '') {
-			$where = array('idGrupo' => $idGrupo);
+			if (!empty($data['userdata']['idMicro'])) {
+				$where = 
+					"idGrupo = $idGrupo AND 
+					((idMicrocelula = ".$data['userdata']['idMicro'].") OR 
+					 (TipoMicro IN ('Inactivos','Nuevos')))"
+				;
+			} else {
+				$where = array('idGrupo' => $idGrupo);
+			}
 			$data['records'] = $this->object_model->get($this->controller,'',$where);
 		} else {
 			$where = array($this->pkfield => $idMicro);

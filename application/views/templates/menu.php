@@ -113,16 +113,9 @@
                                     <a href="<?=site_url('Grupo/updateItem/'.$userdata['idGrupo'])?>">Grupo</a>
                                 </li>
                                 <?php endif; ?>
-                                <?php if (($userdata['TipoUsuario'] == 'Lider') || ($userdata['TipoUsuario'] == 'Admin')): ?>
                                 <li>
                                     <a href="<?=site_url('Microcelula/index/'.$userdata['idGrupo'])?>">Microcélulas</a>
                                 </li>
-                                <?php endif; ?>
-                                <?php if (($userdata['TipoUsuario'] == 'Microlider') || ($userdata['TipoUsuario'] == 'Admin')): ?>
-                                <li>
-                                    <a href="<?=site_url('Microcelula/updateItem/'.$userdata['idGrupo'].'/'.$userdata['idMicro'])?>">Microcélula</a>
-                                </li>
-                                <?php endif; ?>
                                 <li>
                                     <a href="<?=site_url('Integrante/index/'.$userdata['idGrupo'])?>">Integrantes</a>
                                 </li>

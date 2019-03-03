@@ -21,8 +21,7 @@ class Usuario extends CI_Controller {
 	
 	public function index($id = '') {
 		$this->loadData($data,$this->debug,$id);
-		$this->loadHTML($data);
-		$this->load->view('pages/'.$this->pagelist,$data);
+		$this->loadHTML($data,$this->pagelist);
 	}	
 		
 	//Eliminar registro
@@ -42,36 +41,46 @@ class Usuario extends CI_Controller {
 		$data['update'] = false;
 		If($createId === '') {
 			$this->loadData($data,$this->debug);
-			$this->loadHTML($data);
-			$this->load->view('pages/'.$this->pagecard,$data);
+			$this->loadHTML($data,$this->pagecard);
 		} else {
 			$data['insert'] = $_POST;
-			if ($data['insert']['Password'] = $data['insert']['Password']) {
-				unset($data['insert']['Password2']);
-				if ($data['insert']['Password'] == '') {
-					unset($data['insert']['Password']);
-				} else {
-					$data['insert']['Password'] = md5(sha1($data['insert']['Password']));
-				}
-				if ($data['insert']['idGrupo'] == '') {
-					unset($data['insert']['idGrupo']);
-				}
-				
-				$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->controller,$data['insert']);
-				if($data['insert'][$this->pkfield] != 0) {
-					$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
-					redirect($this->controller);
-				} else {
-					//Establecer mensaje de error en insercción de datos
-					$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
-					$this->loadHTML($data);
-					$this->load->view('pages/'.$this->pagecard,$data);
-				}
-			} else {
+
+			$where = array (
+				'Usuario'	=> $data['insert']['Usuario']
+			);
+			$data['other'] = $this->object_model->get($this->controller,'',$where);
+			switch(true) {
+				case (!empty($data['other'])):
+					$this->loadData($data,$this->debug,'');
+					$this->loadHTML($data,$this->pagecard,'USER_EXIST');
+					break;
+				case $data['insert']['Password'] !== $data['insert']['Password2']:
 					//Establecer mensaje de error en contraseñas
-					$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
-					$this->loadHTML($data);
-					$this->load->view('pages/'.$this->pagecard,$data);
+					$this->loadData($data,$this->debug,'');
+					$this->loadHTML($data,$this->pagecard,'PASS_NOEQUAL');
+					break;
+				default:
+					unset($data['insert']['Password2']);
+					if ($data['insert']['Password'] == '') {
+						unset($data['insert']['Password']);
+					} else {
+						$data['insert']['Password'] = md5(sha1($data['insert']['Password']));
+					}
+					if ($data['insert']['idGrupo'] == '') {
+						unset($data['insert']['idGrupo']);
+					}
+					
+					$data['insert'][$this->pkfield] = 
+						$this->object_model->insertItem($this->controller,$data['insert']);
+					if($data['insert'][$this->pkfield] != 0) {
+						$this->loadData($data,$this->debug,$data['insert'][$this->pkfield]);
+						redirect($this->controller);
+					} else {
+						//Establecer mensaje de error en insercción de datos
+						$this->loadData($data,$this->debug,'');
+						$this->loadHTML($data,$this->pagecard);
+					}
+					break;
 			}
 		}
 	}
@@ -87,8 +96,7 @@ class Usuario extends CI_Controller {
 			$_POST = array_merge($_POST,$data['info'][0]);
 
 			$this->loadData($data,$this->debug,$id);
-			$this->loadHTML($data);
-			$this->load->view('pages/'.$this->pagecard,$data);
+			$this->loadHTML($data,$this->pagecard);
 		} else {
 			$data['update'] = $_POST;
 			if ($data['update']['Password'] == $data['update']['Password2']) {
@@ -108,10 +116,14 @@ class Usuario extends CI_Controller {
 				if ($this->object_model->updateItem($this->controller,$data['update'],$where)) {
 					redirect($this->controller);
 				} else {
+					//Establecer data nuevamente luego de error
+					$where = array($this->pkfield => $id);
+					$data['info'] = $this->object_model->get($this->controller,'',$where);
+					$_POST = array_merge($_POST,$data['info'][0]);
+					
 					//Establecer mensaje de error en actualizar datos
-					$this->loadData($data,$this->debug,$data['update'][$this->pkfield]);
-					$this->loadHTML($data);
-					$this->load->view('pages/'.$this->pagecard,$data);
+					$this->loadData($data,$this->debug,$id);
+					$this->loadHTML($data,$this->pagecard);
 				}
 			} else {
 					//Establecer data nuevamente luego de error
@@ -119,13 +131,9 @@ class Usuario extends CI_Controller {
 					$data['info'] = $this->object_model->get($this->controller,'',$where);
 					$_POST = array_merge($_POST,$data['info'][0]);
 					
-					//Establecer mensaje de error en contraseña
-					$this->loadError($data,'PASS_NOEQUAL');
 					// echo "<hr><pre>";print_r($data['txtError']);echo "</pre><hr>";
 					$this->loadData($data,$this->debug,$id);
-					$this->loadHTML($data);
-					$this->load->view('pages/'.$this->pagecard,$data);
-					$this->loadError($data,'clear');
+					$this->loadHTML($data,$this->pagecard,'PASS_NOEQUAL');
 			}
 		}
 	}
@@ -182,24 +190,34 @@ class Usuario extends CI_Controller {
 	}
 
 	//Construccion de errores
-	private function loadError(&$data,$code) {
+	private function loadError(&$data,$code = '') {
 		switch($code) {
+			case 'USER_EXIST':
+				$data['tipoError'] = 'e';
+				$data['txtError'] = 
+					'El Usuario seleccionado ya existe. Por favor seleccione otro usuario
+					 y vuelva a intentarlo.';
+				break;
 			case 'PASS_NOEQUAL':
 				$data['tipoError'] = 'e';
-				$data['txtError'] = 'El password digitado en las dos casillas no coincide.';
+				$data['txtError'] = 'La contraseña no coincide con la confirmaci&oacute;n.';
 				break;
-			case 'clear':
-				unset($data['tipoError']);
-				unset($data['txtError']);
+			default:
+				if (empty($data['tipoError']))	unset($data['tipoError']);
+				if (empty($data['txtError']))	unset($data['txtError']);
 				break;
 		}
 	}
 
 	//construir la page completa y permite liberar funcion Index
-	private function loadHTML(&$data) {
+	private function loadHTML(&$data,$page,$error = '') {
+		// echo "<hr><pre>";print_r($error);echo "</pre><hr>";
+		$this->loadError($data,$error);
 		$data['page']['header']  = $this->load->view('templates/header',$data,true);
 		$data['page']['menu']    = $this->load->view('templates/menu',$data,true);
 		$data['page']['footer']  = $this->load->view('templates/footer',$data,true);
+		$this->load->view('pages/'.$page,$data);
+		$this->loadError($data);
 	}
 	
 }

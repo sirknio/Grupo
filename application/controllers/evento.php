@@ -43,7 +43,7 @@ class Evento extends CI_Controller {
 			'idEvento' => $id,
 			'Asiste' => '1'
 		);
-		$data['records'] = $this->object_model->get('asistencia','Apellido ASC',$where);
+		$data['records'] = $this->object_model->get('asistencia','Nombre ASC',$where);
 		
 		//Obtener la información de la lista para poner nuevas columnas
 		foreach ($data['records'] as &$persona) {

@@ -54,7 +54,8 @@ function getEstadoCivilValues() {
 			$query = $this->db->query(
 					"SELECT *
 					FROM 	`microcelula` as m
-					WHERE 	m.idGrupo = ".$idGrupo."
+					WHERE 	m.idGrupo = $idGrupo
+					AND		TipoMicro = 'Normal'
 					ORDER BY m.Nombre");
 			$array = $query->result_array();
 		}

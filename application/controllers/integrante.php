@@ -205,36 +205,53 @@ class Integrante extends CI_Controller {
 			$idEvento = $_POST['idEvento'];
 			unset($_POST['idEvento']);
 			$data['insert'] = $_POST;
-			$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->tablename,$data['insert']);
-			if($data['insert'][$this->pkfield] != 0) {
-				$this->loadData($data,$this->debug,'','',$data['insert'][$this->pkfield]);
-				if ($idEvento != 0) {
-					$asistencia = array(
-						'idEvento' 		=> $idEvento,
-						'idGrupo' 		=> $data['insert']['idGrupo'],
-						'idMicro' 		=> $data['insert']['idMicrocelula'],
-						'idPersona' 	=> $data['insert']['idPersona'],
-						'Nombre' 		=> $data['insert']['Nombre'],
-						'Apellido' 		=> $data['insert']['Apellido'],
-						'DocumentoNo' 	=> $data['insert']['DocumentoNo'],
-						'FechaEvento' 	=> $data['insert']['FechaIngreso'],
-						'Asiste' 		=> '1'
-					);
-					$idEvento = $this->object_model->insertItem('asistencia',$asistencia);
-				}
-				if ($quick) {
-					redirect('asistencia/index/'.$data['insert']['idGrupo']);
-				} else {
-					redirect($this->controller.'/index/'.$data['insert']['idGrupo']);
-				}
-			} else {
-				//Establecer mensaje de error en insercción de datos
-				$this->loadData($data,$this->debug,'','',$data['insert'][$this->pkfield]);
-				if ($quick) {
-					$this->loadHTML($data,$this->pagequickcard);
-				} else {
-					$this->loadHTML($data,$this->pagecard);
-				}
+			$where = array (
+				'DocumentoNo'	=> $data['insert']['DocumentoNo']
+			);
+			$data['other'] = $this->object_model->get($this->tablename,'',$where);
+			
+			switch(true) {
+				case (!empty($data['other'])):
+					$this->loadData($data,$this->debug);
+					if ($quick) {
+						$this->loadHTML($data,$this->pagequickcard,'DOC_EXIST');
+					} else {
+						$this->loadHTML($data,$this->pagecard,'DOC_EXIST');
+					}
+					break;
+				default:	
+					$data['insert'][$this->pkfield] = $this->object_model->insertItem($this->tablename,$data['insert']);
+					if($data['insert'][$this->pkfield] != 0) {
+						$this->loadData($data,$this->debug,'','',$data['insert'][$this->pkfield]);
+						if ($idEvento != 0) {
+							$asistencia = array(
+								'idEvento' 		=> $idEvento,
+								'idGrupo' 		=> $data['insert']['idGrupo'],
+								'idMicro' 		=> $data['insert']['idMicrocelula'],
+								'idPersona' 	=> $data['insert']['idPersona'],
+								'Nombre' 		=> $data['insert']['Nombre'],
+								'Apellido' 		=> $data['insert']['Apellido'],
+								'DocumentoNo' 	=> $data['insert']['DocumentoNo'],
+								'FechaEvento' 	=> $data['insert']['FechaIngreso'],
+								'Asiste' 		=> '1'
+							);
+							$idEvento = $this->object_model->insertItem('asistencia',$asistencia);
+						}
+						if ($quick) {
+							redirect('asistencia/index/'.$data['insert']['idGrupo']);
+						} else {
+							redirect($this->controller.'/index/'.$data['insert']['idGrupo']);
+						}
+					} else {
+						//Establecer mensaje de error en insercción de datos
+						$this->loadData($data,$this->debug,'','',$data['insert'][$this->pkfield]);
+						if ($quick) {
+							$this->loadHTML($data,$this->pagequickcard);
+						} else {
+							$this->loadHTML($data,$this->pagecard);
+						}
+					}
+					break;
 			}
 		}
 	}
@@ -521,7 +538,7 @@ class Integrante extends CI_Controller {
 			'TipoMicro'	=> 'Inactivos'
 		);
 		$data['inactivos'] = $this->object_model->get('microcelula','',$where);
-		$data['inactivos'] = $data['inactivos'][0];
+		if (!empty($data['inactivos'])) $data['inactivos'] = $data['inactivos'][0];
 		$data['morrisjs'] = '';
 		if($debug) {
 			$print = $data;
@@ -582,7 +599,7 @@ class Integrante extends CI_Controller {
 		switch($code) {
 			case 'DOC_EXIST':
 				$data['tipoError'] = 'e';
-				$data['txtError'] = 'El documento digitado ya se encuentra registrado en el sistema.';
+				$data['txtError'] = 'El documento identidad ya se encuentra registrado en el sistema.';
 				break;
 			default:
 				if (empty($data['tipoError']))	unset($data['tipoError']);

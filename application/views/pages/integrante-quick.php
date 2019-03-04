@@ -9,6 +9,14 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<h1 class="page-header">Integrante</h1>
+				<?php if (isset($txtError)): ?>
+					<?php if ($tipoError == 'e'): ?>
+					<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						<?= $txtError; ?>
+					</div>
+					<?php endif; ?>
+				<?php endif; ?>
 				<?php if ($print <> '') { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 			</div>
 		</div>

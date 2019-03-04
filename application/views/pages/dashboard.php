@@ -1,13 +1,13 @@
 <?=$page['header']?>
 
 <?=$page['menu']?>
-	<div class="col-lg-12">
+	<div class="col-md-12">
 		<h1 class="page-header">Dashboard</h1>
 		<?php if ($print) { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
 	<?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
-	<div class="col-lg-12">
-		<div class="col-lg-3 col-md-6">
+	<div class="col-md-12">
+		<div class="col-md-3 col-md-6">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<div class="row">
@@ -29,7 +29,7 @@
 				</a>
 			</div>
 		</div>
-		<div class="col-lg-3 col-md-6">
+		<div class="col-md-3 col-md-6">
 			<div class="panel panel-green">
 				<div class="panel-heading">
 					<div class="row">
@@ -51,7 +51,7 @@
 				</a>
 			</div>
 		</div>
-		<div class="col-lg-3 col-md-6">
+		<div class="col-md-3 col-md-6">
 			<div class="panel panel-yellow">
 				<div class="panel-heading">
 					<div class="row">
@@ -73,7 +73,7 @@
 				</a>
 			</div>
 		</div>
-		<div class="col-lg-3 col-md-6">
+		<div class="col-md-3 col-md-6">
 			<div class="panel panel-red">
 				<div class="panel-heading">
 					<div class="row">
@@ -97,9 +97,9 @@
 		</div>
 	</div>
 	<?php endif; ?>
-	<!-- /.col-lg-4 -->
+	<!-- /.col-md-4 -->
 	<?php if (!empty($asistencia)): ?>
-	<div class="col-lg-4">
+	<div class="col-md-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<i class="fa fa-bar-chart"></i> Asistencia General
@@ -121,9 +121,9 @@
 		<!-- /.panel -->
 	</div>
 	<?php endif; ?>
-	<!-- /.col-lg-4 -->
+	<!-- /.col-md-4 -->
 	<?php if (!empty($eventos)): ?>
-	<div class="col-lg-4">
+	<div class="col-md-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<i class="fa fa-calendar-o fa-fw"></i> Cronograma de Actividades
@@ -164,7 +164,7 @@
 		<!-- /.panel -->
 	</div>
 	<?php endif; ?>
-	<!-- /.col-lg-4 -->
+	<!-- /.col-md-4 -->
 		
 <?=$page['footer']?>
 

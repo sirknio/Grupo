@@ -411,22 +411,27 @@ class Integrante extends CI_Controller {
 	public function updateItem($id = '',$action = false) {
 		$data['update'] = true;
 		if (!$action) {
-			$where = array($this->pkfield => $id);
-			$data['info'] = $this->object_model->get($this->tablename,'',$where);
-			if (isset($data['info'][0]['Habilidades'])) {
-				$data['info'][0]['Habilidades'] = explode(",",$data['info'][0]['Habilidades']);
-			}
-			$_POST = array_merge($_POST,$data['info'][0]);
-
 			$this->loadData($data,$this->debug,'','',$id);
+			$_POST = array_merge($_POST,$data['records'][0]);
+			if (isset($_POST['Habilidades'])) $_POST['Habilidades'] = explode(",",$_POST['Habilidades']);
+			if (isset($_POST['ProcesoFormacion'])) $_POST['ProcesoFormacion'] = explode(",",$_POST['ProcesoFormacion']);
+			// echo "<hr><pre>";print_r($_POST);echo "</pre><hr>";
+			// echo "<hr><pre>";print_r($data);echo "</pre><hr>";
 			$this->loadHTML($data,$this->pagecard);
 		} else {
 			if (isset($_POST['Habilidades'])) {
 				$_POST['Habilidades'] = implode(",", $_POST['Habilidades']);
 			}
+			
+			if (isset($_POST['ProcesoFormacion'])) {
+				$_POST['ProcesoFormacion'] = implode(",", $_POST['ProcesoFormacion']);
+			}
+			
 			$idEvento = $_POST['idEvento'];
 			unset($_POST['idEvento']);
+
 			$data['update'] = $_POST;
+
 			$this->loadData($data,$this->debug,'','',$id);
 			$where = array($this->pkfield => $id);
 			if ($this->object_model->updateItem($this->tablename,$data['update'],$where)) {
@@ -447,18 +452,21 @@ class Integrante extends CI_Controller {
 					$dataspouse += ['foto_filename' => $data['update']['foto_filename']];
 				$where = array($this->pkfield => $data['update']['idConyugue']);
 				$this->object_model->updateItem($this->tablename,$dataspouse,$where);
-				//fin
 				
 				$this->loadImg($data,'update',$this->imgfield);
-				//echo "<pre>";echo "OK CARGUE DE IMAGEN";echo "</pre>";
 				redirect($this->controller."/index/".$data['update']['idGrupo']);
-				//$this->loadData($data,$this->debug,$id);
-				//$this->loadHTML($data);
-				//$this->load->view('pages/'.$this->pagecard,$data);
 			} else {
+				if (isset($_POST['Habilidades'])) {
+					$_POST['Habilidades'] = explode(",",$_POST['Habilidades']);
+				}
+					
+				if (isset($_POST['ProcesoFormacion'])) {
+					$_POST['ProcesoFormacion'] = explode(",",$_POST['ProcesoFormacion']);
+				}
+					
 				//Establecer mensaje de error en actualizar datos
-				$this->loadData($data,$this->debug,'','',$data['update'][$this->pkfield]);
-				$this->loadHTML($data,$this->pagecard);
+				$this->loadData($data,$this->debug,'','',$id);
+				$this->loadHTML($data,$this->pagecard,'DOC_EXIST');
 			}
 		}
 	}
@@ -533,6 +541,7 @@ class Integrante extends CI_Controller {
 		$data['DocumentoTipo'] = $this->integrante_model->getDocumentoTipoValues();
 		$data['EstadoCivil'] = $this->integrante_model->getEstadoCivilValues();
 		$data['Habilidades'] = $this->integrante_model->getHabilidadesValues();
+		$data['ProcesoFormacion'] = $this->integrante_model->getProcesosValues();
 		$where = array(
 			'idGrupo' 	=> $idGrupo,
 			'TipoMicro'	=> 'Inactivos'

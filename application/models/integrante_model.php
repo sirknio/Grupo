@@ -2,11 +2,15 @@
 
 class Integrante_model extends CI_Model{
 	
+	function getProcesosValues() {
+		return $this->getFieldValues('ProcesoFormacion');
+	}
+
 	function getHabilidadesValues() {
 		return $this->getFieldValues('Habilidades');
 	}
 
-function getEstadoCivilValues() {
+	function getEstadoCivilValues() {
 		return $this->getFieldValues('EstadoCivil');
 	}
 

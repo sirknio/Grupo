@@ -187,6 +187,25 @@
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
+						<h3 class="panel-title">Iglesia</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label>Proceso Formaci&oacute;n</label>
+							<?php foreach ($ProcesoFormacion as $item): ?>
+								<?php if (in_array($item,set_value('ProcesoFormacion'))): ?>
+									<br><input type="checkbox" name="ProcesoFormacion[ ]" value="<?=$item?>" checked> <?=$item?>
+								<?php else: ?>
+									<br><input type="checkbox" name="ProcesoFormacion[ ]" value="<?=$item?>"> <?=$item?>
+								<?php endif; ?>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
 						<h3 class="panel-title">Grupo Conexi&oacute;n (Solo para Microl&iacute;der)</h3>
 					</div>
 					<div class="panel-body">
@@ -239,6 +258,8 @@
 				<a class="btn btn-default" href="<?=site_url('Integrante')?>">Cancelar</a>
 			<?php endif; ?>
 		</div>
+		<div class="col-md-12">&nbsp;</div>
+
 	</form>
 
 <?=$page['footer']?>

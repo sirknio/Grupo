@@ -17,7 +17,7 @@ class Object_model extends CI_Model{
 	function updateItem($table,$data,$where) {
 		$this->initLog('Modificacion',$table,$data,'',$where);
 		$dev = $this->db->update($table,$data,$where);
-		echo "<hr><pre>";print_r($this->db->last_query());echo "</pre><hr>";
+		// echo "<hr><pre>";print_r($this->db->last_query());echo "</pre><hr>";
 		$this->applyLog();
 		return $dev;
 	}

@@ -59,7 +59,7 @@ class Integrante_model extends CI_Model{
 					"SELECT *
 					FROM 	`microcelula` as m
 					WHERE 	m.idGrupo = $idGrupo
-					AND		TipoMicro = 'Normal'
+					AND		TipoMicro IN ('Normal','Nuevos')
 					ORDER BY m.Nombre");
 			$array = $query->result_array();
 		}

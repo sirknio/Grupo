@@ -164,6 +164,12 @@ class Integrante extends CI_Controller {
 				)
 			));
 
+			$_POST = array_merge($_POST,array(
+				'ProcesoFormacion' => array(
+					0 => ''
+				)
+			));
+
 			$this->loadData($data,$this->debug);
 			$where = array (
 				'idGrupo' => $data['userdata']['idGrupo'],
@@ -202,8 +208,14 @@ class Integrante extends CI_Controller {
 			if (isset($_POST['Habilidades'])) {
 				$_POST['Habilidades'] = implode(",", $_POST['Habilidades']);
 			}
+			
+			if (isset($_POST['ProcesoFormacion'])) {
+				$_POST['ProcesoFormacion'] = implode(",", $_POST['ProcesoFormacion']);
+			}
+			
 			$idEvento = $_POST['idEvento'];
 			unset($_POST['idEvento']);
+			
 			$data['insert'] = $_POST;
 			$where = array (
 				'DocumentoNo'	=> $data['insert']['DocumentoNo']
@@ -213,6 +225,27 @@ class Integrante extends CI_Controller {
 			switch(true) {
 				case (!empty($data['other'])):
 					$this->loadData($data,$this->debug);
+				
+					if (isset($_POST['Habilidades'])) {
+						$_POST['Habilidades'] = explode(",",$_POST['Habilidades']);
+					} else {
+						$_POST = array_merge($_POST,array(
+							'Habilidades' => array(
+								0 => ''
+							)
+						));			
+					}
+						
+					if (isset($_POST['ProcesoFormacion'])) {
+						$_POST['ProcesoFormacion'] = explode(",",$_POST['ProcesoFormacion']);
+					} else {
+						$_POST = array_merge($_POST,array(
+							'ProcesoFormacion' => array(
+								0 => ''
+							)
+						));
+					}
+
 					if ($quick) {
 						$this->loadHTML($data,$this->pagequickcard,'DOC_EXIST');
 					} else {

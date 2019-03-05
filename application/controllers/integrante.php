@@ -439,15 +439,28 @@ class Integrante extends CI_Controller {
 
 		$this->loadHTML($data,'novedad');
 	}
-	
+
+	//Borrar hijo de la ficha de Integrante
+	public function deleteChild($idPadre,$idHijo) {
+		$data['idHijo'] = $idHijo;
+		$this->object_model->deleteItem('hijos',$data);
+		redirect($this->controller."/updateItem/".$idPadre);
+	}
+
 	//Actualizar registro
 	public function updateItem($id = '',$action = false) {
 		$data['update'] = true;
 		if (!$action) {
 			$this->loadData($data,$this->debug,'','',$id);
 			$_POST = array_merge($_POST,$data['records'][0]);
-			if (isset($_POST['Habilidades'])) $_POST['Habilidades'] = explode(",",$_POST['Habilidades']);
-			if (isset($_POST['ProcesoFormacion'])) $_POST['ProcesoFormacion'] = explode(",",$_POST['ProcesoFormacion']);
+			
+			if (isset($_POST['Habilidades'])) {
+				$_POST['Habilidades'] = explode(",",$_POST['Habilidades']);
+			}
+
+			if (isset($_POST['ProcesoFormacion'])) {
+				$_POST['ProcesoFormacion'] = explode(",",$_POST['ProcesoFormacion']);
+			}
 			// echo "<hr><pre>";print_r($_POST);echo "</pre><hr>";
 			// echo "<hr><pre>";print_r($data);echo "</pre><hr>";
 			$this->loadHTML($data,$this->pagecard);
@@ -460,46 +473,107 @@ class Integrante extends CI_Controller {
 				$_POST['ProcesoFormacion'] = implode(",", $_POST['ProcesoFormacion']);
 			}
 			
-			$idEvento = $_POST['idEvento'];
-			unset($_POST['idEvento']);
+			switch(true) {
+				case (!empty($_POST['HijoNombre']) || !empty($_POST['HijoNacimiento']) || !empty($_POST['HijoGenero'])):
+					if (isset($_POST['Habilidades'])) {
+						$_POST['Habilidades'] = explode(",",$_POST['Habilidades']);
+					}
+						
+					if (isset($_POST['ProcesoFormacion'])) {
+						$_POST['ProcesoFormacion'] = explode(",",$_POST['ProcesoFormacion']);
+					}
 
-			$data['update'] = $_POST;
+					$hijo = array();
+					if ($_POST['Genero'] == 'Masculino') {
+						$hijo['idPersPadre'] = $_POST['idPersona'];
+						if (!empty($_POST['idConyugue'])) $hijo['idPersMadre'] = $_POST['idConyugue'];
+					} else {
+						$hijo['idPersMadre'] = $_POST['idPersona'];
+						if (!empty($_POST['idConyugue'])) $hijo['idPersPadre'] = $_POST['idConyugue'];
+					}
+					$hijo['Nombre'] 			= $_POST['HijoNombre'];
+					$hijo['FechaNacimiento'] 	= $_POST['HijoNacimiento'];
+					$hijo['Genero'] 			= $_POST['HijoGenero'];
 
-			$this->loadData($data,$this->debug,'','',$id);
-			$where = array($this->pkfield => $id);
-			if ($this->object_model->updateItem($this->tablename,$data['update'],$where)) {
-				//Actualizar el conyugue con la información
-				$dataspouse = [];
-				$dataspouse = ['idConyugue' => $id];
-				if ($data['update']['FechaMatrimonio'] != "0000-00-00")
-					$dataspouse += ['FechaMatrimonio' => $data['update']['FechaMatrimonio']];
-				if ($data['update']['idMicrocelula'] != "")
-					$dataspouse += ['idMicrocelula' => $data['update']['idMicrocelula']];
-				if ($data['update']['EstadoCivil'] != "")
-					$dataspouse += ['EstadoCivil' => $data['update']['EstadoCivil']];
-				if (isset($data['update']['foto_filepath']))
-				if ($data['update']['foto_filepath'] != "")
-					$dataspouse += ['foto_filepath' => $data['update']['foto_filepath']];
-				if (isset($data['update']['foto_filename']))
-				if ($data['update']['foto_filename'] != "")
-					$dataspouse += ['foto_filename' => $data['update']['foto_filename']];
-				$where = array($this->pkfield => $data['update']['idConyugue']);
-				$this->object_model->updateItem($this->tablename,$dataspouse,$where);
-				
-				$this->loadImg($data,'update',$this->imgfield);
-				redirect($this->controller."/index/".$data['update']['idGrupo']);
-			} else {
-				if (isset($_POST['Habilidades'])) {
-					$_POST['Habilidades'] = explode(",",$_POST['Habilidades']);
-				}
+					$other = $this->object_model->get('hijos','',$hijo);
 					
-				if (isset($_POST['ProcesoFormacion'])) {
-					$_POST['ProcesoFormacion'] = explode(",",$_POST['ProcesoFormacion']);
-				}
-					
-				//Establecer mensaje de error en actualizar datos
-				$this->loadData($data,$this->debug,'','',$id);
-				$this->loadHTML($data,$this->pagecard,'DOC_EXIST');
+					switch (true) {
+						case (empty($_POST['HijoNombre']) || empty($_POST['HijoNacimiento']) || empty($_POST['HijoGenero'])):
+							//Establecer mensaje de error en actualizar datos
+							$this->loadData($data,$this->debug,'','',$id);
+							// echo "<hr><pre>";print_r($data['hijos']);echo "</pre><hr>";
+							$this->loadHTML($data,$this->pagecard,'DATA_HIJO');
+							break;
+						case (!empty($other)):
+							//Establecer mensaje de error en actualizar datos
+							$this->loadData($data,$this->debug,'','',$id);
+							// echo "<hr><pre>";print_r($data['hijos']);echo "</pre><hr>";
+							$this->loadHTML($data,$this->pagecard,'DUPL_HIJO');
+							break;
+						default;
+							unset($_POST['HijoNombre']);
+							unset($_POST['HijoNacimiento']);
+							unset($_POST['HijoGenero']);
+
+							// echo "<hr><pre>";print_r($hijo);echo "</pre><hr>";
+							// echo "<hr><pre>";print_r($_POST);echo "</pre><hr>";
+
+							$idHijo = $this->object_model->insertItem('hijos',$hijo);
+			
+							//Establecer mensaje de error en actualizar datos
+							$this->loadData($data,$this->debug,'','',$id);
+							// echo "<hr><pre>";print_r($data['hijos']);echo "</pre><hr>";
+							$this->loadHTML($data,$this->pagecard);
+							break;
+					}
+					break;
+				default:
+					$idEvento = $_POST['idEvento'];
+					unset($_POST['idEvento']);
+
+					unset($_POST['HijoNombre']);
+					unset($_POST['HijoNacimiento']);
+					unset($_POST['HijoGenero']);
+
+					$data['update'] = $_POST;
+
+					$this->loadData($data,$this->debug,'','',$id);
+					$where = array($this->pkfield => $id);
+					if ($this->object_model->updateItem($this->tablename,$data['update'],$where)) {
+						//Actualizar el conyugue con la información
+						$dataspouse = [];
+						$dataspouse = ['idConyugue' => $id];
+						if ($data['update']['FechaMatrimonio'] != "0000-00-00")
+							$dataspouse += ['FechaMatrimonio' => $data['update']['FechaMatrimonio']];
+						if ($data['update']['idMicrocelula'] != "")
+							$dataspouse += ['idMicrocelula' => $data['update']['idMicrocelula']];
+						if ($data['update']['EstadoCivil'] != "")
+							$dataspouse += ['EstadoCivil' => $data['update']['EstadoCivil']];
+						if (isset($data['update']['foto_filepath']))
+						if ($data['update']['foto_filepath'] != "")
+							$dataspouse += ['foto_filepath' => $data['update']['foto_filepath']];
+						if (isset($data['update']['foto_filename']))
+						if ($data['update']['foto_filename'] != "")
+							$dataspouse += ['foto_filename' => $data['update']['foto_filename']];
+						$where = array($this->pkfield => $data['update']['idConyugue']);
+						$this->object_model->updateItem($this->tablename,$dataspouse,$where);
+						
+						$this->loadImg($data,'update',$this->imgfield);
+						redirect($this->controller."/index/".$data['update']['idGrupo']);
+					} else {
+						if (isset($_POST['Habilidades'])) {
+							$_POST['Habilidades'] = explode(",",$_POST['Habilidades']);
+						}
+							
+						if (isset($_POST['ProcesoFormacion'])) {
+							$_POST['ProcesoFormacion'] = explode(",",$_POST['ProcesoFormacion']);
+						}
+						
+						//Establecer mensaje de error en actualizar datos
+						$this->loadData($data,$this->debug,'','',$id);
+						$this->loadHTML($data,$this->pagecard,'DOC_EXIST');
+					}
+					break;
 			}
 		}
 	}
@@ -561,6 +635,11 @@ class Integrante extends CI_Controller {
 					(idPersona	= '".$data['records'][0]['idConyugue']."')) AND
 					Genero		= '".$data['Genero'][$idGenero]."'";
 				$data['Persona'] = $this->object_model->get('persona','Nombre',$where);
+				$where = "
+					`idPersPadre`	= $id OR
+					`idPersMadre`	= $id
+				";
+				$data['hijos'] = $this->object_model->get('hijos','Nombre',$where);
 			}
 		} else {
 			$where = array(
@@ -642,6 +721,14 @@ class Integrante extends CI_Controller {
 			case 'DOC_EXIST':
 				$data['tipoError'] = 'e';
 				$data['txtError'] = 'El documento identidad ya se encuentra registrado en el sistema.';
+				break;
+			case 'DATA_HIJO':
+				$data['tipoError'] = 'e';
+				$data['txtError'] = 'Debe diligenciar los datos completos del hijo que desea registrar.';
+				break;
+			case 'DUPL_HIJO':
+				$data['tipoError'] = 'e';
+				$data['txtError'] = 'Los datos que desea insertar ya se encuentran registrados.';
 				break;
 			default:
 				if (empty($data['tipoError']))	unset($data['tipoError']);

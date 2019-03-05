@@ -49,6 +49,7 @@
 					<div class="panel-body">
 						<input name="idEvento" type="hidden" value="<?= set_value('idEvento')?>">
 						<input name="idGrupo" type="hidden" value="<?= set_value('idGrupo')?>">
+						<input name="idPersona" type="hidden" value="<?= set_value('idPersona')?>">
 						<div class="form-group">
 							<label>Foto</label>
 							<input type="file" name="foto" class="form-group" capture="camera">
@@ -184,6 +185,91 @@
 					</div>
 				</div>
 			</div>
+
+
+
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Hijos
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<?php if (!empty($hijos)): ?>
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Nombre Completo</th>
+										<th>Nacimiento</th>
+										<th>Genero</th>
+										<th>&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php $i = 1; ?>
+									<?php foreach ($hijos as $item): ?>
+										<tr>
+											<td><?= $i; ?></td>
+											<td><?= $item['Nombre']; ?></td>
+											<td><?= $item['FechaNacimiento']; ?></td>
+											<td><?= $item['Genero']; ?></td>
+											<td>
+												<a href="<?=site_url('Integrante/deleteChild/'.set_value('idPersona').'/'.$item['idHijo'])?>">
+													<i class="fa fa-trash fa-fw"></i>
+												</a>
+											</td>
+										</tr>
+										<?php $i++; ?>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+						<?php endif; ?>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Nombre Completo</label>
+								<input name="HijoNombre" class="form-control" placeholder="Nombre Completo" value="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Genero</label>
+								<select name="HijoGenero" class="form-control" placeholder="Seleccione Genero">
+									<option value="" hidden>Genero</option>
+									<?php foreach ($Genero as $item): ?>
+										<option value="<?=$item?>"><?=$item?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>Fecha Nacimiento</label>
+								<div class="input-group date form_birthdate" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+								<input class="form-control" name="HijoNacimiento" size="16" type="text" placeholder="Fecha Nacimiento" readonly>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+								</div>
+								<input type="hidden" id="dtp_input2" value="" /><br/>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<button type="submit" class="btn btn-primary"><i class="fa fa-users fa-fw"></i> 
+								Agregar Hijos
+							</button>
+						</div>
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+
+
+		</div>
+		<div class="col-md-12">
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -255,7 +341,6 @@
 					Actualizar Integrante
 				<?php endif; ?>
 				</button>
-				<a class="btn btn-default" href="<?=site_url('Integrante')?>">Cancelar</a>
 			<?php endif; ?>
 		</div>
 		<div class="col-md-12">&nbsp;</div>

@@ -130,6 +130,15 @@ class Evento extends CI_Controller {
 		);
 		$eventos  = $this->object_model->get($this->controller, $this->orderfield, $where);
 		if (count($eventos) == 0) {
+			$idInac = 0;
+			$where = array(
+				'idGrupo' 	=> $evento['idGrupo'],
+				'TipoMicro'	=> 'Inactivos'
+			);
+			$inac = $this->object_model->get('microcelula','',$where);
+			if (!empty($inac)) $idInac = $inac[0]['idMicrocelula'];
+
+
 			$personas = $this->integrante_model->get($evento['idGrupo']);
 			foreach ($personas as $persona) {
 				$asistencia = array(
@@ -147,6 +156,8 @@ class Evento extends CI_Controller {
 					case "Hombres": $insert = ($persona['Genero'] == 'Masculino'); 	break;
 					case "Mujeres": $insert = ($persona['Genero'] == 'Femenino'); 	break;
 				}
+
+				$insert = $insert && ($persona['idMicrocelula'] != $idInac);
 				if ($insert) {
 					$idEvento = $this->object_model->insertItem('asistencia',$asistencia);
 				}

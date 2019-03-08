@@ -12,8 +12,8 @@
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<th>Apellidos</th>
 						<th>Nombres</th>
+						<th>Apellidos</th>
 						<th>Cédula</th>
 						<th>Dirección</th>
 						<th>Telefono</th>
@@ -28,10 +28,10 @@
 					<?php foreach ($records as $item): ?>
 						<tr>
 							<td>
-								<?= strtoupper($item['Apellido']) ?>
+								<?= strtoupper($item['Nombre']) ?>
 							</td>
 							<td>
-								<?= strtoupper($item['Nombre']) ?>
+								<?= strtoupper($item['Apellido']) ?>
 							</td>
 							<td>
 								<?= $item['DocumentoNo'] ?>

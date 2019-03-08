@@ -138,8 +138,9 @@ class Evento extends CI_Controller {
 			$inac = $this->object_model->get('microcelula','',$where);
 			if (!empty($inac)) $idInac = $inac[0]['idMicrocelula'];
 
+			$personas = $this->object_model->get('persona','',
+				array('idGrupo' => $evento['idGrupo']));
 
-			$personas = $this->integrante_model->get($evento['idGrupo']);
 			foreach ($personas as $persona) {
 				$asistencia = array(
 					'idEvento' 		=> $evento['idEvento'],

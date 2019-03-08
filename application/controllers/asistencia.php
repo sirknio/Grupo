@@ -60,10 +60,84 @@ class Asistencia extends CI_Controller {
 			$asistencia = $asistencia[0];
 			$data['success'] = "Bienvenido <b>".$asistencia['Nombre']." ".$asistencia['Apellido']."</b> al grupo de Conexión. Tu asistencia ha sido registrada exitosamente.";
 		} else {
-			$data['error']  = "El documento ingresado no se encuentra en la lista de asistencia.<hr>";
-			$data['error'] .= "Si el integrante ya esta registrado es necesario ";
-			$data['error'] .= "que vaya a la lista para encontrarlo, corregir el No. de Documento y tomarle nuevamente asistencia.";
+			$where = array(
+				'DocumentoNo' => $_POST['DocumentoNo']
+			);
+			$persona = $this->object_model->get('persona','',$where);
+			if (!empty($persona)) {
+				$where = array('idEvento' 	=> $_POST['idEvento']);
+				$evento  = $this->object_model->get('evento', '', $where);
+				$evento = $evento[0];
+		
+				$where = array(
+					'idGrupo' 		=> $_POST['idGrupo'],
+					'DocumentoNo'	=> $_POST['DocumentoNo']
+				);
+
+				// echo "<pre>"; print_r($evento); echo "</pre>";
+				if ($evento['TomarAsistencia'] == 1) {
+					switch(true) {
+						case $evento['Filtro'] == 'Mujeres':
+							$where = array_merge($where,array('Genero' => 'Femenino'));	
+							break;
+						case $evento['Filtro'] == 'Hombres':
+							$where = array_merge($where,array('Genero' => 'Masculino'));	
+							break;
+						case $evento['Filtro'] == 'Todos':
+							break;
+					}
+					$persona = $this->object_model->get('persona','',$where);
+					// echo "<pre>"; print_r($persona); echo "</pre>";
+
+					if (!empty($persona)) {
+						$persona = $persona[0];
+
+						$where = array(
+							'idGrupo' 	=> $evento['idGrupo'],
+							'TipoMicro'	=> 'Inactivos'
+						);
+						$inac = $this->object_model->get('microcelula','',$where);
+						$inac = $inac[0];
+						// echo "<pre>"; print_r($inac); echo "</pre>";
+	
+						$where = array(
+							'idGrupo' 	=> $evento['idGrupo'],
+							'TipoMicro'	=> 'Nuevos'
+						);
+						$nuevos = $this->object_model->get('microcelula','',$where);
+						$nuevos = $nuevos[0];
+						// echo "<pre>"; print_r($nuevos); echo "</pre>";
+	
+						if ($persona['idMicrocelula'] == $inac['idMicrocelula']) {
+							$update = array('idMicrocelula' => $nuevos['idMicrocelula']);
+							$where = array('idPersona' => $persona['idPersona']);
+							$this->object_model->updateItem('persona',$update,$where);
+						}
+			
+						$asistencia = array(
+							'idEvento' 		=> $evento['idEvento'],
+							'idGrupo' 		=> $evento['idGrupo'],
+							'idMicro' 		=> $nuevos['idMicrocelula'],
+							'idPersona' 	=> $persona['idPersona'],
+							'FechaEvento' 	=> $evento['FechaEvento'],
+							'Asiste'		=> 1,
+							'Nombre' 		=> $persona['Nombre'],
+							'Apellido' 		=> $persona['Apellido'],
+							'DocumentoNo' 	=> $persona['DocumentoNo']
+						);
+
+						$asistencia['idAsistencia'] = $this->object_model->insertItem('asistencia',$asistencia);
+						$data['success'] = "Bienvenido <b>".$asistencia['Nombre']." ".$asistencia['Apellido']."</b> al grupo de Conexión. Tu asistencia ha sido registrada exitosamente.";
+						// echo "<pre>"; print_r($asistencia); echo "</pre>";
+					} else {
+						$data['error']  = "No se puede registrar su asistencia. Recuerde que este evento esta registrado para <b>".$evento['Filtro']."</b>.";
+					}
+				}
+			} else {
+				$data['error']  = "El documento ingresado no se encuentra registrado en la aplicacion.";
+			}	
 		}
+
 		$this->loadData($data,$this->debug,$_POST['idEvento']);
 		$this->loadHTML($data);
 		$this->load->view('pages/'.$this->pagelist,$data);

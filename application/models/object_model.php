@@ -108,7 +108,7 @@ class Object_model extends CI_Model{
 		$off  = strpos($array,"('");
         $array = substr($array, $off+2, strlen($array)-$off-4);
 		$array = explode("','",$array);
-		//echo"<pre>";print_r($array);echo"</pre>";
+		// echo"<pre>";print_r($array);echo"</pre>";
 		return $array;
 	}
 

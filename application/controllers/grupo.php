@@ -41,10 +41,21 @@ class Grupo extends CI_Controller {
 	public function insertItem($createId = '') {
 		$data['update'] = false;
 		If($createId === '') {
+			if (isset($_POST['EstadoCivil'])) {
+				$_POST['EstadoCivil'] = explode(",",$_POST['EstadoCivil']);
+			} else {
+				$_POST['EstadoCivil'] = array();
+			}
+			// echo "<pre>"; print_r($_POST); echo "</pre>";
+
 			$this->loadData($data,$this->debug);
 			$this->loadHTML($data);
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
+			if (isset($_POST['EstadoCivil'])) {
+				$_POST['EstadoCivil'] = implode(",", $_POST['EstadoCivil']);
+			}
+
 			$data['insert'] = $_POST;
 			
 			if ($data['insert']['idLider1'] == '') {
@@ -96,11 +107,23 @@ class Grupo extends CI_Controller {
 			$where = array($this->pkfield => $id);
 			$data['info'] = $this->object_model->get($this->controller,'',$where);
 			$_POST = array_merge($_POST,$data['info'][0]);
+			// echo "<pre>"; print_r($data['info'][0]); echo "</pre>";
+			
+			if (isset($_POST['EstadoCivil'])) {
+				$_POST['EstadoCivil'] = explode(",",$_POST['EstadoCivil']);
+			} else {
+				$_POST['EstadoCivil'] = array();
+			}
+			// echo "<pre>"; print_r($_POST); echo "</pre>";
 
 			$this->loadData($data,$this->debug,$id);
 			$this->loadHTML($data);
 			$this->load->view('pages/'.$this->pagecard,$data);
 		} else {
+			if (isset($_POST['EstadoCivil'])) {
+				$_POST['EstadoCivil'] = implode(",", $_POST['EstadoCivil']);
+			}
+
 			$data['update'] = $_POST;
 
 			if ($data['update']['idLider1'] == '') {
@@ -188,6 +211,8 @@ class Grupo extends CI_Controller {
 			);
 		}
 		$data['TipoGrupo'] = $this->object_model->getTipoValues('grupo','TipoGrupo');
+		$data['Genero'] = $this->object_model->getTipoValues('grupo','Genero');
+		$data['EstadoCivil'] = $this->object_model->getTipoValues('grupo','EstadoCivil');
 		$data['morrisjs'] = '';
 		if($debug) {
 			$print = $data;

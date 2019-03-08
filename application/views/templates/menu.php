@@ -37,6 +37,9 @@
                                         <strong><?= $item['PersNombre'].' '.$item['PersApellido'] ?></strong>
                                         <span class="pull-right text-muted">
                                             <em><?= $item['Nombre'].' '.$item['Apellido'] ?></em>
+                                            <?php if ($item['ImportanteUrgente']): ?>
+                                            <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-exclamation"></i></button>
+                                            <?php endif; ?>
                                         </span>
                                     </div>
                                     <div><?= $item['Novedad'] ?></div>

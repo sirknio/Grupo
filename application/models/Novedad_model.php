@@ -15,7 +15,8 @@ class Novedad_model extends CI_model{
                     // WHERE   n.LeidoLider IS NULL
                     // AND     n.idGrupo = $idGrupo
                     // GROUP BY n.idGrupo, n.idPersona"
-                    "SELECT n.idGrupo, n.idPersona, n.Novedad, 
+                    "SELECT n.idGrupo, n.idPersona, 
+                            n.Novedad, SUM(n.ImportanteUrgente) as ImportanteUrgente,
                             u.Nombre, u.Apellido, 
                             p.Nombre as PersNombre, 
                             p.Apellido as PersApellido
@@ -37,7 +38,8 @@ class Novedad_model extends CI_model{
                 break;
             case 'Microlider':
                 $query = $this->db->query(
-                    "SELECT n.idGrupo, n.idPersona, n.Novedad, 
+                    "SELECT n.idGrupo, n.idPersona, 
+                            n.Novedad, SUM(n.ImportanteUrgente) as ImportanteUrgente,
                             u.Nombre, u.Apellido, 
                             p.Nombre as PersNombre, 
                             p.Apellido as PersApellido

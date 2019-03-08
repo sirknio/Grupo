@@ -29,6 +29,9 @@
 						<li class="clearfix">
 							<div class="chat-body clearfix">
 								<div class="header">
+									<?php if ($item['ImportanteUrgente']): ?>
+									<button type="button" class="btn btn-danger btn-circle"><i class="fa fa-exclamation"></i></button>
+									<?php endif; ?>
 									<strong class="primary-font"><?=$item['NombreUsuario']?></strong>
 									<small class="pull-right text-muted">
 										<?php if ($userdata['TipoUsuario'] == 'Lider'): ?>

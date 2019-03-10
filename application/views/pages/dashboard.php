@@ -98,74 +98,215 @@
 	</div>
 	<?php endif; ?>
 	<!-- /.col-md-4 -->
-	<?php if (!empty($asistencia)): ?>
-	<div class="col-md-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<i class="fa fa-bar-chart"></i> Asistencia General
-			</div>
-			<!-- /.panel-heading -->
-			<div class="panel-body autoscroll panel-dashboard">
-				<div id="bar-asistencia" class="autoscroll panel-dashboard-graphic"></div>
-			</div>
-			<!-- /.panel-body -->
-			<a href="statistics.html">
-				<div class="panel-footer">
-					<span class="pull-left">Ver Estadísticas</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
+	<div class="col-md-8">
+		<?php if (!empty($asistencia)): ?>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart"></i> Asistencia General
 				</div>
-				<!-- panel-footer -->
-			</a>
-		</div>
-		<!-- /.panel -->
-	</div>
-	<?php endif; ?>
-	<!-- /.col-md-4 -->
-	<?php if (!empty($eventos)): ?>
-	<div class="col-md-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<i class="fa fa-calendar-o fa-fw"></i> Cronograma de Actividades
+				<!-- /.panel-heading -->
+				<div class="panel-body autoscroll panel-dashboard">
+					<div id="bar-asistencia" class="autoscroll panel-dashboard-graphic"></div>
+				</div>
+				<!-- /.panel-body -->
+				<a href="statistics.html">
+					<div class="panel-footer">
+						<span class="pull-left">Ver Estadísticas</span>
+						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+					<!-- panel-footer -->
+				</a>
 			</div>
-			<!-- /.panel-heading -->
-			<div class="panel-body autoscroll panel-dashboard">
-				<div class="table-responsive autoscroll panel-dashboard-calendar">
-					<table class="table table-striped table-hover">
-						<?php foreach ($eventos as $item): ?>
-							<?php if ($date != $item['FechaEvento']) : ?>
-								<thead>
+			<!-- /.panel -->
+		</div>
+		<?php endif; ?>
+		<?php if (!empty($eventos)): ?>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-calendar-o fa-fw"></i> Cronograma de Actividades
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body autoscroll panel-dashboard">
+					<div class="table-responsive autoscroll panel-dashboard-calendar">
+						<table class="table table-striped table-hover">
+							<?php foreach ($eventos as $item): ?>
+								<?php if ($month != $item['FechaEvento']) : ?>
+									<thead>
+										<tr>
+											<th><?= $item['NomFechaEvento'] ?></th>
+										</tr>
+									</thead>
+									<?php $month = $item['FechaEvento']; ?>
+								<?php endif; ?>
+									
 									<tr>
-										<th><?= $item['FechaEvento'] ?></th>
+										<td><?= $item['Nombre'] ?></td>
 									</tr>
-								</thead>
-								<?php $date = $item['FechaEvento']; ?>
-							<?php endif; ?>
-								
-								<tr>
-									<td><?= $item['Nombre'] ?></td>
-								</tr>
-						<?php endforeach; ?>
-					</table>
+							<?php endforeach; ?>
+						</table>
+					</div>
+					<!-- /.table-responsive -->
 				</div>
-				<!-- /.table-responsive -->
+				<!-- /.panel-body -->
+				<!-- <a href="agenda.html"> -->
+					<div class="panel-footer">
+						<span class="pull-left">&nbsp;</span>
+						<!-- <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> -->
+						<div class="clearfix"></div>
+					</div>
+					<!-- panel-footer -->
+				<!-- </a> -->
+				<!-- a footer -->
 			</div>
-			<!-- /.panel-body -->
-			<a href="agenda.html">
-				<div class="panel-footer">
-					<span class="pull-left">Ver Calendario Eventos</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-				<!-- panel-footer -->
-			</a>
-			<!-- a footer -->
+			<!-- /.panel -->
 		</div>
-		<!-- /.panel -->
+		<?php endif; ?>
+		<!-- /.col-md-4 -->
+		<?php if (!empty($birhtdays)): ?>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-birthday-cake fa-fw"></i> Cumpleaños
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body autoscroll panel-dashboard">
+					<div class="table-responsive autoscroll panel-dashboard-calendar">
+						<table class="table table-striped table-hover">
+							<?php foreach ($birhtdays as $item): ?>
+								<?php if ($month1 != $item['FechaEvento']) : ?>
+									<thead>
+										<tr>
+											<th><?= $item['NomFechaEvento'] ?></th>
+										</tr>
+									</thead>
+									<?php $month1 = $item['FechaEvento']; ?>
+								<?php endif; ?>
+									
+									<tr>
+										<td><?= $item['Nombre'] ?></td>
+									</tr>
+							<?php endforeach; ?>
+						</table>
+					</div>
+					<!-- /.table-responsive -->
+				</div>
+				<!-- /.panel-body -->
+				<!-- <a href="agenda.html"> -->
+					<div class="panel-footer">
+						<span class="pull-left">&nbsp;</span>
+						<!-- <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> -->
+						<div class="clearfix"></div>
+					</div>
+					<!-- panel-footer -->
+				<!-- </a> -->
+				<!-- a footer -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<?php endif; ?>
+		<!-- /.col-md-4 -->
+			
+		<?php if (!empty($annivers)): ?>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-heart fa-fw"></i> Aniversarios
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body autoscroll panel-dashboard">
+					<div class="table-responsive autoscroll panel-dashboard-calendar">
+						<table class="table table-striped table-hover">
+							<?php foreach ($annivers as $item): ?>
+								<?php if ($month2 != $item['FechaEvento']) : ?>
+									<thead>
+										<tr>
+											<th><?= $item['NomFechaEvento'] ?></th>
+										</tr>
+									</thead>
+									<?php $month2 = $item['FechaEvento']; ?>
+								<?php endif; ?>
+									
+									<tr>
+										<td><?= $item['Nombre'] ?></td>
+									</tr>
+							<?php endforeach; ?>
+						</table>
+					</div>
+					<!-- /.table-responsive -->
+				</div>
+				<!-- /.panel-body -->
+				<!-- <a href="agenda.html"> -->
+					<div class="panel-footer">
+						<span class="pull-left">&nbsp;</span>
+						<!-- <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> -->
+						<div class="clearfix"></div>
+					</div>
+					<!-- panel-footer -->
+				<!-- </a> -->
+				<!-- a footer -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<?php endif; ?>
+		<!-- /.col-md-4 -->
 	</div>
-	<?php endif; ?>
 	<!-- /.col-md-4 -->
-		
+
+	<div class="col-md-4">
+	<?php if (empty($notif)): ?>
+		<div class="panel panel-default">
+			<div class="panel-heading"> 
+				<i class="fa fa-warning"></i> Notificaciones (Ulltimo Evento)
+			</div>
+			<div class="panel-body">
+					<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						2 Integrantes completaron 10 inasistencias.
+					</div>
+					<!-- /.alert -->
+					<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						2 Integrantes servidores completaron 3 meses de inasistencias.
+					</div>
+					<!-- /.alert -->
+					<div class="alert alert-warning alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						Los hijos mayores de 4 Integrantes ya cumplieron los 8 años.
+					</div>
+					<!-- /.alert -->
+					<div class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						6 Integrantes completaron 3 meses de asistencia. Invitalos a Encuentro!
+					</div>
+					<!-- /.alert -->
+					<div class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						6 Integrantes acaban de completar Nivel 3. Invitalos a Conquistadores!
+					</div>
+					<!-- /.alert -->
+					<div class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						14 Integrantes ya se encuentran sirviendo pero aún no han ido a Conquistadores. Anímalos a Consquitadores!
+					</div>
+					<!-- /.alert -->
+					<div class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						10 Integrantes ya se encuentran sirviendo. Anímalos a Berea!
+					</div>
+					<!-- /.alert -->
+					<div class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						16 Integrantes cumplieron 6 meses sin ausencia.
+					</div>
+					<!-- /.alert -->
+			</div>
+		</div>
+	<?php endif; ?>
+	</div>
+			
 <?=$page['footer']?>
 
 <script>

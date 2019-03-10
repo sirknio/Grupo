@@ -64,7 +64,7 @@ class Object_model extends CI_Model{
 		}
 		if ($showQuery) {
 			echo "<pre>";print_r($this->db->last_query());echo "</pre>";
-			echo "<pre>";print_r($orderby);echo "</pre>";
+			// echo "<pre>";print_r($orderby);echo "</pre>";
 		}
 		return $query->result_array();
 	}

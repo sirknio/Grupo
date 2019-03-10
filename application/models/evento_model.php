@@ -2,17 +2,17 @@
 
 class Evento_model extends CI_model{
 	
-	function get($idGrupo = '',$id = '') {
+	function get($idGrupo = '',$id = '',$showQuery = false) {
 		$querytxt = 
 				"SELECT e.*
-				FROM 	`evento` as e, 
-						`grupo` as g
-				WHERE 	e.idGrupo = g.idGrupo";
-		if($idGrupo != '') $querytxt = $querytxt." AND g.idGrupo = ".$idGrupo;
-		if($id != '')      $querytxt = $querytxt." AND e.idEvento = ".$id;
+				FROM 	`evento` as e
+				WHERE";
+		if($idGrupo.$id == '') 	$querytxt = $querytxt." e.idGrupo IS NULL";
+		if($idGrupo != '') 		$querytxt = $querytxt." e.idGrupo = $idGrupo";
+		if($id != '')      		$querytxt = $querytxt." AND e.idEvento = $id";
 		$querytxt = $querytxt." ORDER BY e.FechaEvento DESC";
 		$query = $this->db->query($querytxt);
-		//echo"<pre>";print_r($this->db->last_query());echo"</pre>";		
+		if($showQuery) { echo"<pre>";print_r($this->db->last_query());echo"</pre>";	}
 		return $query->result_array();
 	}
 	

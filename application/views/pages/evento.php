@@ -26,13 +26,13 @@
 						title="Actualizar Evento"><i class="fa fa-pencil-square-o fa-fw"></i>
 					<?php endif; ?>
 					</button>
-					<a class="btn btn-default" href="<?=site_url('Evento/index/'.$userdata['idGrupo'])?>" title="Cancelar"><i class="fa fa-times-circle"></i></a>
+					<a class="btn btn-default" href="<?=site_url('Evento/index/'.set_value('idGrupo'))?>" title="Cancelar"><i class="fa fa-times-circle"></i></a>
 				<?php endif; ?>
 			</div>
 		</div>
 		<!-- /.col-lg-12 -->
 		<div class="col-lg-6">
-			<input name="idGrupo" type="hidden" value="<?= $userdata['idGrupo']?>">
+			<input name="idGrupo" type="hidden" value="<?= set_value('idGrupo')?>">
 			<div class="form-group">
 				<label>Fecha</label>
 				<div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" required>

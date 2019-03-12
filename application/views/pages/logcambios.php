@@ -6,13 +6,13 @@
 	<div class="col-md-8">
 		<h1 class="page-header">Log de Cambios</h1>
 	</div>
-	<div class="col-md-4">
+	<!-- <div class="col-md-4">
 		<ul class="nav nav-pills custbuttons">
 			<li>
 				<a class="btn btn-primary" href="<?=site_url('Usuario/insertItem')?>"><i class="fa fa-plus-square fa-fw"></i></a>
 			</li>
 		</ul>
-	</div>
+	</div> -->
 
 	<!-- /.col-lg-12 -->
 	<div class="col-md-8">
@@ -23,12 +23,14 @@
 						<th>Fecha Log</th>
 						<th>Usuario</th>
 						<th>ID Grupo</th>
-						<th>ID Grupo</th>
+						<th>Nombre Grupo</th>
 						<th>Nombre</th>
 						<th>Apellido</th>
 						<th>Tipo Usuario</th>
 						<th>Tabla</th>
 						<th>Cambio</th>
+						<th style="width:150px;">Valor Original</th>
+						<th style="width:150px;">Valor Nuevo</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -61,6 +63,12 @@
 							</td>
 							<td>
 								<?=$item['TipoCambio']?>
+							</td>
+							<td>
+								<?= substr($item['ValorOriginal'],0,70)?>
+							</td>
+							<td>
+								<?=substr($item['ValorNuevo'],0,70)?>
 							</td>
 						</tr>
 					<?php endforeach; ?>

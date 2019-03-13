@@ -28,24 +28,49 @@ class Dashboard extends CI_Controller {
 		setlocale(LC_ALL,"es_ES"); 
 		$dateNow = new DateTime("now");
 		$data['month'] = ucwords(strftime("%B", strtotime($dateNow->format('Y-m-d'))));
-
 		$data['userdata'] = $_SESSION;
 		$data['setupapp'] = $this->object_model->getSetup(); 
+		$where = array(
+			'idGrupo' 	=> $data['userdata']['idGrupo'],
+			'TipoMicro'	=> 'Inactivos'
+		);
+		$data['inactivos'] = $this->object_model->get('microcelula','',$where);
+		if (!empty($data['inactivos'])) $data['inactivos'] = $data['inactivos'][0];
+		if (empty($data['inactivos'])) $data['inactivos']['idMicrocelula'] = 0;
+		$where = array(
+			'idGrupo' 	=> $data['userdata']['idGrupo'],
+			'TipoMicro'	=> 'Nuevos'
+		);
+		$data['nuevos'] = $this->object_model->get('microcelula','',$where);
+		if (!empty($data['nuevos'])) $data['nuevos'] = $data['nuevos'][0];
+		if (empty($data['nuevos'])) $data['nuevos']['idMicrocelula'] = 0;
+
 		if($data['userdata']['idGrupo'] !== null) {
 			$data['asistencia'] = $this->evento_model->getMainGraph($data['userdata']['idGrupo'],
 					$data['setupapp']['LimiteEventosDashboard']);
 			$this->buildEvent($data,$dateNow,$data['eventos'],$data['birhtdays'],$data['annivers']);
 			$this->buildNotif($data,$dateNow,$data['notif']);
-			// $data['personas'] = $this->object_model->get('evento','Fecha DESC',
-			// array('idGrupo' => $data['userdata']['idGrupo']));
-			// Solo necesito determinar las fechas de cumpleaños de los siguiente 3 meses!!!! y luego
-			// agregarlo a la lista de $eventos
+			
 			$data['morrisjs'] = 'morris-data-dashboard.js';
-			$data['cant_grupos'] = 4;
-			$data['cant_micros'] = 15;
-			$data['cant_personas'] = 9;
-			$data['cant_eventos'] = 8;
-	} else {
+			
+			$data['cant_eventos'] = count($data['eventos']);
+			$where = array(
+				'idGrupo' => $data['userdata']['idGrupo'],
+				'idMicrocelula' => $data['nuevos']['idMicrocelula']
+			);
+			$data['cant_nuevos'] = $this->object_model->RecCount('persona',$where);
+			$where = 
+				"idGrupo = ".$data['userdata']['idGrupo']." AND ".
+				"idMicrocelula !=".$data['nuevos']['idMicrocelula']." AND ".
+				"idMicrocelula !=".$data['inactivos']['idMicrocelula']
+			;
+			$data['cant_activ'] = $this->object_model->RecCount('persona',$where);
+			$where = array(
+				'idGrupo' => $data['userdata']['idGrupo'],
+				'idMicrocelula' => $data['inactivos']['idMicrocelula']
+			);
+			$data['cant_inact'] = $this->object_model->RecCount('persona',$where);
+		} else {
 			$data['asistencia'] = array();
 			$data['eventos'] = array();
 			if ($data['userdata']['TipoUsuario'] == 'Admin') {

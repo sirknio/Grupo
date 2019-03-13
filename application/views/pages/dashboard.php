@@ -99,18 +99,18 @@
 	<?php endif; ?>
 	<!-- /.col-md-4 -->
 
-	<?php if ($userdata['idGrupo'] != ''): ?>
+	<?php if (($userdata['idGrupo'] != '')): ?>
 	<div class="col-md-12">
 		<div class="col-md-3 col-md-6">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-comments fa-5x"></i>
+							<i class="fa fa-calendar-o fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge"><?= $cant_grupos ?></div>
-							<div>Microcelulas</div>
+							<div class="huge"><?= $cant_eventos ?></div>
+							<div>Eventos</div>
 						</div>
 					</div>
 				</div>
@@ -128,10 +128,10 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-tasks fa-5x"></i>
+							<i class="fa fa-user fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge"><?= $cant_micros ?></div>
+							<div class="huge"><?= $cant_nuevos ?></div>
 							<div>Integrantes Nuevos</div>
 						</div>
 					</div>
@@ -153,8 +153,8 @@
 							<i class="fa fa-users fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge"><?= $cant_personas ?></div>
-							<div>Integrantes Inactivos</div>
+							<div class="huge"><?= $cant_activ ?></div>
+							<div>Integrantes Activos</div>
 						</div>
 					</div>
 				</div>
@@ -172,11 +172,11 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-calendar fa-5x"></i>
+							<i class="fa fa-user-o fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge"><?= $cant_eventos ?></div>
-							<div>Usuarios</div>
+							<div class="huge"><?= $cant_inact ?></div>
+							<div>Integrantes Inactivos</div>
 						</div>
 					</div>
 				</div>

@@ -84,20 +84,13 @@ class Object_model extends CI_Model{
 		return $setup[0];
 	}
 	
-	function RecCount($table,$field = '') {
-		if ($field === '') {
-			return $this->db->count_all_results($table);
-		} else {
-			$campoCant = 'Cantidad';
-			$query = $this->db->query(
-					'SELECT COUNT(tabla.campo) as '.$campoCant.' '.
-					'FROM ( '.
-						'SELECT DISTINCT '.$field.' AS campo '.
-						'FROM '.$table.') AS tabla');
-			$array = $query->row_array();
-			return $array[$campoCant];
+	function RecCount($table,$where = '',$showQuery = false) {
+		if (!empty($where)) $this->db->where($where);
+		$cant = $this->db->count_all_results($table);		
+		if ($showQuery) {
+			echo "<pre>";print_r($this->db->last_query());echo "</pre>";
 		}
-		
+		return $cant;		
 	}
 
 	function getTipoValues($table,$column) {

@@ -5,7 +5,7 @@
 		<h1 class="page-header">Dashboard</h1>
 		<?php if ($print) { echo "<pre>";print_r($print);echo "</pre>"; } ?>
 	</div>
-	<?php if ($userdata['TipoUsuario'] == 'Admin'): ?>
+	<?php if (($userdata['TipoUsuario'] == 'Admin') && ($userdata['idGrupo'] == '')): ?>
 	<div class="col-md-12">
 		<div class="col-md-3 col-md-6">
 			<div class="panel panel-primary">
@@ -98,6 +98,102 @@
 	</div>
 	<?php endif; ?>
 	<!-- /.col-md-4 -->
+
+	<?php if ($userdata['idGrupo'] != ''): ?>
+	<div class="col-md-12">
+		<div class="col-md-3 col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-comments fa-5x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge"><?= $cant_grupos ?></div>
+							<div>Microcelulas</div>
+						</div>
+					</div>
+				</div>
+				<a href="#">
+					<div class="panel-footer">
+						<span class="pull-left">&nbsp;</span>
+						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-md-3 col-md-6">
+			<div class="panel panel-green">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-tasks fa-5x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge"><?= $cant_micros ?></div>
+							<div>Integrantes Nuevos</div>
+						</div>
+					</div>
+				</div>
+				<a href="#">
+					<div class="panel-footer">
+						<span class="pull-left">&nbsp;</span>
+						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-md-3 col-md-6">
+			<div class="panel panel-yellow">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-users fa-5x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge"><?= $cant_personas ?></div>
+							<div>Integrantes Inactivos</div>
+						</div>
+					</div>
+				</div>
+				<a href="#">
+					<div class="panel-footer">
+						<span class="pull-left">&nbsp;</span>
+						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-md-3 col-md-6">
+			<div class="panel panel-red">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-calendar fa-5x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge"><?= $cant_eventos ?></div>
+							<div>Usuarios</div>
+						</div>
+					</div>
+				</div>
+				<a href="#">
+					<div class="panel-footer">
+						<span class="pull-left">&nbsp;</span>
+						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<?php endif; ?>
+	<!-- /.col-md-4 -->
+
+
 	<div class="col-md-8">
 		<?php if (!empty($asistencia)): ?>
 		<div class="col-md-6">
@@ -122,141 +218,64 @@
 			<!-- /.panel -->
 		</div>
 		<?php endif; ?>
-		<?php if (!empty($eventos)): ?>
+
 		<div class="col-md-6">
+			<?php if (!empty($notif)): ?>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-calendar-o fa-fw"></i> Cronograma de Actividades
+					<i class="fa fa-calendar-o fa-fw"></i> Calendario <?= $month ?>
 				</div>
 				<!-- /.panel-heading -->
-				<div class="panel-body autoscroll panel-dashboard">
-					<div class="table-responsive autoscroll panel-dashboard-calendar">
-						<table class="table table-striped table-hover">
+				<div class="panel-body">
+					<div class="list-group">
+						<?php if(!empty($eventos)): ?>
+						<a href="#" class="list-group-item">
+							<i class="fa fa-calendar fa-fw"></i><b>&nbsp;Cronograma <?= $month ?></b> <br>
 							<?php foreach ($eventos as $item): ?>
-								<?php if ($month != $item['FechaEvento']) : ?>
-									<thead>
-										<tr>
-											<th><?= $item['NomFechaEvento'] ?></th>
-										</tr>
-									</thead>
-									<?php $month = $item['FechaEvento']; ?>
-								<?php endif; ?>
-									
-									<tr>
-										<td><?= $item['Nombre'] ?></td>
-									</tr>
+							<i class="fa fa-c fa-fw"></i><?= $item['Nombre'] ?><br>
 							<?php endforeach; ?>
-						</table>
-					</div>
-					<!-- /.table-responsive -->
-				</div>
-				<!-- /.panel-body -->
-				<!-- <a href="agenda.html"> -->
-					<div class="panel-footer">
-						<span class="pull-left">&nbsp;</span>
-						<!-- <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> -->
-						<div class="clearfix"></div>
-					</div>
-					<!-- panel-footer -->
-				<!-- </a> -->
-				<!-- a footer -->
-			</div>
-			<!-- /.panel -->
-		</div>
-		<?php endif; ?>
-		<!-- /.col-md-4 -->
-		<?php if (!empty($birhtdays)): ?>
-		<div class="col-md-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa fa-birthday-cake fa-fw"></i> Cumpleaños
-				</div>
-				<!-- /.panel-heading -->
-				<div class="panel-body autoscroll panel-dashboard">
-					<div class="table-responsive autoscroll panel-dashboard-calendar">
-						<table class="table table-striped table-hover">
+							<!-- &nbsp;
+							<span class="pull-right text-muted small"><em>Ver mas</em>
+							</span> -->
+						</a>
+						<?php endif; ?>
+						<?php if(!empty($birhtdays)): ?>
+						<a href="#" class="list-group-item">
+							<i class="fa fa-birthday-cake fa-fw"></i><b>&nbsp;Cumpleaños <?= $month ?></b> <br>
 							<?php foreach ($birhtdays as $item): ?>
-								<?php if ($month1 != $item['FechaEvento']) : ?>
-									<thead>
-										<tr>
-											<th><?= $item['NomFechaEvento'] ?></th>
-										</tr>
-									</thead>
-									<?php $month1 = $item['FechaEvento']; ?>
-								<?php endif; ?>
-									
-									<tr>
-										<td><?= $item['Nombre'] ?></td>
-									</tr>
+							<i class="fa fa-c fa-fw"></i><?= $item['Nombre'] ?><br>
 							<?php endforeach; ?>
-						</table>
-					</div>
-					<!-- /.table-responsive -->
-				</div>
-				<!-- /.panel-body -->
-				<!-- <a href="agenda.html"> -->
-					<div class="panel-footer">
-						<span class="pull-left">&nbsp;</span>
-						<!-- <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> -->
-						<div class="clearfix"></div>
-					</div>
-					<!-- panel-footer -->
-				<!-- </a> -->
-				<!-- a footer -->
-			</div>
-			<!-- /.panel -->
-		</div>
-		<?php endif; ?>
-		<!-- /.col-md-4 -->
-			
-		<?php if (!empty($annivers)): ?>
-		<div class="col-md-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa fa-heart fa-fw"></i> Aniversarios
-				</div>
-				<!-- /.panel-heading -->
-				<div class="panel-body autoscroll panel-dashboard">
-					<div class="table-responsive autoscroll panel-dashboard-calendar">
-						<table class="table table-striped table-hover">
+							<!-- &nbsp;
+							<span class="pull-right text-muted small"><em>Ver mas</em>
+							</span> -->
+						</a>
+						<?php endif; ?>
+						<?php if(!empty($annivers)): ?>
+						<a href="#" class="list-group-item">
+							<i class="fa fa-heart fa-fw"></i><b>&nbsp;Aniversarios  <?= $month ?></b> <br>
 							<?php foreach ($annivers as $item): ?>
-								<?php if ($month2 != $item['FechaEvento']) : ?>
-									<thead>
-										<tr>
-											<th><?= $item['NomFechaEvento'] ?></th>
-										</tr>
-									</thead>
-									<?php $month2 = $item['FechaEvento']; ?>
-								<?php endif; ?>
-									
-									<tr>
-										<td><?= $item['Nombre'] ?></td>
-									</tr>
+							<i class="fa fa-c fa-fw"></i><?= $item['Nombre'] ?><br>
 							<?php endforeach; ?>
-						</table>
+							<!-- &nbsp;
+							<span class="pull-right text-muted small"><em>Ver mas</em>
+							</span> -->
+						</a>
+						<?php endif; ?>
 					</div>
-					<!-- /.table-responsive -->
+					<!-- /.list-group -->
 				</div>
 				<!-- /.panel-body -->
-				<!-- <a href="agenda.html"> -->
-					<div class="panel-footer">
-						<span class="pull-left">&nbsp;</span>
-						<!-- <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> -->
-						<div class="clearfix"></div>
-					</div>
-					<!-- panel-footer -->
-				<!-- </a> -->
-				<!-- a footer -->
 			</div>
 			<!-- /.panel -->
-		</div>
 		<?php endif; ?>
-		<!-- /.col-md-4 -->
+		</div>
+
+			
 	</div>
 	<!-- /.col-md-4 -->
 
 	<div class="col-md-4">
-	<?php if (empty($notif)): ?>
+	<?php if (!empty($notif)): ?>
 		<div class="panel panel-default">
 			<div class="panel-heading"> 
 				<i class="fa fa-warning"></i> Notificaciones (Ulltimo Evento)

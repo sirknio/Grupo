@@ -24,32 +24,38 @@ class Dashboard extends CI_Controller {
 	}
 
 	private function loadData(&$data,$debug = false,$id = '') { 
+		date_default_timezone_set("America/Bogota");
+		setlocale(LC_ALL,"es_ES"); 
+		$dateNow = new DateTime("now");
+		$data['month'] = ucwords(strftime("%B", strtotime($dateNow->format('Y-m-d'))));
+
 		$data['userdata'] = $_SESSION;
 		$data['setupapp'] = $this->object_model->getSetup(); 
-		$data['month'] = '';
-		$data['month1'] = '';
-		$data['month2'] = '';
 		if($data['userdata']['idGrupo'] !== null) {
 			$data['asistencia'] = $this->evento_model->getMainGraph($data['userdata']['idGrupo'],
 					$data['setupapp']['LimiteEventosDashboard']);
-			$this->buildEvent($data,$data['eventos'],$data['birhtdays'],$data['annivers']);
-			$this->buildNotif($data,$data['notif']);
+			$this->buildEvent($data,$dateNow,$data['eventos'],$data['birhtdays'],$data['annivers']);
+			$this->buildNotif($data,$dateNow,$data['notif']);
 			// $data['personas'] = $this->object_model->get('evento','Fecha DESC',
 			// array('idGrupo' => $data['userdata']['idGrupo']));
 			// Solo necesito determinar las fechas de cumpleaños de los siguiente 3 meses!!!! y luego
 			// agregarlo a la lista de $eventos
 			$data['morrisjs'] = 'morris-data-dashboard.js';
-		} else {
+			$data['cant_grupos'] = 4;
+			$data['cant_micros'] = 15;
+			$data['cant_personas'] = 9;
+			$data['cant_eventos'] = 8;
+	} else {
 			$data['asistencia'] = array();
 			$data['eventos'] = array();
+			if ($data['userdata']['TipoUsuario'] == 'Admin') {
+				$data['cant_grupos'] = $this->object_model->RecCount('grupo');
+				$data['cant_micros'] = $this->object_model->RecCount('microcelula');
+				$data['cant_personas'] = $this->object_model->RecCount('persona');
+				$data['cant_eventos'] = $this->object_model->RecCount('evento');
+			}
 		}
 
-		if ($data['userdata']['TipoUsuario'] == 'Admin') {
-			$data['cant_grupos'] = $this->object_model->RecCount('grupo');
-			$data['cant_micros'] = $this->object_model->RecCount('microcelula');
-			$data['cant_personas'] = $this->object_model->RecCount('persona');
-			$data['cant_eventos'] = $this->object_model->RecCount('evento');
-		}
 		if($debug) {
 			$print = $data;
 		} else {
@@ -58,21 +64,20 @@ class Dashboard extends CI_Controller {
 		$data['print'] = $print;
 	}
 
-	private function buildNotif(&$data,&$notif) {
-
+	private function buildNotif(&$data,$dateNow,&$notif) {
+		$notif = 1;
 	}
 
-	private function buildEvent(&$data,&$eventos,&$birhtdays,&$annivers) {
-		date_default_timezone_set("America/Bogota");
-		setlocale(LC_ALL,"es_ES"); 
-
+	private function buildEvent(&$data,$dateNow,&$eventos,&$birhtdays,&$annivers) {
 		$grupo = $this->object_model->get('grupo','',
 			array('idGrupo' => $data['userdata']['idGrupo']));
 		if (!empty($grupo)) $grupo = $grupo[0];
 
-		$eventos = $this->object_model->get('evento',
-			'FechaEvento DESC',
-			array('idGrupo' => $data['userdata']['idGrupo']));
+		$eventos = $this->object_model->get('evento','FechaEvento',
+				"(idGrupo = ".$data['userdata']['idGrupo']." OR idGrupo IS NULL) AND ".
+				"MONTH(FechaEvento) = '".$dateNow->format('m')."' AND ".
+				"YEAR(FechaEvento) = '".$dateNow->format('Y')."'"
+			);
 
 		$i = 0;
 		$date1 = '';
@@ -85,17 +90,20 @@ class Dashboard extends CI_Controller {
 			$eventos[$i]['NomFechaEvento'] = ucwords(strftime("%B %Y", strtotime($eventDate->format('Y-m-1'))));
 			$eventos[$i]['Nombre'] = $item['Nombre']." (".$eventDate->format('d').")";
 			$eventos[$i]['Evento'] = 1;
+			// echo "<pre>"; print_r($item); echo "</pre>";
+			// echo "<pre>"; print_r($eventos[$i]); echo "</pre>";
 			$i++;
 		}
+
 		
-		$personas = $this->object_model->get('persona',
-			'MONTH(FechaNacimiento) DESC,DAY(FechaNacimiento) DESC',
-			'idGrupo='.$data['userdata']['idGrupo']);
+		$personas = $this->object_model->get('persona','DAY(FechaNacimiento)',
+				"idGrupo = ".$data['userdata']['idGrupo']." AND ".
+				"MONTH(FechaNacimiento) = '".$dateNow->format('m')."'"
+			);
 		$date1 = '';
 		$date2 = '';
 		foreach($personas as $item) {
 			if($item['FechaNacimiento'] != '0000-00-00') {
-				$dateNow = new DateTime("now");
 				$eventDate = new DateTime($item['FechaNacimiento']);
 				if ($date1 != $eventDate->format($dateNow->format('Y').'-m')) {
 					$date1 = $eventDate->format($dateNow->format('Y').'-m');
@@ -113,11 +121,10 @@ class Dashboard extends CI_Controller {
 		if ($grupo['TipoGrupo'] == 'Parejas') {
 			$where = array (
 				'idGrupo' 		=> $data['userdata']['idGrupo'],
+				'MONTH(FechaMatrimonio)' => $dateNow->format('m'),
 				'Genero'		=> 'Masculino'
 			);
-			$personas = $this->object_model->get('persona',
-				'MONTH(FechaMatrimonio) DESC,DAY(FechaMatrimonio) DESC',
-				$where);
+			$personas = $this->object_model->get('persona','DAY(FechaMatrimonio)',$where);
 
 			$date1 = '';
 			$date2 = '';

@@ -69,7 +69,7 @@
 										</li>
 										<?php if ($item['Estado'] == 'Creado'): ?>
 										<li>
-											<a href="<?=site_url('Evento/deleteItem/'.$item['idGrupo'].'/'.$item['idEvento'])?>">
+											<a href="<?=site_url('Evento/deleteItem/'.$item['idEvento'].'/'.$item['idGrupo'])?>">
 											<i class="fa fa-trash-o fa-fw"></i> Eliminar
 											</a>
 										</li>

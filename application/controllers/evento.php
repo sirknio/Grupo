@@ -210,7 +210,9 @@ class Evento extends CI_Controller {
 	}
 		
 	//Eliminar registro
-	public function deleteItem($idGrupo = '',$id = '') {
+	public function deleteItem($id = '',$idGrupo = '') {
+		// echo"<pre>";echo 'Grupo: '.$idGrupo;echo"</pre>";
+		// echo"<pre>";echo 'Evento: '.$id;echo"</pre>";
 		if($id !== '') {
 			$this->loadData($data,$this->debug,$id);
 			if ($this->imgfield != '') {

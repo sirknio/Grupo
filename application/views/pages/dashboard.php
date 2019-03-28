@@ -289,10 +289,22 @@
 					<?= count($notif['Absens1']) ?> Integrantes completaron 2 meses inasistencias.
 				</div>
 				<? endif; ?>
+				<?php if(!empty($notif['Absens2'])): ?>
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<?= count($notif['Absens1']) ?> Integrantes completaron 6 meses inasistencias. Pasalo como Inactivo!
+				</div>
+				<? endif; ?>
 				<?php if(!empty($notif['Assist1'])): ?>
 				<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<?= count($notif['Assist1']) ?> Integrantes completaron 3 meses de asistencia. Invitalos a Encuentro!
+				</div>
+				<? endif; ?>
+				<?php if(!empty($notif['Assist2'])): ?>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<?= count($notif['Assist1']) ?> Integrantes completaron 6 meses de asistencia. Invitalos a Encuentro!
 				</div>
 				<? endif; ?>
 

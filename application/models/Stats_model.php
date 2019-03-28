@@ -61,7 +61,7 @@ class Stats_model extends CI_model{
 
 	function select($querytxt,&$query,$showResults,$showQuery) {
 		$query = $this->db->query($querytxt);
-		$result = $query->row_array();
+		$result = $query->result_array();
 		if ($showQuery) { echo"<pre>";print_r($this->db->last_query());echo"</pre>"; }
 		if ($showResults) { echo"<pre>";print_r($result);echo"</pre>"; }
 		return $query;
@@ -74,60 +74,69 @@ class Stats_model extends CI_model{
 			WHERE 	idGrupo = $idGrupo AND 
 					Estado = 'Cerrado'
 			ORDER BY FechaEvento DESC
-			LIMIT 100
+			LIMIT 1
 			";
 		
 		$this->select($querytxt,$query,$showResults,$showQuery);
 		return $query->row_array();
 	}
 
-	function absensePerDate($idGrupo,$date,$months,$showResults = false,$showQuery = false) {
+	function absensePerDate($idGrupo,$date,$month1,$month2,$showResults = false,$showQuery = false) {
 		$querytxt = "
 			SELECT
 				'danger' as MsgType, 
-				`idPersona`,
-				`Nombre`,
-				`Apellido`,
-				`DocumentoNo`,
-				COUNT(Asiste) as Listas,
-				SUM(Asiste) as Asistio 
-			FROM `asistencia` 
-			WHERE idGrupo = $idGrupo AND
-				idEvento IN (
+				a.`idPersona`,
+				a.`Nombre`,
+				a.`Apellido`,
+				a.`DocumentoNo`,
+				COUNT(a.Asiste) as Listas,
+				SUM(a.Asiste) as Asistio,p.* 
+			FROM `asistencia` as a, `persona` as p 
+			WHERE a.idGrupo = $idGrupo AND
+				a.idPersona = p.idPersona AND 
+				a.idEvento IN (
 				SELECT idEvento
 				FROM `evento` as e
 				WHERE 	idGrupo = $idGrupo AND 
-						FechaEvento BETWEEN date_sub('$date', interval $months month) AND NOW() 
+						FechaEvento BETWEEN date_sub('$date', interval $month1 month) AND  date_sub('$date', interval $month2 month) 
 				ORDER BY FechaEvento DESC
 				)
-			GROUP BY `idPersona`,`Nombre`,`Apellido`,`DocumentoNo`
+			GROUP BY a.`idPersona`,a.`Nombre`,a.`Apellido`,a.`DocumentoNo`
 			HAVING SUM(Asiste) = 0						
 		";
 		$this->select($querytxt,$query,$showResults,$showQuery);
 		return $query->result_array();
 	}
 	
-	function AssistancePerDate($idGrupo,$date,$months,$showResults = false,$showQuery = false) {
+	function AssistancePerDate($idGrupo,$date,$month1,$month2,$tolerance,$showResults = false,$showQuery = false) {
 		$querytxt = "
 			SELECT 
 				'success' as MsgType,
-				`idPersona`,
-				`Nombre`,
-				`Apellido`,
-				`DocumentoNo`,
-				COUNT(Asiste) as Listas,
-				SUM(Asiste) as Asistio 
-			FROM `asistencia` 
-			WHERE idGrupo = $idGrupo AND
-				idEvento IN (
+				a.`idPersona`,
+				a.`Nombre`,
+				a.`Apellido`,
+				a.`DocumentoNo`,
+				COUNT(a.Asiste) as Listas,
+				SUM(a.Asiste) as Asistio,p.* 
+			FROM `asistencia` as a, `persona` as p  
+			WHERE a.idGrupo = $idGrupo AND
+				a.idPersona = p.idPersona AND 
+				a.idEvento IN (
 				SELECT idEvento
 				FROM `evento` as e
 				WHERE 	idGrupo = $idGrupo AND 
-						FechaEvento BETWEEN date_sub('$date', interval $months month) AND NOW() 
+				FechaEvento BETWEEN date_sub('$date', interval $month1 month) AND  date_sub('$date', interval $month2 month) 
 				ORDER BY FechaEvento DESC
+				) AND
+				a.idPersona NOT IN (
+					SELECT 
+						idPersona
+					FROM `persona` 
+					WHERE idGrupo = $idGrupo AND
+						FIND_IN_SET('Encuentro',ProcesoFormacion)
 				)
-			GROUP BY `idPersona`,`Nombre`,`Apellido`,`DocumentoNo`
-			HAVING SUM(Asiste) >= (COUNT(Asiste) - 2) 
+			GROUP BY a.`idPersona`,a.`Nombre`,a.`Apellido`,a.`DocumentoNo`
+			HAVING SUM(Asiste) >= (COUNT(Asiste) - $tolerance) 
 								
 		";
 		$this->select($querytxt,$query,$showResults,$showQuery);

@@ -98,15 +98,23 @@ class Dashboard extends CI_Controller {
 		$data['lastEvent'] = $this->stats_model->getLastEvent($data['userdata']['idGrupo']);
 		// echo"<pre>";print_r($notif['lastEvent']);echo"</pre>";
 
-		//Notificación por Ausencia de N meses atrás
+		//Notificación por Ausencia de N meses atrás (2 meses)
 		$notif['Absens1'] = $this->stats_model->absensePerDate($data['userdata']['idGrupo'],
-				$data['lastEvent']['FechaEvento'],2);
+				$data['lastEvent']['FechaEvento'],2,0);
 		
-		//Notificación por Asistencia de N meses atrás
-		$notif['Assist1'] = ($this->stats_model->AssistancePerDate($data['userdata']['idGrupo'],
-				$data['lastEvent']['FechaEvento'],3));
+		//Notificación por Ausencia de N meses atrás (6 meses)
+		$notif['Absens2'] = $this->stats_model->absensePerDate($data['userdata']['idGrupo'],
+				$data['lastEvent']['FechaEvento'],6,3);
 		
-		//$notif['events'] = ($this->stats_model->test($data['userdata']['idGrupo'],2));
+		//Notificación por Asistencia de N meses atrás (3 meses - tolerancia 2 inasistencias)
+		$notif['Assist1'] = $this->stats_model->AssistancePerDate($data['userdata']['idGrupo'],
+				$data['lastEvent']['FechaEvento'],3,0,2);
+		
+		//Notificación por Asistencia de N meses atrás (6 meses - tolerancia 4 inasistencias)
+		$notif['Assist2'] = $this->stats_model->AssistancePerDate($data['userdata']['idGrupo'],
+				$data['lastEvent']['FechaEvento'],6,4,4);
+		
+		// $notif['Assis1'] = $this->stats_model->Encuentro($data['userdata']['idGrupo'],true,true);
 		
 	}
 

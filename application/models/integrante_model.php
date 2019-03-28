@@ -74,8 +74,8 @@ class Integrante_model extends CI_Model{
 			WHERE 	((TipoUsuario = 'Lider' OR TipoUsuario = 'Admin')
 			AND		((idGrupo IS NULL) OR (idGrupo = '$idGrupo')))";
 
-		if ($idLider1 != '') $query .= " OR (idUsuario = $idLider1)";
-		if ($idLider1 != '') $query .= " OR (idUsuario = $idLider2)";
+		if ($idLider1 != '') $query .= " OR (idUsuario = '$idLider1')";
+		if ($idLider1 != '') $query .= " OR (idUsuario = '$idLider2')";
 		$query .= " ORDER BY u.Nombre";
 		$query = $this->db->query($query);
 		$array = $query->result_array();

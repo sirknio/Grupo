@@ -10,7 +10,7 @@ class Dashboard extends CI_Controller {
 		}
 		$this->load->model('object_model');
 		$this->load->model('evento_model');
-		$this->load->library('statistics');
+		$this->load->model('stats_model');
 		$this->load->model('novedad_model');
 		$Updnovedad = $this->novedad_model->getNews($this->session->userdata('idGrupo'), 
 			$this->session->userdata('TipoUsuario'), 
@@ -48,8 +48,9 @@ class Dashboard extends CI_Controller {
 		if($data['userdata']['idGrupo'] !== null) {
 			$data['asistencia'] = $this->evento_model->getMainGraph($data['userdata']['idGrupo'],
 					$data['setupapp']['LimiteEventosDashboard']);
-			$this->buildEvent($data,$dateNow,$data['eventos'],$data['birhtdays'],$data['annivers']);
-			$this->buildNotif($data,$dateNow,$data['notif']);
+			
+			$this->buildEvents($data,$dateNow,$data['eventos'],$data['birhtdays'],$data['annivers']);
+			$this->buildNotif($data,$data['notif']);
 			
 			$data['morrisjs'] = 'morris-data-dashboard.js';
 			
@@ -89,11 +90,27 @@ class Dashboard extends CI_Controller {
 		$data['print'] = $print;
 	}
 
-	private function buildNotif(&$data,$dateNow,&$notif) {
-		$notif = 1;
+	private function buildNotif(&$data,&$notif) {
+		$notif = array();
+		// echo"<pre>";print_r($data);echo"</pre>";
+
+		// Determina el ultimo Evento Cerrado
+		$data['lastEvent'] = $this->stats_model->getLastEvent($data['userdata']['idGrupo']);
+		// echo"<pre>";print_r($notif['lastEvent']);echo"</pre>";
+
+		//Notificación por Ausencia de N meses atrás
+		$notif['Absens1'] = $this->stats_model->absensePerDate($data['userdata']['idGrupo'],
+				$data['lastEvent']['FechaEvento'],2);
+		
+		//Notificación por Asistencia de N meses atrás
+		$notif['Assist1'] = ($this->stats_model->AssistancePerDate($data['userdata']['idGrupo'],
+				$data['lastEvent']['FechaEvento'],3));
+		
+		//$notif['events'] = ($this->stats_model->test($data['userdata']['idGrupo'],2));
+		
 	}
 
-	private function buildEvent(&$data,$dateNow,&$eventos,&$birhtdays,&$annivers) {
+	private function buildEvents(&$data,$dateNow,&$eventos,&$birhtdays,&$annivers) {
 		$grupo = $this->object_model->get('grupo','',
 			array('idGrupo' => $data['userdata']['idGrupo']));
 		if (!empty($grupo)) $grupo = $grupo[0];

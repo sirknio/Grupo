@@ -206,10 +206,12 @@
 					<div id="bar-asistencia" class="autoscroll panel-dashboard-graphic"></div>
 				</div>
 				<!-- /.panel-body -->
-				<a href="statistics.html">
+				<a href="">
 					<div class="panel-footer">
-						<span class="pull-left">Ver Estadísticas</span>
-						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<span class="pull-left">&nbsp;</span>
+						<span class="pull-right">
+							<!-- <i class="fa fa-arrow-circle-right"></i> -->
+						</span>
 						<div class="clearfix"></div>
 					</div>
 					<!-- panel-footer -->
@@ -220,7 +222,7 @@
 		<?php endif; ?>
 
 		<div class="col-md-6">
-			<?php if (!empty($notif)): ?>
+			<?php if ((!empty($eventos)) || (!empty($birhtdays)) || (!empty($annivers))): ?>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<i class="fa fa-calendar-o fa-fw"></i> Calendario <?= $month ?>
@@ -278,49 +280,56 @@
 	<?php if (!empty($notif)): ?>
 		<div class="panel panel-default">
 			<div class="panel-heading"> 
-				<i class="fa fa-warning"></i> Notificaciones (Ulltimo Evento)
+				<i class="fa fa-bell fa-fw"></i> Panel Notificaciones
 			</div>
 			<div class="panel-body">
-					<div class="alert alert-danger alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						2 Integrantes completaron 10 inasistencias.
-					</div>
-					<!-- /.alert -->
-					<div class="alert alert-danger alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						2 Integrantes servidores completaron 3 meses de inasistencias.
-					</div>
-					<!-- /.alert -->
-					<div class="alert alert-warning alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						Los hijos mayores de 4 Integrantes ya cumplieron los 8 años.
-					</div>
-					<!-- /.alert -->
-					<div class="alert alert-success alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						6 Integrantes completaron 3 meses de asistencia. Invitalos a Encuentro!
-					</div>
-					<!-- /.alert -->
-					<div class="alert alert-success alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						6 Integrantes acaban de completar Nivel 3. Invitalos a Conquistadores!
-					</div>
-					<!-- /.alert -->
-					<div class="alert alert-success alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						14 Integrantes ya se encuentran sirviendo pero aún no han ido a Conquistadores. Anímalos a Consquitadores!
-					</div>
-					<!-- /.alert -->
-					<div class="alert alert-success alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						10 Integrantes ya se encuentran sirviendo. Anímalos a Berea!
-					</div>
-					<!-- /.alert -->
-					<div class="alert alert-success alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						16 Integrantes cumplieron 6 meses sin ausencia.
-					</div>
-					<!-- /.alert -->
+				<?php if(!empty($notif['Absens1'])): ?>
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<?= count($notif['Absens1']) ?> Integrantes completaron 2 meses inasistencias.
+				</div>
+				<? endif; ?>
+				<?php if(!empty($notif['Assist1'])): ?>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<?= count($notif['Assist1']) ?> Integrantes completaron 3 meses de asistencia. Invitalos a Encuentro!
+				</div>
+				<? endif; ?>
+
+				<!-- 
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					2 Integrantes completaron 10 inasistencias.
+				</div>
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					2 Integrantes servidores completaron 3 meses de inasistencias.
+				</div>
+				<div class="alert alert-warning alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					Los hijos mayores de 4 Integrantes ya cumplieron los 8 años.
+				</div>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					6 Integrantes completaron 3 meses de asistencia. Invitalos a Encuentro!
+				</div>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					6 Integrantes acaban de completar Nivel 3. Invitalos a Conquistadores!
+				</div>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					14 Integrantes ya se encuentran sirviendo pero aún no han ido a Conquistadores. Anímalos a Consquitadores!
+				</div>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					10 Integrantes ya se encuentran sirviendo. Anímalos a Berea!
+				</div>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					16 Integrantes cumplieron 6 meses sin ausencia.
+				</div>
+				-->
 			</div>
 		</div>
 	<?php endif; ?>

@@ -467,10 +467,14 @@ class Integrante extends CI_Controller {
 		} else {
 			if (isset($_POST['Habilidades'])) {
 				$_POST['Habilidades'] = implode(",", $_POST['Habilidades']);
+			} else {
+				$_POST['Habilidades'] = '';
 			}
 			
 			if (isset($_POST['ProcesoFormacion'])) {
 				$_POST['ProcesoFormacion'] = implode(",", $_POST['ProcesoFormacion']);
+			} else {
+				$_POST['ProcesoFormacion'] = '';
 			}
 			
 			switch(true) {
@@ -507,8 +511,17 @@ class Integrante extends CI_Controller {
 						case (!empty($other)):
 							//Establecer mensaje de error en actualizar datos
 							$this->loadData($data,$this->debug,'','',$id);
-							// echo "<hr><pre>";print_r($data['hijos']);echo "</pre><hr>";
 							$this->loadHTML($data,$this->pagecard,'DUPL_HIJO');
+							break;
+						case (empty($hijo['idPersMadre'])):
+							//Establecer mensaje de error en actualizar datos
+							$this->loadData($data,$this->debug,'','',$id);
+							$this->loadHTML($data,$this->pagecard,'DATA_MADRE');
+							break;
+						case (empty($hijo['idPersMadre'])):
+							//Establecer mensaje de error en actualizar datos
+							$this->loadData($data,$this->debug,'','',$id);
+							$this->loadHTML($data,$this->pagecard,'DATA_PADRE');
 							break;
 						default;
 							unset($_POST['HijoNombre']);
@@ -729,6 +742,14 @@ class Integrante extends CI_Controller {
 			case 'DUPL_HIJO':
 				$data['tipoError'] = 'e';
 				$data['txtError'] = 'Los datos que desea insertar ya se encuentran registrados.';
+				break;
+			case 'DATA_MADRE':
+				$data['tipoError'] = 'e';
+				$data['txtError'] = 'El integrante no registra aún esposa, y no se puede relacionar la madre al hijo que desea ingresar.';
+				break;
+			case 'DATA_PADRE':
+				$data['tipoError'] = 'e';
+				$data['txtError'] = 'El integrante no registra aún esposo, y no se puede relacionar el padre al hijo que desea ingresar.';
 				break;
 			default:
 				if (empty($data['tipoError']))	unset($data['tipoError']);

@@ -1,6 +1,32 @@
 					<!-- <div class="col-lg-12"><h6>&nbsp;</h6></div> -->
 										
 					<!-- modal fade -->
+					<div class="modal fade" id="listModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<!-- modal-dialog -->
+						<div class="modal-dialog modal-dialog-scrollable" role="document">
+						<!-- modal-content -->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel">Title</h4>
+							</div>
+							<div class="modal-body form-horizontal">
+								<div class="form-group">
+									<div class="col-lg-12" id="ListaRegistros"></div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								<!-- <input type="submit" class="btn btn-primary" value="Eliminar Integrante"> -->
+							</div>
+						</div>
+						<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+					</div>
+					<!-- /.modal fade -->
+					
+					<!-- modal fade -->
 					<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 						<!-- modal-dialog -->
 						<div class="modal-dialog" role="document">
@@ -8,7 +34,7 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title" id="myModalLabel">Eliminar integrante</h4>
+								<h4 class="modal-title" id="myModalLabel">Eliminar Integrante</h4>
 							</div>
 							<div class="modal-body">
 							  <?php echo form_open(site_url("Integrante/deleteItem/".$userdata['idGrupo']), array("class" => "form-horizontal")) ?>

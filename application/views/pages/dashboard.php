@@ -287,24 +287,56 @@
 				<div class="alert alert-danger alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<?= count($notif['Absens1']) ?> Integrantes completaron 2 meses inasistencias.
+					<a class="alert-link" data-toggle="modal" data-target="#listModal" data-title="Integrantes con 2 meses inasistencias" data-name="Absens1">
+						<i class="fa fa-eye fa-fw"></i> Ver Integrantes
+					</a>
+					<div class="oculto">
+						<?php foreach ($notif['Absens1'] as $item): ?>
+							<div class="Absens1"><?= "(".$item['idPersona'].") ".ucwords(strtolower($item['Nombre']))." ".ucwords(strtolower($item['Apellido']))?></div>
+						<?php endforeach; ?>
+				</div>
 				</div>
 				<? endif; ?>
 				<?php if(!empty($notif['Absens2'])): ?>
 				<div class="alert alert-danger alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<?= count($notif['Absens1']) ?> Integrantes completaron 6 meses inasistencias. Pasalo como Inactivo!
+					<?= count($notif['Absens2']) ?> Integrantes completaron 6 meses inasistencias. Pasalo como Inactivo!
+					<a class="alert-link" data-toggle="modal" data-target="#listModal" data-title="Integrantes con 6 meses inasistencias" data-name="Absens2">
+						<i class="fa fa-eye fa-fw"></i> Ver Integrantes
+					</a>
+					<div class="oculto">
+						<?php foreach ($notif['Absens2'] as $item): ?>
+							<div class="Absens2"><?= "(".$item['idPersona'].") ".ucwords(strtolower($item['Nombre']))." ".ucwords(strtolower($item['Apellido']))?></div>
+						<?php endforeach; ?>
+					</div>
 				</div>
 				<? endif; ?>
 				<?php if(!empty($notif['Assist1'])): ?>
 				<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<?= count($notif['Assist1']) ?> Integrantes completaron 3 meses de asistencia. Invitalos a Encuentro!
+					<a class="alert-link" data-toggle="modal" data-target="#listModal" data-title="Integrantes con 3 meses asistencias" data-name="Assist1">
+						<i class="fa fa-eye fa-fw"></i> Ver Integrantes
+					</a>
+					<div class="oculto">
+						<?php foreach ($notif['Assist1'] as $item): ?>
+							<div class="Assist1"><?= "(".$item['idPersona'].") ".ucwords(strtolower($item['Nombre']))." ".ucwords(strtolower($item['Apellido']))?></div>
+						<?php endforeach; ?>
+				</div>
 				</div>
 				<? endif; ?>
 				<?php if(!empty($notif['Assist2'])): ?>
 				<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<?= count($notif['Assist1']) ?> Integrantes completaron 6 meses de asistencia. Invitalos a Encuentro!
+					<?= count($notif['Assist2']) ?> Integrantes completaron 6 meses de asistencia. Invitalos a Encuentro!
+					<a class="alert-link" data-toggle="modal" data-target="#listModal" data-title="Integrantes con 6 meses asistencias" data-name="Assist2">
+						<i class="fa fa-eye fa-fw"></i> Ver Integrantes
+					</a>
+					<div class="oculto">
+						<?php foreach ($notif['Assist2'] as $item): ?>
+							<div class="Assist2"><?= "(".$item['idPersona'].") ".ucwords(strtolower($item['Nombre']))." ".ucwords(strtolower($item['Apellido']))?></div>
+						<?php endforeach; ?>
+					</div>
 				</div>
 				<? endif; ?>
 
@@ -371,4 +403,5 @@
 			resize: true
 		});	
 	});
+
 </script>

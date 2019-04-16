@@ -84,25 +84,32 @@ class Stats_model extends CI_model{
 	function absensePerDate($idGrupo,$date,$month1,$month2,$showResults = false,$showQuery = false) {
 		$querytxt = "
 			SELECT
-				'danger' as MsgType, 
-				a.`idPersona`,
-				a.`Nombre`,
-				a.`Apellido`,
-				a.`DocumentoNo`,
-				COUNT(a.Asiste) as Listas,
-				SUM(a.Asiste) as Asistio,p.* 
+			'danger' as MsgType, 
+			a.`idPersona`,
+			a.`Nombre`,
+			a.`Apellido`,
+			a.`DocumentoNo`,
+			COUNT(a.Asiste) as Listas,
+			SUM(a.Asiste) as Asistio,p.* 
 			FROM `asistencia` as a, `persona` as p 
 			WHERE a.idGrupo = $idGrupo AND
 				a.idPersona = p.idPersona AND 
+				p.idMicrocelula NOT IN (
+					SELECT idMicrocelula
+					FROM `microcelula` as m
+					WHERE m.TipoMicro = 'Inactivos'
+					AND m.idGrupo = $idGrupo
+				) AND
 				a.idEvento IN (
 				SELECT idEvento
 				FROM `evento` as e
 				WHERE 	idGrupo = $idGrupo AND 
+						Estado = 'Cerrado' AND 
 						FechaEvento BETWEEN date_sub('$date', interval $month1 month) AND  date_sub('$date', interval $month2 month) 
 				ORDER BY FechaEvento DESC
 				)
 			GROUP BY a.`idPersona`,a.`Nombre`,a.`Apellido`,a.`DocumentoNo`
-			HAVING SUM(Asiste) = 0						
+			HAVING SUM(Asiste) = 0
 		";
 		$this->select($querytxt,$query,$showResults,$showQuery);
 		return $query->result_array();

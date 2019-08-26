@@ -273,6 +273,126 @@
 		</div>
 
 			
+
+
+
+
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-bell fa-fw"></i> Integrantes Fuera de Filtro
+				</div>
+				<div class="panel-body">
+					<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse01">
+										<i class="fa fa-comment fa-fw"></i>
+										Música (4)
+									</a>
+								</h4>
+							</div>
+							<div id="collapse01" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div> Erick Rojas </div> 
+									<div> Carlos Arboleda </div> 
+									<div> Edwin Velandia </div> 
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse02">
+										<i class="fa fa-warning fa-fw"></i> Artes y Manualidades (28)
+									</a>
+								</h4>
+							</div>
+							<div id="collapse02" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div> Erick Rojas </div> 
+									<div> Carlos Arboleda </div> 
+									<div> Edwin Velandia </div> 													
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse03">
+										<i class="fa fa-users fa-fw"></i> Apoyo Social (6)
+									</a>
+								</h4>
+							</div>
+							<div id="collapse03" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div> Erick Rojas </div> 
+									<div> Carlos Arboleda </div> 
+									<div> Edwin Velandia </div> 													
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse04">
+										<i class="fa fa-users fa-fw"></i> Niños (16)
+									</a>
+								</h4>
+							</div>
+							<div id="collapse04" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div> Erick Rojas </div> 
+									<div> Carlos Arboleda </div> 
+									<div> Edwin Velandia </div> 													
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse05">
+										<i class="fa fa-upload fa-fw"></i> Dinámicas (10)
+									</a>
+								</h4>
+							</div>
+							<div id="collapse05" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div> Erick Rojas </div> 
+									<div> Carlos Arboleda </div> 
+									<div> Edwin Velandia </div> 													
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse06">
+										<i class="fa fa-upload fa-fw"></i> Decoración (10)
+									</a>
+								</h4>
+							</div>
+							<div id="collapse06" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div> Marcela Meza </div> 
+									<div> Tashee Ceballos </div> 
+									<div> Andrés Roa </div> 
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /.panel-group -->
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+			
 	</div>
 	<!-- /.col-md-4 -->
 

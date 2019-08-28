@@ -26,8 +26,8 @@
 			<table class="table table-striped table-bordered table-hover display" style="width:100%" id="dataTables-integrantes">
 				<thead>
 					<tr>
-						<!--<th style="width:50px;">Foto</th>
-						 <th style="width:80px;">Código</th> -->
+						<th style="width:50px;">Foto</th>
+						<!-- <th style="width:80px;">Código</th> -->
 						<th>Nombre</th>
 						<?php if (!$mobile): ?>
 						<th style="width:80px;">Micro</th>
@@ -45,7 +45,7 @@
 				<tbody>
 					<?php foreach ($records as $item): ?>
 						<tr>
-							<!-- <td style="text-align:center;">
+							<td style="text-align:center;">
 								<?php if ($item['foto_filename'] === '') {
 									$img_name  = 'Foto'.$item['idPersona'];
 									if ($item['Genero'] == 'Masculino') {
@@ -64,7 +64,7 @@
 									<img src="<?= $img_src ?>" class="logo-circle" style="width:36px;height:36px">
 								</a>
 							</td>
-							<td class="row-center">
+							<!-- <td class="row-center">
 								<input name="idPersona" type="hidden" value="<?=$item['idPersona']?>">
 								<?=$item['idPersona']?>
 							</td> -->
